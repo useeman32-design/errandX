@@ -1,0 +1,2074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Errand X | Rider Registration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Light Mode Colors */
+            --primary-green: #5CC47E;
+            --dark-green: #1F4B2E;
+            --light-bg: #F6FFF3;
+            --card-bg: #FFFFFF;
+            --text-dark: #1F4B2E;
+            --text-light: #FFFFFF;
+            --accent-green: #5CC47E;
+            --header-bg: #1F4B2E;
+            --gradient-primary: linear-gradient(135deg, #5CC47E, #1F4B2E);
+            --gradient-light: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            --shadow-sm: 0 4px 12px rgba(31, 75, 46, 0.08);
+            --shadow-md: 0 8px 24px rgba(31, 75, 46, 0.12);
+            --shadow-lg: 0 16px 48px rgba(31, 75, 46, 0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius: 12px;
+            --border-radius-lg: 20px;
+            --border-radius-xl: 30px;
+        }
+
+        .dark-mode {
+            /* Dark Mode Colors */
+            --primary-green: #A3E9B0;
+            --dark-green: #F6FFF3;
+            --light-bg: #0F2A1C;
+            --card-bg: #1F4B2E;
+            --text-dark: #F6FFF3;
+            --text-light: #FFFFFF;
+            --accent-green: #A3E9B0;
+            --header-bg: #0F2A1C;
+            --gradient-primary: linear-gradient(135deg, #2E4F38, #0F2A1C);
+            --gradient-light: linear-gradient(135deg, #1F4B2E, #0F2A1C);
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            transition: var(--transition);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background-color: var(--header-bg);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border-bottom: 1px solid rgba(92, 196, 126, 0.2);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .logo-container {
+            height: 45px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 45px;
+            width: auto;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: white;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--primary-green);
+            color: white;
+            transform: rotate(15deg);
+        }
+
+        /* Registration Page Styles */
+        .registration-hero {
+            min-height: 100vh;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            padding: 120px 0 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            color: var(--text-light);
+            text-align: center;
+            padding-top: 2rem;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        @media (min-width: 768px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Registration Container */
+        .registration-container {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: 2.5rem;
+            margin: 2rem auto;
+            max-width: 900px;
+        }
+
+        @media (max-width: 768px) {
+            .registration-container {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Type Selection */
+        .type-selection {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .type-selection {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .type-card {
+            background-color: var(--light-bg);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .type-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .type-card.selected {
+            border-color: var(--primary-green);
+            background-color: rgba(92, 196, 126, 0.1);
+        }
+
+        .type-icon {
+            font-size: 3rem;
+            color: var(--primary-green);
+            margin-bottom: 1.5rem;
+        }
+
+        .type-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-green);
+        }
+
+        .type-card p {
+            color: var(--text-dark);
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        /* Registration Form */
+        .registration-form {
+            display: none;
+        }
+
+        .registration-form.active {
+            display: block;
+        }
+
+        /* Steps Navigation */
+        .steps-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .steps-navigation::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: rgba(92, 196, 126, 0.2);
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .step-item {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            width: 20%;
+        }
+
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid rgba(92, 196, 126, 0.3);
+        }
+
+        .step-item.active .step-circle {
+            background-color: var(--primary-green);
+            color: white;
+            border-color: var(--primary-green);
+        }
+
+        .step-item.completed .step-circle {
+            background-color: var(--primary-green);
+            color: white;
+            border-color: var(--primary-green);
+        }
+
+        .step-title {
+            font-size: 0.85rem;
+            text-align: center;
+            color: var(--text-dark);
+            opacity: 0.8;
+        }
+
+        .step-item.active .step-title {
+            opacity: 1;
+            font-weight: 600;
+        }
+
+        /* Form Steps */
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .step-title-main {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-green);
+        }
+
+        .step-subtitle {
+            color: var(--text-dark);
+            opacity: 0.8;
+        }
+
+        /* Form Styles */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .required::after {
+            content: ' *';
+            color: #ff4757;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 1px solid rgba(92, 196, 126, 0.3);
+            border-radius: var(--border-radius);
+            background-color: #F8F8F8;
+            color: #1F4B2E;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .dark-mode .form-control {
+            background-color: #E8F5E9;
+            color: #1F4B2E;
+            border-color: rgba(92, 196, 126, 0.5);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(92, 196, 126, 0.2);
+            background-color: #FFFFFF;
+        }
+
+        .dark-mode .form-control:focus {
+            background-color: #F6FFF3;
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%231F4B2E' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 16px;
+            padding-right: 2.5rem;
+        }
+
+        /* File Upload */
+        .file-upload {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-upload-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-upload-label {
+            display: block;
+            padding: 1.5rem;
+            border: 2px dashed rgba(92, 196, 126, 0.3);
+            border-radius: var(--border-radius);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background-color: rgba(92, 196, 126, 0.05);
+        }
+
+        .file-upload-label:hover {
+            border-color: var(--primary-green);
+            background-color: rgba(92, 196, 126, 0.1);
+        }
+
+        .file-upload-label i {
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .file-upload-label span {
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .file-preview {
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .file-preview.show {
+            display: block;
+        }
+
+        .file-preview-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem;
+            background-color: rgba(92, 196, 126, 0.1);
+            border-radius: var(--border-radius);
+            margin-bottom: 0.5rem;
+        }
+
+        .file-preview-name {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .remove-file {
+            background: none;
+            border: none;
+            color: #ff4757;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        /* Checkbox and Radio Groups */
+        .checkbox-group, .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .checkbox-item, .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .checkbox-item input, .radio-item input {
+            width: auto;
+        }
+
+        /* Form Navigation */
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(92, 196, 126, 0.2);
+        }
+
+        .btn {
+            padding: 0.9rem 1.8rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-green);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            border: 2px solid rgba(92, 196, 126, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(92, 196, 126, 0.1);
+            transform: translateY(-3px);
+            border-color: var(--primary-green);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn:disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Success Message */
+        .success-message {
+            text-align: center;
+            padding: 4rem 2rem;
+            display: none;
+        }
+
+        .success-message.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: var(--primary-green);
+            margin-bottom: 1.5rem;
+        }
+
+        .success-title {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: var(--dark-green);
+        }
+
+        .success-text {
+            color: var(--text-dark);
+            opacity: 0.8;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--light-bg);
+            padding: 3rem 0 2rem;
+            border-top: 1px solid rgba(92, 196, 126, 0.2);
+            margin-top: 3rem;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+            }
+        }
+
+        .footer-info {
+            flex: 1;
+        }
+
+        .footer-logo {
+            height: 40px;
+            margin-bottom: 1.5rem;
+            filter: brightness(0) saturate(100%) invert(25%) sepia(40%) saturate(600%) hue-rotate(100deg) brightness(90%) contrast(90%);
+        }
+
+        .dark-mode .footer-logo {
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-copyright {
+            color: var(--text-dark);
+            opacity: 0.7;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--card-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            background-color: var(--primary-green);
+            color: white;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            flex: 2;
+        }
+
+        @media (min-width: 768px) {
+            .footer-links {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .footer-column h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+            color: var(--dark-green);
+            font-weight: 600;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-column li i {
+            color: var(--primary-green);
+            font-size: 0.9rem;
+            width: 20px;
+        }
+
+        .footer-column a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 0.95rem;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .footer-column a:hover {
+            opacity: 1;
+            color: var(--primary-green);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(92, 196, 126, 0.2);
+            color: var(--text-dark);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .steps-navigation {
+                margin-bottom: 1.5rem;
+            }
+            
+            .step-title {
+                font-size: 0.7rem;
+            }
+            
+            .step-circle {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+            
+            .form-navigation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .form-navigation .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .registration-container {
+                padding: 1rem;
+            }
+            
+            .step-title {
+                display: none;
+            }
+            
+            .step-circle {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo-container">
+                <img src="logo.png" alt="Errand X" class="logo-img">
+            </a>
+            
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Registration Hero -->
+    <section class="registration-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Join Our Team of Riders</h1>
+                <p class="hero-subtitle">
+                    Earn flexible income by delivering errands and services in your area. 
+                    Join thousands of riders who trust Errand X for reliable income opportunities.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Container -->
+    <div class="container">
+        <!-- Type Selection -->
+        <div class="type-selection">
+            <div class="type-card" id="individualCard" data-type="individual">
+                <div class="type-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h3>Individual Rider</h3>
+                <p>Register as an individual rider using your personal information and vehicle</p>
+            </div>
+            
+            <div class="type-card" id="companyCard" data-type="company">
+                <div class="type-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <h3>Company/Business</h3>
+                <p>Register your company with multiple riders under a single business account</p>
+            </div>
+        </div>
+
+        <!-- Individual Registration Form -->
+        <div class="registration-container">
+            <div id="individualForm" class="registration-form">
+                <!-- Steps Navigation -->
+                <div class="steps-navigation">
+                    <div class="step-item active" data-step="1">
+                        <div class="step-circle">1</div>
+                        <span class="step-title">Account Setup</span>
+                    </div>
+                    <div class="step-item" data-step="2">
+                        <div class="step-circle">2</div>
+                        <span class="step-title">Personal Info</span>
+                    </div>
+                    <div class="step-item" data-step="3">
+                        <div class="step-circle">3</div>
+                        <span class="step-title">Work Details</span>
+                    </div>
+                    <div class="step-item" data-step="4">
+                        <div class="step-circle">4</div>
+                        <span class="step-title">Documents</span>
+                    </div>
+                    <div class="step-item" data-step="5">
+                        <div class="step-circle">5</div>
+                        <span class="step-title">Review & Submit</span>
+                    </div>
+                </div>
+
+                <!-- Form Steps -->
+                <form id="individualRegistration">
+                    <!-- Step 1: Account Setup -->
+                    <div class="form-step active" data-step="1">
+                        <div class="step-header">
+                            <h2 class="step-title-main">Account Setup</h2>
+                            <p class="step-subtitle">Create your rider account credentials</p>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="fullName" class="required">Full Name</label>
+                                <input type="text" id="fullName" class="form-control" placeholder="Enter your full name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phonePrimary" class="required">Primary Phone Number</label>
+                                <div class="phone-input">
+                                    <input type="tel" id="phonePrimary" class="form-control" placeholder="8012345678" pattern="[0-9]{10}" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phoneOptional">Secondary Phone Number (Optional)</label>
+                                <div class="phone-input">
+                                    <input type="tel" id="phoneOptional" class="form-control" placeholder="Optional phone number">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email" class="required">Email Address</label>
+                                <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="password" class="required">Password</label>
+                                <input type="password" id="password" class="form-control" placeholder="Create a password" minlength="8" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="confirmPassword" class="required">Confirm Password</label>
+                                <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm your password" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Personal Information -->
+                    <div class="form-step" data-step="2">
+                        <div class="step-header">
+                            <h2 class="step-title-main">Personal Information</h2>
+                            <p class="step-subtitle">Tell us more about yourself</p>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="dob" class="required">Date of Birth</label>
+                                <input type="date" id="dob" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="gender" class="required">Gender</label>
+                                <select id="gender" class="form-control" required>
+                                    <option value="">Select gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                    <option value="prefer-not-to-say">Prefer not to say</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="address" class="required">Home Address</label>
+                                <textarea id="address" class="form-control" rows="3" placeholder="Enter your full address" required></textarea>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="passportPhoto" class="required">Upload Passport Photo</label>
+                                <div class="file-upload">
+                                    <input type="file" id="passportPhoto" class="file-upload-input" accept="image/*" required>
+                                    <label for="passportPhoto" class="file-upload-label">
+                                        <i class="fas fa-camera"></i>
+                                        <span>Click to upload passport photo</span>
+                                        <small style="display: block; margin-top: 0.5rem; opacity: 0.7;">Clear face photo, max 5MB</small>
+                                    </label>
+                                </div>
+                                <div id="passportPreview" class="file-preview"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Rider Work Details -->
+                    <div class="form-step" data-step="3">
+                        <div class="step-header">
+                            <h2 class="step-title-main">Rider Work Details</h2>
+                            <p class="step-subtitle">Information about your vehicle and availability</p>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="vehicleType" class="required">Vehicle Type</label>
+                                <select id="vehicleType" class="form-control" required>
+                                    <option value="">Select vehicle type</option>
+                                    <option value="motorcycle">Motorcycle</option>
+                                    <option value="bicycle">Bicycle</option>
+                                    <option value="car">Car</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="vehicleOwnership" class="required">Do you own the vehicle?</label>
+                                <select id="vehicleOwnership" class="form-control" required>
+                                    <option value="">Select option</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="driversLicense" class="required">Do you have a driver's license?</label>
+                                <select id="driversLicense" class="form-control" required>
+                                    <option value="">Select option</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="plateNumber">Vehicle Plate Number (Optional)</label>
+                                <input type="text" id="plateNumber" class="form-control" placeholder="If applicable">
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="operatingArea" class="required">Operating Area (Select zones)</label>
+                                <select id="operatingArea" class="form-control" multiple required style="height: 120px;">
+                                    <option value="lagos-mainland">Lagos Mainland</option>
+                                    <option value="lagos-island">Lagos Island</option>
+                                    <option value="ikeja">Ikeja</option>
+                                    <option value="lekki">Lekki</option>
+                                    <option value="victoria-island">Victoria Island</option>
+                                    <option value="ajah">Ajah</option>
+                                    <option value="surulere">Surulere</option>
+                                    <option value="yaba">Yaba</option>
+                                </select>
+                                <small style="display: block; margin-top: 0.3rem; color: var(--text-dark); opacity: 0.7;">Hold Ctrl/Cmd to select multiple zones</small>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label class="required">Availability (Select one or more)</label>
+                                <div class="checkbox-group">
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="morning" name="availability" value="morning">
+                                        <label for="morning">Morning (6am - 12pm)</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="afternoon" name="availability" value="afternoon">
+                                        <label for="afternoon">Afternoon (12pm - 6pm)</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="evening" name="availability" value="evening">
+                                        <label for="evening">Evening (6pm - 12am)</label>
+                                    </div>
+                                    <div class="checkbox-item">
+                                        <input type="checkbox" id="fullDay" name="availability" value="fullDay">
+                                        <label for="fullDay">Full Day (24/7)</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Verification Documents -->
+                    <div class="form-step" data-step="4">
+                        <div class="step-header">
+                            <h2 class="step-title-main">Verification Documents</h2>
+                            <p class="step-subtitle">Upload required documents for verification</p>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="governmentId" class="required">Government ID Upload</label>
+                                <small style="display: block; margin-bottom: 0.5rem; color: var(--text-dark); opacity: 0.7;">NIN Slip / Voter's Card / Driver's License</small>
+                                <div class="file-upload">
+                                    <input type="file" id="governmentId" class="file-upload-input" accept="image/*,.pdf" required>
+                                    <label for="governmentId" class="file-upload-label">
+                                        <i class="fas fa-id-card"></i>
+                                        <span>Upload Government ID</span>
+                                        <small style="display: block; margin-top: 0.5rem; opacity: 0.7;">PDF or image, max 10MB</small>
+                                    </label>
+                                </div>
+                                <div id="idPreview" class="file-preview"></div>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="selfieWithId" class="required">Selfie Holding ID</label>
+                                <div class="file-upload">
+                                    <input type="file" id="selfieWithId" class="file-upload-input" accept="image/*" required>
+                                    <label for="selfieWithId" class="file-upload-label">
+                                        <i class="fas fa-user-check"></i>
+                                        <span>Upload Selfie with ID</span>
+                                        <small style="display: block; margin-top: 0.5rem; opacity: 0.7;">Clear photo of you holding your ID, max 5MB</small>
+                                    </label>
+                                </div>
+                                <div id="selfiePreview" class="file-preview"></div>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="proofOfAddress">Proof of Address (Optional)</label>
+                                <div class="file-upload">
+                                    <input type="file" id="proofOfAddress" class="file-upload-input" accept="image/*,.pdf">
+                                    <label for="proofOfAddress" class="file-upload-label">
+                                        <i class="fas fa-file-invoice"></i>
+                                        <span>Upload Proof of Address</span>
+                                        <small style="display: block; margin-top: 0.5rem; opacity: 0.7;">Utility bill, bank statement, etc.</small>
+                                    </label>
+                                </div>
+                                <div id="addressProofPreview" class="file-preview"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Review & Submit -->
+                    <div class="form-step" data-step="5">
+                        <div class="step-header">
+                            <h2 class="step-title-main">Review & Submit</h2>
+                            <p class="step-subtitle">Review your information before submission</p>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <div style="background-color: var(--light-bg); padding: 2rem; border-radius: var(--border-radius);">
+                                    <h3 style="margin-bottom: 1.5rem; color: var(--dark-green);">Application Summary</h3>
+                                    
+                                    <div id="reviewSummary" style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
+                                        <!-- Summary will be populated by JavaScript -->
+                                    </div>
+                                    
+                                    <div class="form-group" style="margin-top: 2rem;">
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="confirmInfo" required>
+                                            <label for="confirmInfo" class="required">I confirm that the information provided is correct</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Navigation -->
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-secondary" id="prevBtn" disabled>
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        
+                        <div>
+                            <button type="button" class="btn btn-secondary" id="saveDraftBtn">
+                                <i class="fas fa-save"></i> Save Draft
+                            </button>
+                            <button type="button" class="btn btn-primary" id="nextBtn">
+                                Next <i class="fas fa-arrow-right"></i>
+                            </button>
+                            <button type="submit" class="btn btn-primary" id="submitBtn" style="display: none;">
+                                <i class="fas fa-paper-plane"></i> Submit Application
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Company Registration Form -->
+            <div id="companyForm" class="registration-form">
+                <!-- Steps Navigation for Company -->
+                <div class="steps-navigation">
+                    <div class="step-item active" data-step="1">
+                        <div class="step-circle">1</div>
+                        <span class="step-title">Account Setup</span>
+                    </div>
+                    <div class="step-item" data-step="2">
+                        <div class="step-circle">2</div>
+                        <span class="step-title">Company Info</span>
+                    </div>
+                    <div class="step-item" data-step="3">
+                        <div class="step-circle">3</div>
+                        <span class="step-title">Verification</span>
+                    </div>
+                    <div class="step-item" data-step="4">
+                        <div class="step-circle">4</div>
+                        <span class="step-title">Review & Submit</span>
+                    </div>
+                </div>
+
+                <!-- Form Steps -->
+                <form id="companyRegistration">
+                    <!-- Step 1: Company Account Setup -->
+                    <div class="form-step active" data-step="1">
+                        <div class="step-header">
+                            <h2 class="step-title-main">Company Account Setup</h2>
+                            <p class="step-subtitle">Create your company account credentials</p>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="companyName" class="required">Company Name</label>
+                                <input type="text" id="companyName" class="form-control" placeholder="Enter company name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contactPerson" class="required">Contact Person Full Name</label>
+                                <input type="text" id="contactPerson" class="form-control" placeholder="Contact person name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="companyPhone" class="required">Phone Number</label>
+                                <div class="phone-input">
+                                    <input type="tel" id="companyPhone" class="form-control" placeholder="8012345678" pattern="[0-9]{10}" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="companyEmail" class="required">Email Address</label>
+                                <input type="email" id="companyEmail" class="form-control" placeholder="Company email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="companyPassword" class="required">Password</label>
+                                <input type="password" id="companyPassword" class="form-control" placeholder="Create a password" minlength="8" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="companyConfirmPassword" class="required">Confirm Password</label>
+                                <input type="password" id="companyConfirmPassword" class="form-control" placeholder="Confirm your password" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Company Information -->
+                    <div class="form-step" data-step="2">
+                        <div class="step-header">
+                            <h2 class="step-title-main">Company Information</h2>
+                            <p class="step-subtitle">Tell us about your company</p>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="officeAddress" class="required">Office Address</label>
+                                <textarea id="officeAddress" class="form-control" rows="3" placeholder="Enter company address" required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="yearsOperation" class="required">Years in Operation</label>
+                                <select id="yearsOperation" class="form-control" required>
+                                    <option value="">Select years</option>
+                                    <option value="less-than-1">Less than 1 year</option>
+                                    <option value="1-2">1-2 years</option>
+                                    <option value="3-5">3-5 years</option>
+                                    <option value="6-10">6-10 years</option>
+                                    <option value="10+">10+ years</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="numEmployees" class="required">Number of Employees</label>
+                                <select id="numEmployees" class="form-control" required>
+                                    <option value="">Select range</option>
+                                    <option value="1-5">1-5 employees</option>
+                                    <option value="6-10">6-10 employees</option>
+                                    <option value="11-20">11-20 employees</option>
+                                    <option value="21-50">21-50 employees</option>
+                                    <option value="51+">51+ employees</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cacNumber">CAC Number (Optional)</label>
+                                <input type="text" id="cacNumber" class="form-control" placeholder="If applicable">
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="cacCertificate">Upload CAC Certificate (Optional)</label>
+                                <div class="file-upload">
+                                    <input type="file" id="cacCertificate" class="file-upload-input" accept="image/*,.pdf">
+                                    <label for="cacCertificate" class="file-upload-label">
+                                        <i class="fas fa-file-certificate"></i>
+                                        <span>Upload CAC Certificate</span>
+                                        <small style="display: block; margin-top: 0.5rem; opacity: 0.7;">PDF or image, max 10MB</small>
+                                    </label>
+                                </div>
+                                <div id="cacPreview" class="file-preview"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Company Representative Verification -->
+                    <div class="form-step" data-step="3">
+                        <div class="step-header">
+                            <h2 class="step-title-main">Company Representative Verification</h2>
+                            <p class="step-subtitle">Upload verification documents for contact person</p>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="companyGovernmentId" class="required">Government ID of Contact Person</label>
+                                <div class="file-upload">
+                                    <input type="file" id="companyGovernmentId" class="file-upload-input" accept="image/*,.pdf" required>
+                                    <label for="companyGovernmentId" class="file-upload-label">
+                                        <i class="fas fa-id-card"></i>
+                                        <span>Upload Government ID</span>
+                                        <small style="display: block; margin-top: 0.5rem; opacity: 0.7;">NIN, Driver's License, or International Passport</small>
+                                    </label>
+                                </div>
+                                <div id="companyIdPreview" class="file-preview"></div>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="companySelfieWithId" class="required">Selfie with ID</label>
+                                <div class="file-upload">
+                                    <input type="file" id="companySelfieWithId" class="file-upload-input" accept="image/*" required>
+                                    <label for="companySelfieWithId" class="file-upload-label">
+                                        <i class="fas fa-user-check"></i>
+                                        <span>Upload Selfie with ID</span>
+                                        <small style="display: block; margin-top: 0.5rem; opacity: 0.7;">Clear photo of contact person holding ID</small>
+                                    </label>
+                                </div>
+                                <div id="companySelfiePreview" class="file-preview"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Review & Submit -->
+                    <div class="form-step" data-step="4">
+                        <div class="step-header">
+                            <h2 class="step-title-main">Review & Submit</h2>
+                            <p class="step-subtitle">Review company information before submission</p>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <div style="background-color: var(--light-bg); padding: 2rem; border-radius: var(--border-radius);">
+                                    <h3 style="margin-bottom: 1.5rem; color: var(--dark-green);">Company Application Summary</h3>
+                                    
+                                    <div id="companyReviewSummary" style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
+                                        <!-- Summary will be populated by JavaScript -->
+                                    </div>
+                                    
+                                    <div class="form-group" style="margin-top: 2rem;">
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="companyConfirmInfo" required>
+                                            <label for="companyConfirmInfo" class="required">I confirm that the information provided is correct</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Navigation -->
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-secondary" id="companyPrevBtn" disabled>
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        
+                        <div>
+                            <button type="button" class="btn btn-secondary" id="companySaveDraftBtn">
+                                <i class="fas fa-save"></i> Save Draft
+                            </button>
+                            <button type="button" class="btn btn-primary" id="companyNextBtn">
+                                Next <i class="fas fa-arrow-right"></i>
+                            </button>
+                            <button type="submit" class="btn btn-primary" id="companySubmitBtn" style="display: none;">
+                                <i class="fas fa-paper-plane"></i> Submit Application
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Success Message -->
+            <div class="success-message" id="successMessage">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2 class="success-title">Application Submitted!</h2>
+                <p class="success-text">
+                    Congratulations! Your application has been submitted successfully. 
+                    Our team will review it within 2 working days. You can login to your account 
+                    to check the status. Stay tuned for updates.
+                </p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="index.html" class="btn btn-primary">
+                        <i class="fas fa-home"></i> Back to Home
+                    </a>
+                    <button class="btn btn-secondary" id="newApplicationBtn">
+                        <i class="fas fa-plus"></i> New Application
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-info">
+                    <img src="logo.png" alt="Errand X" class="footer-logo">
+                    <p class="footer-copyright">
+                        Errand X provides fast and reliable delivery services. Available 24/7.
+                    </p>
+                    
+                    <div class="footer-social">
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Services</h4>
+                        <ul>
+                            <li><a href="#">Delivery</a></li>
+                            <li><a href="#">Errands</a></li>
+                            <li><a href="#">Home Services</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Support</h4>
+                        <ul>
+                            <li><a href="#">Help Center</a></li>
+                            <li><a href="#">Safety</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                © 2026 ErrandX. Powered by Tanumart.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        // Check for saved theme or prefer-color-scheme
+        const savedTheme = localStorage.getItem('theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        // Apply saved theme
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeIcon.className = 'fas fa-sun';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+        });
+
+        // Type Selection
+        const individualCard = document.getElementById('individualCard');
+        const companyCard = document.getElementById('companyCard');
+        const individualForm = document.getElementById('individualForm');
+        const companyForm = document.getElementById('companyForm');
+
+        let selectedType = 'individual'; // Default selection
+
+        function selectType(type) {
+            selectedType = type;
+            
+            // Update card selection
+            if (type === 'individual') {
+                individualCard.classList.add('selected');
+                companyCard.classList.remove('selected');
+                individualForm.classList.add('active');
+                companyForm.classList.remove('active');
+                resetIndividualForm();
+            } else {
+                individualCard.classList.remove('selected');
+                companyCard.classList.add('selected');
+                individualForm.classList.remove('active');
+                companyForm.classList.add('active');
+                resetCompanyForm();
+            }
+            
+            // Scroll to form
+            document.querySelector('.registration-container').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        individualCard.addEventListener('click', () => selectType('individual'));
+        companyCard.addEventListener('click', () => selectType('company'));
+
+        // Individual Form Navigation
+        const individualSteps = document.querySelectorAll('#individualForm .step-item');
+        const individualFormSteps = document.querySelectorAll('#individualForm .form-step');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        const saveDraftBtn = document.getElementById('saveDraftBtn');
+        
+        let currentStep = 1;
+        const totalSteps = 5;
+
+        // Company Form Navigation
+        const companySteps = document.querySelectorAll('#companyForm .step-item');
+        const companyFormSteps = document.querySelectorAll('#companyForm .form-step');
+        const companyPrevBtn = document.getElementById('companyPrevBtn');
+        const companyNextBtn = document.getElementById('companyNextBtn');
+        const companySubmitBtn = document.getElementById('companySubmitBtn');
+        const companySaveDraftBtn = document.getElementById('companySaveDraftBtn');
+        
+        let companyCurrentStep = 1;
+        const companyTotalSteps = 4;
+
+        // File Upload Previews
+        function setupFileUpload(inputId, previewId) {
+            const fileInput = document.getElementById(inputId);
+            const previewDiv = document.getElementById(previewId);
+            
+            fileInput.addEventListener('change', function() {
+                const files = Array.from(this.files);
+                previewDiv.innerHTML = '';
+                
+                if (files.length > 0) {
+                    previewDiv.classList.add('show');
+                    
+                    files.forEach(file => {
+                        const fileItem = document.createElement('div');
+                        fileItem.className = 'file-preview-item';
+                        
+                        const fileName = document.createElement('div');
+                        fileName.className = 'file-preview-name';
+                        fileName.innerHTML = `
+                            <i class="fas fa-file"></i>
+                            <span>${file.name} (${formatFileSize(file.size)})</span>
+                        `;
+                        
+                        const removeBtn = document.createElement('button');
+                        removeBtn.className = 'remove-file';
+                        removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                        removeBtn.addEventListener('click', () => {
+                            fileInput.value = '';
+                            previewDiv.classList.remove('show');
+                        });
+                        
+                        fileItem.appendChild(fileName);
+                        fileItem.appendChild(removeBtn);
+                        previewDiv.appendChild(fileItem);
+                    });
+                } else {
+                    previewDiv.classList.remove('show');
+                }
+            });
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Initialize file uploads for individual form
+        setupFileUpload('passportPhoto', 'passportPreview');
+        setupFileUpload('governmentId', 'idPreview');
+        setupFileUpload('selfieWithId', 'selfiePreview');
+        setupFileUpload('proofOfAddress', 'addressProofPreview');
+
+        // Initialize file uploads for company form
+        setupFileUpload('cacCertificate', 'cacPreview');
+        setupFileUpload('companyGovernmentId', 'companyIdPreview');
+        setupFileUpload('companySelfieWithId', 'companySelfiePreview');
+
+        // Individual Form Functions
+        function updateIndividualStepNavigation() {
+            // Update step indicators
+            individualSteps.forEach(step => {
+                const stepNum = parseInt(step.dataset.step);
+                step.classList.remove('active', 'completed');
+                
+                if (stepNum === currentStep) {
+                    step.classList.add('active');
+                } else if (stepNum < currentStep) {
+                    step.classList.add('completed');
+                }
+            });
+            
+            // Show/hide form steps
+            individualFormSteps.forEach(step => {
+                const stepNum = parseInt(step.dataset.step);
+                if (stepNum === currentStep) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+            
+            // Update button visibility
+            prevBtn.disabled = currentStep === 1;
+            nextBtn.style.display = currentStep < totalSteps ? 'flex' : 'none';
+            submitBtn.style.display = currentStep === totalSteps ? 'flex' : 'none';
+            
+            // Update review summary on step 5
+            if (currentStep === 5) {
+                updateIndividualReviewSummary();
+            }
+        }
+
+        function nextIndividualStep() {
+            if (validateCurrentStep()) {
+                if (currentStep < totalSteps) {
+                    currentStep++;
+                    updateIndividualStepNavigation();
+                }
+            }
+        }
+
+        function prevIndividualStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateIndividualStepNavigation();
+            }
+        }
+
+        // Company Form Functions
+        function updateCompanyStepNavigation() {
+            // Update step indicators
+            companySteps.forEach(step => {
+                const stepNum = parseInt(step.dataset.step);
+                step.classList.remove('active', 'completed');
+                
+                if (stepNum === companyCurrentStep) {
+                    step.classList.add('active');
+                } else if (stepNum < companyCurrentStep) {
+                    step.classList.add('completed');
+                }
+            });
+            
+            // Show/hide form steps
+            companyFormSteps.forEach(step => {
+                const stepNum = parseInt(step.dataset.step);
+                if (stepNum === companyCurrentStep) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+            
+            // Update button visibility
+            companyPrevBtn.disabled = companyCurrentStep === 1;
+            companyNextBtn.style.display = companyCurrentStep < companyTotalSteps ? 'flex' : 'none';
+            companySubmitBtn.style.display = companyCurrentStep === companyTotalSteps ? 'flex' : 'none';
+            
+            // Update review summary on step 4
+            if (companyCurrentStep === 4) {
+                updateCompanyReviewSummary();
+            }
+        }
+
+        function nextCompanyStep() {
+            if (validateCurrentCompanyStep()) {
+                if (companyCurrentStep < companyTotalSteps) {
+                    companyCurrentStep++;
+                    updateCompanyStepNavigation();
+                }
+            }
+        }
+
+        function prevCompanyStep() {
+            if (companyCurrentStep > 1) {
+                companyCurrentStep--;
+                updateCompanyStepNavigation();
+            }
+        }
+
+        // Validation Functions
+        function validateCurrentStep() {
+            const currentFormStep = document.querySelector(`#individualForm .form-step[data-step="${currentStep}"]`);
+            const requiredFields = currentFormStep.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value || (field.type === 'checkbox' && !field.checked)) {
+                    isValid = false;
+                    field.style.borderColor = '#ff4757';
+                    
+                    // Add error message
+                    if (!field.nextElementSibling || !field.nextElementSibling.classList.contains('error-message')) {
+                        const errorMsg = document.createElement('small');
+                        errorMsg.className = 'error-message';
+                        errorMsg.style.color = '#ff4757';
+                        errorMsg.style.display = 'block';
+                        errorMsg.style.marginTop = '0.3rem';
+                        errorMsg.textContent = 'This field is required';
+                        field.parentNode.appendChild(errorMsg);
+                    }
+                } else {
+                    field.style.borderColor = '';
+                    
+                    // Remove error message
+                    const errorMsg = field.parentNode.querySelector('.error-message');
+                    if (errorMsg) {
+                        errorMsg.remove();
+                    }
+                }
+            });
+            
+            // Special validation for availability checkboxes
+            if (currentStep === 3) {
+                const availabilityCheckboxes = document.querySelectorAll('input[name="availability"]:checked');
+                if (availabilityCheckboxes.length === 0) {
+                    isValid = false;
+                    const availabilityLabel = document.querySelector('label[for="morning"]').parentNode.parentNode;
+                    availabilityLabel.style.color = '#ff4757';
+                    
+                    if (!availabilityLabel.nextElementSibling || !availabilityLabel.nextElementSibling.classList.contains('error-message')) {
+                        const errorMsg = document.createElement('small');
+                        errorMsg.className = 'error-message';
+                        errorMsg.style.color = '#ff4757';
+                        errorMsg.style.display = 'block';
+                        errorMsg.style.marginTop = '0.3rem';
+                        errorMsg.textContent = 'Please select at least one availability option';
+                        availabilityLabel.parentNode.appendChild(errorMsg);
+                    }
+                }
+            }
+            
+            // Password confirmation validation
+            if (currentStep === 1) {
+                const password = document.getElementById('password');
+                const confirmPassword = document.getElementById('confirmPassword');
+                
+                if (password.value !== confirmPassword.value) {
+                    isValid = false;
+                    confirmPassword.style.borderColor = '#ff4757';
+                    
+                    if (!confirmPassword.nextElementSibling || !confirmPassword.nextElementSibling.classList.contains('error-message')) {
+                        const errorMsg = document.createElement('small');
+                        errorMsg.className = 'error-message';
+                        errorMsg.style.color = '#ff4757';
+                        errorMsg.style.display = 'block';
+                        errorMsg.style.marginTop = '0.3rem';
+                        errorMsg.textContent = 'Passwords do not match';
+                        confirmPassword.parentNode.appendChild(errorMsg);
+                    }
+                }
+            }
+            
+            return isValid;
+        }
+
+        function validateCurrentCompanyStep() {
+            const currentFormStep = document.querySelector(`#companyForm .form-step[data-step="${companyCurrentStep}"]`);
+            const requiredFields = currentFormStep.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value) {
+                    isValid = false;
+                    field.style.borderColor = '#ff4757';
+                    
+                    // Add error message
+                    if (!field.nextElementSibling || !field.nextElementSibling.classList.contains('error-message')) {
+                        const errorMsg = document.createElement('small');
+                        errorMsg.className = 'error-message';
+                        errorMsg.style.color = '#ff4757';
+                        errorMsg.style.display = 'block';
+                        errorMsg.style.marginTop = '0.3rem';
+                        errorMsg.textContent = 'This field is required';
+                        field.parentNode.appendChild(errorMsg);
+                    }
+                } else {
+                    field.style.borderColor = '';
+                    
+                    // Remove error message
+                    const errorMsg = field.parentNode.querySelector('.error-message');
+                    if (errorMsg) {
+                        errorMsg.remove();
+                    }
+                }
+            });
+            
+            // Password confirmation validation
+            if (companyCurrentStep === 1) {
+                const password = document.getElementById('companyPassword');
+                const confirmPassword = document.getElementById('companyConfirmPassword');
+                
+                if (password.value !== confirmPassword.value) {
+                    isValid = false;
+                    confirmPassword.style.borderColor = '#ff4757';
+                    
+                    if (!confirmPassword.nextElementSibling || !confirmPassword.nextElementSibling.classList.contains('error-message')) {
+                        const errorMsg = document.createElement('small');
+                        errorMsg.className = 'error-message';
+                        errorMsg.style.color = '#ff4757';
+                        errorMsg.style.display = 'block';
+                        errorMsg.style.marginTop = '0.3rem';
+                        errorMsg.textContent = 'Passwords do not match';
+                        confirmPassword.parentNode.appendChild(errorMsg);
+                    }
+                }
+            }
+            
+            return isValid;
+        }
+
+        // Review Summary Functions
+        function updateIndividualReviewSummary() {
+            const summaryDiv = document.getElementById('reviewSummary');
+            summaryDiv.innerHTML = '';
+            
+            // Collect form data
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                phonePrimary: document.getElementById('phonePrimary').value,
+                phoneOptional: document.getElementById('phoneOptional').value || 'Not provided',
+                email: document.getElementById('email').value,
+                dob: document.getElementById('dob').value,
+                gender: document.getElementById('gender').value,
+                address: document.getElementById('address').value,
+                vehicleType: document.getElementById('vehicleType').value,
+                vehicleOwnership: document.getElementById('vehicleOwnership').value,
+                driversLicense: document.getElementById('driversLicense').value,
+                plateNumber: document.getElementById('plateNumber').value || 'Not provided',
+                operatingArea: Array.from(document.getElementById('operatingArea').selectedOptions).map(opt => opt.text).join(', '),
+                availability: Array.from(document.querySelectorAll('input[name="availability"]:checked')).map(cb => cb.nextElementSibling.textContent).join(', ')
+            };
+            
+            // Create summary items
+            const summaryItems = [
+                { label: 'Full Name', value: formData.fullName },
+                { label: 'Primary Phone', value: '+234 ' + formData.phonePrimary },
+                { label: 'Secondary Phone', value: formData.phoneOptional },
+                { label: 'Email', value: formData.email },
+                { label: 'Date of Birth', value: formData.dob },
+                { label: 'Gender', value: formData.gender },
+                { label: 'Address', value: formData.address },
+                { label: 'Vehicle Type', value: formData.vehicleType },
+                { label: 'Vehicle Ownership', value: formData.vehicleOwnership },
+                { label: 'Driver\'s License', value: formData.driversLicense },
+                { label: 'Plate Number', value: formData.plateNumber },
+                { label: 'Operating Area', value: formData.operatingArea },
+                { label: 'Availability', value: formData.availability }
+            ];
+            
+            // Add summary items to DOM
+            summaryItems.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.style.display = 'flex';
+                itemDiv.style.justifyContent = 'space-between';
+                itemDiv.style.padding = '0.5rem 0';
+                itemDiv.style.borderBottom = '1px solid rgba(92, 196, 126, 0.1)';
+                
+                const labelSpan = document.createElement('span');
+                labelSpan.style.fontWeight = '600';
+                labelSpan.style.color = 'var(--text-dark)';
+                labelSpan.textContent = item.label + ':';
+                
+                const valueSpan = document.createElement('span');
+                valueSpan.style.color = 'var(--text-dark)';
+                valueSpan.style.opacity = '0.8';
+                valueSpan.textContent = item.value;
+                
+                itemDiv.appendChild(labelSpan);
+                itemDiv.appendChild(valueSpan);
+                summaryDiv.appendChild(itemDiv);
+            });
+        }
+
+        function updateCompanyReviewSummary() {
+            const summaryDiv = document.getElementById('companyReviewSummary');
+            summaryDiv.innerHTML = '';
+            
+            // Collect form data
+            const formData = {
+                companyName: document.getElementById('companyName').value,
+                contactPerson: document.getElementById('contactPerson').value,
+                companyPhone: document.getElementById('companyPhone').value,
+                companyEmail: document.getElementById('companyEmail').value,
+                officeAddress: document.getElementById('officeAddress').value,
+                yearsOperation: document.getElementById('yearsOperation').value,
+                numEmployees: document.getElementById('numEmployees').value,
+                cacNumber: document.getElementById('cacNumber').value || 'Not provided'
+            };
+            
+            // Create summary items
+            const summaryItems = [
+                { label: 'Company Name', value: formData.companyName },
+                { label: 'Contact Person', value: formData.contactPerson },
+                { label: 'Phone Number', value: '+234 ' + formData.companyPhone },
+                { label: 'Email', value: formData.companyEmail },
+                { label: 'Office Address', value: formData.officeAddress },
+                { label: 'Years in Operation', value: formData.yearsOperation },
+                { label: 'Number of Employees', value: formData.numEmployees },
+                { label: 'CAC Number', value: formData.cacNumber }
+            ];
+            
+            // Add summary items to DOM
+            summaryItems.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.style.display = 'flex';
+                itemDiv.style.justifyContent = 'space-between';
+                itemDiv.style.padding = '0.5rem 0';
+                itemDiv.style.borderBottom = '1px solid rgba(92, 196, 126, 0.1)';
+                
+                const labelSpan = document.createElement('span');
+                labelSpan.style.fontWeight = '600';
+                labelSpan.style.color = 'var(--text-dark)';
+                labelSpan.textContent = item.label + ':';
+                
+                const valueSpan = document.createElement('span');
+                valueSpan.style.color = 'var(--text-dark)';
+                valueSpan.style.opacity = '0.8';
+                valueSpan.textContent = item.value;
+                
+                itemDiv.appendChild(labelSpan);
+                itemDiv.appendChild(valueSpan);
+                summaryDiv.appendChild(itemDiv);
+            });
+        }
+
+        // Form Submission
+        function submitIndividualForm() {
+            if (validateCurrentStep() && document.getElementById('confirmInfo').checked) {
+                // Show success message
+                individualForm.style.display = 'none';
+                document.getElementById('successMessage').classList.add('active');
+                
+                // In a real app, you would send the form data to your backend here
+                console.log('Individual form submitted');
+            } else {
+                alert('Please confirm that the information is correct');
+            }
+        }
+
+        function submitCompanyForm() {
+            if (validateCurrentCompanyStep() && document.getElementById('companyConfirmInfo').checked) {
+                // Show success message
+                companyForm.style.display = 'none';
+                document.getElementById('successMessage').classList.add('active');
+                
+                // In a real app, you would send the form data to your backend here
+                console.log('Company form submitted');
+            } else {
+                alert('Please confirm that the information is correct');
+            }
+        }
+
+        // Reset Forms
+        function resetIndividualForm() {
+            currentStep = 1;
+            updateIndividualStepNavigation();
+            document.getElementById('individualRegistration').reset();
+            
+            // Clear file previews
+            document.querySelectorAll('.file-preview').forEach(preview => {
+                preview.innerHTML = '';
+                preview.classList.remove('show');
+            });
+            
+            // Clear file inputs
+            document.querySelectorAll('.file-upload-input').forEach(input => {
+                input.value = '';
+            });
+        }
+
+        function resetCompanyForm() {
+            companyCurrentStep = 1;
+            updateCompanyStepNavigation();
+            document.getElementById('companyRegistration').reset();
+            
+            // Clear file previews
+            document.querySelectorAll('.file-preview').forEach(preview => {
+                preview.innerHTML = '';
+                preview.classList.remove('show');
+            });
+            
+            // Clear file inputs
+            document.querySelectorAll('.file-upload-input').forEach(input => {
+                input.value = '';
+            });
+        }
+
+        // Event Listeners
+        // Individual form
+        nextBtn.addEventListener('click', nextIndividualStep);
+        prevBtn.addEventListener('click', prevIndividualStep);
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            submitIndividualForm();
+        });
+        
+        // Company form
+        companyNextBtn.addEventListener('click', nextCompanyStep);
+        companyPrevBtn.addEventListener('click', prevCompanyStep);
+        companySubmitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            submitCompanyForm();
+        });
+        
+        // Save draft buttons
+        saveDraftBtn.addEventListener('click', () => {
+            alert('Draft saved! In a real app, this would save your progress.');
+        });
+        
+        companySaveDraftBtn.addEventListener('click', () => {
+            alert('Draft saved! In a real app, this would save your progress.');
+        });
+        
+        // New application button
+        document.getElementById('newApplicationBtn').addEventListener('click', () => {
+            document.getElementById('successMessage').classList.remove('active');
+            selectType(selectedType);
+        });
+
+        // Initialize
+        updateIndividualStepNavigation();
+        updateCompanyStepNavigation();
+
+        // Phone number formatting
+        document.querySelectorAll('input[type="tel"]').forEach(input => {
+            input.addEventListener('input', function() {
+                // Remove any non-digit characters
+                this.value = this.value.replace(/[^\d]/g, '');
+                
+                // Limit to 10 digits
+                if (this.value.length > 10) {
+                    this.value = this.value.slice(0, 10);
+                }
+            });
+        });
+
+        // Prevent form submission on enter key
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && e.target.type !== 'textarea') {
+                    e.preventDefault();
+                }
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                
+                if (href === '#') return;
+                
+                e.preventDefault();
+                
+                const targetElement = document.querySelector(href);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Initialize with individual form selected
+        selectType('individual');
+    </script>
+</body>
+</html>
