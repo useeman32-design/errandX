@@ -331,6 +331,7 @@
             opacity: 0;
             visibility: hidden;
             transition: var(--transition);
+            cursor: pointer;
         }
 
         .menu-overlay.active {
@@ -920,11 +921,14 @@
             opacity: 0.7;
             font-size: 0.9rem;
             margin-bottom: 1.5rem;
+            line-height: 1.6;
         }
 
         .footer-social {
             display: flex;
-            gap: 1rem;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
         }
 
         .social-icon {
@@ -950,15 +954,26 @@
 
         .payment-icons {
             display: flex;
-            gap: 1rem;
+            gap: 0.8rem;
             margin-top: 1.5rem;
             flex-wrap: wrap;
+            align-items: center;
         }
 
         .payment-icon {
-            height: 35px;
+            height: 25px;
             width: auto;
             object-fit: contain;
+            border-radius: 4px;
+            background-color: var(--card-bg);
+            padding: 5px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        @media (min-width: 768px) {
+            .payment-icon {
+                height: 30px;
+            }
         }
 
         .app-stores {
@@ -1011,18 +1026,20 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            font-size: 0.9rem;
         }
 
         .footer-column li i {
             color: var(--primary-green);
             font-size: 0.9rem;
             width: 20px;
+            flex-shrink: 0;
         }
 
         .footer-column a {
             color: var(--text-dark);
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             opacity: 0.8;
             transition: var(--transition);
         }
@@ -1030,6 +1047,13 @@
         .footer-column a:hover {
             opacity: 1;
             color: var(--primary-green);
+            text-decoration: underline;
+        }
+
+        .footer-column span {
+            color: var(--text-dark);
+            opacity: 0.8;
+            font-size: 0.9rem;
         }
 
         .footer-bottom {
@@ -1039,7 +1063,42 @@
             border-top: 1px solid rgba(92, 196, 126, 0.2);
             color: var(--text-dark);
             opacity: 0.7;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+        }
+
+        .footer-bottom-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .footer-bottom-content {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-bottom-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .footer-bottom-links a:hover {
+            opacity: 1;
+            color: var(--primary-green);
+            text-decoration: underline;
         }
 
         /* Modal */
@@ -1306,6 +1365,7 @@
                     <li><a href="#contact">Contact Us</a></li>
                     <li><a href="riders-registration.html">Apply as Rider</a></li>
                     <li class="apply-technician"><a href="technician-registration.html">Apply as Technician</a></li>
+                    <li><a href="#" class="login-link">Login</a></li>
                 </ul>
             </nav>
             
@@ -1339,6 +1399,7 @@
                     <li><a href="#contact"><i class="fas fa-envelope"></i> Contact Us</a></li>
                     <li><a href="riders-registration.html"><i class="fas fa-motorcycle"></i> Apply as Rider</a></li>
                     <li><a href="technician-registration.html"><i class="fas fa-tools"></i> Apply as Technician</a></li>
+                    <li><a href="#" class="login-link"><i class="fas fa-sign-in-alt"></i> Login</a></li>
                 </ul>
             </nav>
         </div>
@@ -1653,6 +1714,12 @@
                         <a href="#" class="social-icon">
                             <i class="fab fa-whatsapp"></i>
                         </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
                     </div>
                     
                     <div class="app-stores">
@@ -1663,6 +1730,10 @@
                     <div class="payment-icons">
                         <img src="paystack.png" alt="Paystack" class="payment-icon">
                         <img src="flutterwave.png" alt="Flutterwave" class="payment-icon">
+                        <img src="remita.png" alt="Remita" class="payment-icon">
+                        <img src="mastercard.png" alt="Mastercard" class="payment-icon">
+                        <img src="visa.png" alt="Visa" class="payment-icon">
+                        <img src="verve.png" alt="Verve" class="payment-icon">
                     </div>
                 </div>
                 
@@ -1673,6 +1744,8 @@
                             <li><a href="#about">About Us</a></li>
                             <li><a href="#careers">Careers</a></li>
                             <li><a href="#contact">Contact</a></li>
+                            <li><a href="#blog">Blog</a></li>
+                            <li><a href="#press">Press</a></li>
                         </ul>
                     </div>
                     
@@ -1682,7 +1755,9 @@
                             <li><a href="#delivery">Delivery</a></li>
                             <li><a href="#errands">Errands</a></li>
                             <li><a href="#home-services">Home Services</a></li>
-                            <li><a href="#tanumart">Tanumart</a></li>
+                            <li><a href="#gas-refill">Gas Refill</a></li>
+                            <li><a href="#laundry">Laundry</a></li>
+                            <li><a href="#technicians">Technicians</a></li>
                         </ul>
                     </div>
                     
@@ -1691,8 +1766,10 @@
                         <ul>
                             <li><a href="#help">Help Center</a></li>
                             <li><a href="#safety">Safety</a></li>
+                            <li><a href="#faq">FAQ</a></li>
                             <li><a href="#privacy">Privacy Policy</a></li>
-                            <li><a href="#terms">Terms</a></li>
+                            <li><a href="#terms">Terms of Service</a></li>
+                            <li><a href="#cookies">Cookie Policy</a></li>
                         </ul>
                     </div>
                     
@@ -1701,14 +1778,24 @@
                         <ul>
                             <li><i class="fas fa-envelope"></i><a href="mailto:support@errandx.com">support@errandx.com</a></li>
                             <li><i class="fas fa-phone"></i><a href="tel:+2348001234567">+234 800 123 4567</a></li>
-                            <li><i class="fas fa-map-marker-alt"></i><span>Lagos, Nigeria</span></li>
+                            <li><i class="fas fa-phone"></i><a href="tel:+2349009876543">+234 900 987 6543</a></li>
+                            <li><i class="fas fa-map-marker-alt"></i><span>123 Business District, Lagos, Nigeria</span></li>
+                            <li><i class="fas fa-clock"></i><span>24/7 Customer Support</span></li>
                         </ul>
                     </div>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                © 2026 ErrandX. Powered by Tanumart.
+                <div class="footer-bottom-content">
+                    <p>© 2026 ErrandX. All rights reserved. Powered by <a href="#" style="color: var(--primary-green); text-decoration: none;">Tanumart</a>.</p>
+                    <div class="footer-bottom-links">
+                        <a href="#privacy">Privacy Policy</a>
+                        <a href="#terms">Terms of Service</a>
+                        <a href="#cookies">Cookie Policy</a>
+                        <a href="#sitemap">Sitemap</a>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
@@ -1762,7 +1849,7 @@
         closeMenuBtn.addEventListener('click', closeMobileMenu);
         menuOverlay.addEventListener('click', closeMobileMenu);
         
-        // Close menu when clicking on a link
+        // FIXED: Close menu when clicking on any link inside the menu
         document.querySelectorAll('.mobile-nav a').forEach(link => {
             link.addEventListener('click', closeMobileMenu);
         });
@@ -1777,6 +1864,10 @@
         const loginForm = document.getElementById('loginForm');
         const signupForm = document.getElementById('signupForm');
         const modalTitle = document.getElementById('modalTitle');
+        
+        // Get all login links
+        const desktopLoginLink = document.querySelector('.desktop-nav .login-link');
+        const mobileLoginLink = document.querySelector('.mobile-nav .login-link');
         
         function openAuthModal() {
             authModal.classList.add('active');
@@ -1811,6 +1902,22 @@
             e.preventDefault();
             openAuthModal();
         });
+        
+        // Open modal when Login is clicked in desktop menu
+        if (desktopLoginLink) {
+            desktopLoginLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                openAuthModal();
+            });
+        }
+        
+        // Open modal when Login is clicked in mobile menu
+        if (mobileLoginLink) {
+            mobileLoginLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                openAuthModal();
+            });
+        }
         
         // Close modal
         closeModal.addEventListener('click', closeAuthModal);
@@ -1940,15 +2047,16 @@
             revealObserver.observe(element);
         });
         
-        // Smooth scrolling for anchor links (except Request an Errand buttons)
+        // Smooth scrolling for anchor links (except Request an Errand buttons and login links)
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
                 
                 if (href === '#') return;
                 
-                // Don't scroll for Request an Errand buttons
-                if (this.id === 'requestErrandBtn' || this.id === 'ctaRequestBtn') {
+                // Don't scroll for Request an Errand buttons or login links
+                if (this.id === 'requestErrandBtn' || this.id === 'ctaRequestBtn' || 
+                    this.classList.contains('login-link')) {
                     e.preventDefault();
                     return;
                 }
