@@ -1305,7 +1305,7 @@
                     <li><a href="#how-it-works">How it Works</a></li>
                     <li><a href="#contact">Contact Us</a></li>
                     <li><a href="riders-registration.html">Apply as Rider</a></li>
-                    <li class="apply-technician"><a href="#apply">Apply as Technician</a></li>
+                    <li class="apply-technician"><a href="technician-registration.html">Apply as Technician</a></li>
                 </ul>
             </nav>
             
@@ -1337,8 +1337,8 @@
                     <li><a href="#services"><i class="fas fa-concierge-bell"></i> Services</a></li>
                     <li><a href="#how-it-works"><i class="fas fa-cogs"></i> How it Works</a></li>
                     <li><a href="#contact"><i class="fas fa-envelope"></i> Contact Us</a></li>
-                    <li><a href="#apply"><i class="fas fa-motorcycle"></i> Apply as Rider</a></li>
-                    <li><a href="#apply"><i class="fas fa-tools"></i> Apply as Technician</a></li>
+                    <li><a href="riders-registration.html"><i class="fas fa-motorcycle"></i> Apply as Rider</a></li>
+                    <li><a href="technician-registration.html"><i class="fas fa-tools"></i> Apply as Technician</a></li>
                 </ul>
             </nav>
         </div>
@@ -1430,11 +1430,11 @@
                         Request an Errand
                     </a>
                     <div class="secondary-buttons">
-                        <a href="#apply" class="btn btn-secondary">
+                        <a href="riders-registration.html" class="btn btn-secondary">
                             <i class="fas fa-motorcycle"></i>
                             Apply as Rider
                         </a>
-                        <a href="#apply" class="btn btn-secondary">
+                        <a href="technician-registration.html" class="btn btn-secondary">
                             <i class="fas fa-tools"></i>
                             Apply as Technician
                         </a>
@@ -1558,11 +1558,11 @@
                     <i class="fas fa-rocket"></i>
                     Request an Errand
                 </a>
-                <a href="#apply" class="btn btn-secondary">
+                <a href="riders-registration.html" class="btn btn-secondary">
                     <i class="fas fa-motorcycle"></i>
                     Apply as Rider
                 </a>
-                <a href="#apply" class="btn btn-secondary">
+                <a href="technician-registration.html" class="btn btn-secondary">
                     <i class="fas fa-tools"></i>
                     Apply as Technician
                 </a>
@@ -1719,15 +1719,19 @@
         const themeIcon = themeToggle.querySelector('i');
         
         // Check for saved theme or prefer-color-scheme
-        const savedTheme = localStorage.getItem('theme') || 
-                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        
+        // CHANGED: Default to light mode instead of checking prefers-color-scheme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+
         // Apply saved theme
         if (savedTheme === 'dark') {
             document.body.classList.add('dark-mode');
             themeIcon.className = 'fas fa-sun';
+        } else {
+            // Ensure light mode is active by removing dark-mode class
+            document.body.classList.remove('dark-mode');
+            themeIcon.className = 'fas fa-moon';
         }
-        
+
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
