@@ -23,9 +23,9 @@
             --text-light: #666666;
             --text-white: #FFFFFF;
             --border-color: #E5E7EB;
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.12);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.16);
+            --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.20);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --border-radius-sm: 8px;
             --border-radius: 16px;
@@ -45,9 +45,9 @@
             --text-light: #A3C9B4;
             --text-white: #FFFFFF;
             --border-color: #2D5A44;
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
-            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.25);
-            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.3);
+            --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.25);
+            --shadow-md: 0 8px 28px rgba(0, 0, 0, 0.30);
+            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.40);
         }
 
         * {
@@ -68,7 +68,7 @@
             overflow-x: hidden;
         }
 
-        /* Sparkle Background */
+        /* Enhanced Animated Background Effect - More Visible */
         body::before {
             content: '';
             position: fixed;
@@ -76,23 +76,88 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(92, 196, 126, 0.02) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(92, 196, 126, 0.02) 0%, transparent 20%),
-                radial-gradient(circle at 50% 50%, rgba(92, 196, 126, 0.01) 0%, transparent 20%);
-            pointer-events: none;
+            background: linear-gradient(
+                90deg,
+                rgba(92, 196, 126, 0.15) 0%,
+                rgba(92, 196, 126, 0.22) 25%,
+                rgba(92, 196, 126, 0.15) 50%,
+                rgba(92, 196, 126, 0.22) 75%,
+                rgba(92, 196, 126, 0.15) 100%
+            );
+            background-size: 400% 100%;
+            animation: slideBackground 25s ease-in-out infinite;
             z-index: -1;
+            opacity: 0.7;
         }
 
-        /* Sparkle particles */
-        .sparkle {
+        .dark-mode body::before {
+            background: linear-gradient(
+                90deg,
+                rgba(109, 216, 143, 0.22) 0%,
+                rgba(109, 216, 143, 0.12) 25%,
+                rgba(109, 216, 143, 0.22) 50%,
+                rgba(109, 216, 143, 0.12) 75%,
+                rgba(109, 216, 143, 0.22) 100%
+            );
+            opacity: 0.4;
+        }
+
+        @keyframes slideBackground {
+            0% { background-position: 400% 0; }
+            100% { background-position: -400% 0; }
+        }
+
+        /* Enhanced floating elements - More Visible */
+        .bg-float {
             position: fixed;
-            width: 2px;
-            height: 2px;
-            background-color: rgba(92, 196, 126, 0.1);
             border-radius: 50%;
-            pointer-events: none;
             z-index: -1;
+            animation: float 30s ease-in-out infinite;
+        }
+
+        .bg-float:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            top: 10%;
+            right: -150px;
+            animation-delay: 0s;
+            background: radial-gradient(circle, rgba(92, 196, 126, 0.18) 0%, rgba(92, 196, 126, 0.08) 70%, transparent 100%);
+        }
+
+        .bg-float:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            bottom: 20%;
+            left: -120px;
+            animation-delay: 7s;
+            background: radial-gradient(circle, rgba(92, 196, 126, 0.15) 0%, rgba(92, 196, 126, 0.05) 70%, transparent 100%);
+        }
+
+        .bg-float:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            top: 60%;
+            right: -100px;
+            animation-delay: 14s;
+            background: radial-gradient(circle, rgba(92, 196, 126, 0.12) 0%, rgba(92, 196, 126, 0.03) 70%, transparent 100%);
+        }
+
+        .dark-mode .bg-float:nth-child(1) {
+            background: radial-gradient(circle, rgba(109, 216, 143, 0.25) 0%, rgba(109, 216, 143, 0.08) 70%, transparent 100%);
+        }
+
+        .dark-mode .bg-float:nth-child(2) {
+            background: radial-gradient(circle, rgba(109, 216, 143, 0.20) 0%, rgba(109, 216, 143, 0.05) 70%, transparent 100%);
+        }
+
+        .dark-mode .bg-float:nth-child(3) {
+            background: radial-gradient(circle, rgba(109, 216, 143, 0.18) 0%, rgba(109, 216, 143, 0.03) 70%, transparent 100%);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+            33% { transform: translateY(-40px) rotate(8deg) scale(1.05); }
+            66% { transform: translateY(30px) rotate(-8deg) scale(0.95); }
         }
 
         h1, h2, h3, h4, h5, h6 {
@@ -227,16 +292,14 @@
             color: var(--text-light);
         }
 
-        /* Professional Address Card */
+        /* Professional Address Card - Enhanced Shadows */
         .address-card {
             background: var(--card-background);
             border-radius: var(--border-radius);
             padding: 20px;
             margin-bottom: 25px;
-            box-shadow: var(--shadow-sm);
-            border: 2px solid var(--border-color);
-            position: relative;
-            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
         }
 
         .address-header {
@@ -328,7 +391,7 @@
             gap: 8px;
         }
 
-        /* Scrollable Quick Order Section */
+        /* Scrollable Quick Order Section - Enhanced Shadows */
         .scrollable-quick-order {
             display: flex;
             overflow-x: auto;
@@ -358,10 +421,9 @@
             background: var(--card-background);
             border-radius: var(--border-radius);
             padding: 0;
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--shadow-md);
             transition: var(--transition);
             cursor: pointer;
-            border: 1px solid var(--border-color);
             overflow: hidden;
             text-decoration: none;
             color: inherit;
@@ -382,9 +444,8 @@
         }
 
         .service-card-scrollable:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-md);
-            border-color: var(--primary-green);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
         }
 
         .service-image {
@@ -405,15 +466,6 @@
             transform: scale(1.05);
         }
 
-        .service-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.4));
-        }
-
         .service-content {
             padding: 16px;
         }
@@ -431,7 +483,7 @@
             line-height: 1.4;
         }
 
-        /* Active Errands Table */
+        /* Active Errands Table - Enhanced Shadows & Larger Images */
         .active-errands-section {
             margin-top: 30px;
         }
@@ -440,8 +492,7 @@
             background: var(--card-background);
             border-radius: var(--border-radius);
             overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
         }
 
         .errand-item {
@@ -450,10 +501,15 @@
             padding: 18px;
             border-bottom: 1px solid var(--border-color);
             transition: var(--transition);
+            cursor: pointer;
+            color: inherit;
+            text-decoration: none;
         }
 
         .errand-item:hover {
             background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
         }
 
         .errand-item:last-child {
@@ -461,8 +517,8 @@
         }
 
         .errand-image {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             border-radius: 12px;
             overflow: hidden;
             margin-right: 16px;
@@ -568,7 +624,7 @@
             border-radius: 10px;
         }
 
-        /* Promo Banner with Image */
+        /* Promo Banner with Image - Enhanced Shadows */
         .promo-banner {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: var(--border-radius);
@@ -576,7 +632,7 @@
             margin-top: 30px;
             position: relative;
             overflow: hidden;
-            box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-lg);
         }
 
         .promo-content {
@@ -622,7 +678,7 @@
             top: 0;
             height: 100%;
             width: 150px;
-            background: url('x.png') center/cover no-repeat;
+            background: url('img/x.png') center/cover no-repeat;
             border-radius: 0 var(--border-radius) var(--border-radius) 0;
         }
 
@@ -727,14 +783,71 @@
             font-size: 28px;
         }
 
-        /* Soft Transparent Loader */
+        /* Very Low Opacity Loader for Tracking */
+        .tracking-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2500;
+            transition: opacity 0.3s, visibility 0.3s;
+            opacity: 0;
+            visibility: hidden;
+            backdrop-filter: blur(2px);
+        }
+
+        .tracking-loader.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .tracking-loader {
+            background: rgba(243, 255, 247, 0.15);
+        }
+
+        .dark-mode .tracking-loader {
+            background: rgba(15, 42, 28, 0.15);
+        }
+
+        .tracking-loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(92, 196, 126, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--primary-green);
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 15px;
+        }
+
+        .dark-mode .tracking-loader-spinner {
+            border-color: rgba(109, 216, 143, 0.2);
+            border-top-color: var(--primary-green);
+        }
+
+        .tracking-loader-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dark);
+            opacity: 0.7;
+        }
+
+        .dark-mode .tracking-loader-text {
+            color: var(--text-light);
+            opacity: 0.6;
+        }
+
+        /* Enhanced Theme-Tailored Loader */
         .loader {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(243, 255, 247, 0.85); /* Soft transparent */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -743,7 +856,7 @@
             transition: opacity 0.3s, visibility 0.3s;
             opacity: 0;
             visibility: hidden;
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(6px);
         }
 
         .loader.active {
@@ -751,14 +864,45 @@
             visibility: visible;
         }
 
+        .loader {
+            background: rgba(243, 255, 247, 0.95);
+        }
+
+        .dark-mode .loader {
+            background: rgba(15, 42, 28, 0.97);
+        }
+
         .loader-spinner {
-            width: 60px;
-            height: 60px;
-            border: 3px solid rgba(92, 196, 126, 0.2);
+            width: 70px;
+            height: 70px;
+            border: 4px solid rgba(92, 196, 126, 0.2);
             border-radius: 50%;
             border-top-color: var(--primary-green);
-            animation: spin 1s ease-in-out infinite;
-            margin-bottom: 20px;
+            animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .loader-spinner::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border: 4px solid transparent;
+            border-radius: 50%;
+            border-top-color: rgba(92, 196, 126, 0.1);
+            animation: spin 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite reverse;
+        }
+
+        .dark-mode .loader-spinner {
+            border-color: rgba(109, 216, 143, 0.25);
+            border-top-color: var(--primary-green);
+        }
+
+        .dark-mode .loader-spinner::before {
+            border-top-color: rgba(109, 216, 143, 0.15);
         }
 
         @keyframes spin {
@@ -766,12 +910,17 @@
         }
 
         .loader-text {
-            font-size: 16px;
-            color: var(--text-dark);
+            font-size: 18px;
             font-weight: 500;
+            color: var(--text-dark);
+            letter-spacing: 0.5px;
         }
 
-        /* Tracking Modal */
+        .dark-mode .loader-text {
+            color: var(--text-light);
+        }
+
+        /* Tracking Modal - Updated Professional Style */
         .tracking-modal {
             position: fixed;
             top: 0;
@@ -858,11 +1007,12 @@
             padding: 20px;
         }
 
+        /* Updated Rider Info with Vehicle Type */
         .rider-info {
             display: flex;
             align-items: center;
             gap: 16px;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             padding-bottom: 20px;
             border-bottom: 1px solid var(--border-color);
         }
@@ -888,16 +1038,29 @@
             color: var(--text-dark);
         }
 
-        .rider-details p {
+        .rider-phone {
             font-size: 14px;
             color: var(--text-light);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
+        }
+
+        .rider-vehicle {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(92, 196, 126, 0.1);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--primary-green);
         }
 
         .rider-rating {
             display: flex;
             align-items: center;
             gap: 5px;
+            margin-top: 8px;
         }
 
         .rider-rating i {
@@ -905,37 +1068,42 @@
             font-size: 14px;
         }
 
-        .tracking-details-grid {
+        /* Updated Compact Tracking Details */
+        .tracking-details-compact {
             display: grid;
-            gap: 16px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
             margin-bottom: 24px;
         }
 
-        .tracking-detail-item {
+        .detail-item-compact {
             background: var(--primary-light);
-            padding: 16px;
-            border-radius: var(--border-radius);
-            border-left: 4px solid var(--primary-green);
+            padding: 12px;
+            border-radius: var(--border-radius-sm);
         }
 
-        .tracking-detail-item h4 {
-            font-size: 14px;
+        .detail-label {
+            font-size: 11px;
             color: var(--text-light);
-            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .detail-value {
+            font-size: 14px;
+            color: var(--text-dark);
             font-weight: 500;
         }
 
-        .tracking-detail-item p {
-            font-size: 16px;
-            color: var(--text-dark);
-            font-weight: 600;
-        }
-
+        /* Delivery Status */
         .delivery-status {
             background: var(--primary-light);
             padding: 20px;
             border-radius: var(--border-radius);
             margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
         }
 
         .status-header {
@@ -980,6 +1148,7 @@
             background: var(--border-color);
             color: var(--text-light);
             flex-shrink: 0;
+            font-size: 14px;
         }
 
         .status-step.active .status-step-icon {
@@ -1028,12 +1197,13 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            box-shadow: var(--shadow-md);
         }
 
         .call-rider-btn:hover {
             background: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-lg);
         }
 
         /* Status Badge */
@@ -1073,6 +1243,16 @@
             .tracking-modal-content {
                 margin: 10px;
             }
+            
+            .tracking-details-compact {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .errand-image {
+                width: 65px;
+                height: 65px;
+            }
         }
 
         @media (min-width: 768px) {
@@ -1107,7 +1287,7 @@
             padding: 40px 20px;
             background: var(--card-background);
             border-radius: var(--border-radius);
-            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
         }
 
         .empty-icon {
@@ -1147,11 +1327,16 @@
     </style>
 </head>
 <body>
+    <!-- Enhanced Background Floating Elements - More Visible -->
+    <div class="bg-float"></div>
+    <div class="bg-float"></div>
+    <div class="bg-float"></div>
+
     <!-- Reduced Header Size -->
     <header class="dashboard-header">
         <div class="container header-container">
             <div class="logo-container">
-                <img src="logo.png" alt="ErrandX" class="logo-img">
+                <img src="img/logo.png" alt="ErrandX" class="logo-img">
             </div>
             
             <div class="user-info">
@@ -1216,10 +1401,9 @@
             
             <div class="scrollable-quick-order">
                 <!-- Home Delivery -->
-                <a href="#" class="service-card-scrollable">
+                <a href="home-delivery.html" class="service-card-scrollable">
                     <div class="service-image">
-                        <div class="service-overlay"></div>
-                        <img src="1.png" alt="Home Delivery">
+                        <img src="img/1.png" alt="Home Delivery">
                     </div>
                     <div class="service-content">
                         <h3 class="service-name">Home Delivery</h3>
@@ -1228,10 +1412,9 @@
                 </a>
                 
                 <!-- Repairs & Services -->
-                <a href="#" class="service-card-scrollable">
+                <a href="repair-services.html" class="service-card-scrollable">
                     <div class="service-image">
-                        <div class="service-overlay"></div>
-                        <img src="6.png" alt="Repairs & Services">
+                        <img src="img/6.png" alt="Repairs & Services">
                     </div>
                     <div class="service-content">
                         <h3 class="service-name">Repairs & Services</h3>
@@ -1240,10 +1423,9 @@
                 </a>
                 
                 <!-- Gas Refill -->
-                <a href="#" class="service-card-scrollable">
+                <a href="gas-refill.html" class="service-card-scrollable">
                     <div class="service-image">
-                        <div class="service-overlay"></div>
-                        <img src="3.png" alt="Gas Refill">
+                        <img src="img/3.png" alt="Gas Refill">
                     </div>
                     <div class="service-content">
                         <h3 class="service-name">Gas Refill</h3>
@@ -1265,9 +1447,9 @@
             
             <div class="errands-table">
                 <!-- Errand 1 -->
-                <div class="errand-item">
+                <div class="errand-item" data-errand="1">
                     <div class="errand-image">
-                        <img src="2.png" alt="Package Delivery">
+                        <img src="img/2.png" alt="Package Delivery">
                     </div>
                     <div class="errand-details">
                         <h3 class="errand-name">Package (A - B)</h3>
@@ -1286,9 +1468,9 @@
                 </div>
                 
                 <!-- Errand 2 -->
-                <div class="errand-item">
+                <div class="errand-item" data-errand="2">
                     <div class="errand-image">
-                        <img src="5.png" alt="Laundry Delivery">
+                        <img src="img/5.png" alt="Laundry Delivery">
                     </div>
                     <div class="errand-details">
                         <h3 class="errand-name">Laundry Delivery</h3>
@@ -1307,9 +1489,9 @@
                 </div>
                 
                 <!-- Errand 3 -->
-                <div class="errand-item">
+                <div class="errand-item" data-errand="3">
                     <div class="errand-image">
-                        <img src="1.png" alt="Grocery Delivery">
+                        <img src="img/1.png" alt="Grocery Delivery">
                     </div>
                     <div class="errand-details">
                         <h3 class="errand-name">Grocery Delivery</h3>
@@ -1341,10 +1523,9 @@
             
             <div class="scrollable-services">
                 <!-- Package (A - B) -->
-                <a href="#" class="service-card-scrollable">
+                <a href="package.html" class="service-card-scrollable">
                     <div class="service-image">
-                        <div class="service-overlay"></div>
-                        <img src="2.png" alt="Package (A - B)">
+                        <img src="img/2.png" alt="Package (A - B)">
                     </div>
                     <div class="service-content">
                         <h3 class="service-name">Package (A - B)</h3>
@@ -1353,10 +1534,9 @@
                 </a>
                 
                 <!-- Laundry Delivery -->
-                <a href="#" class="service-card-scrollable">
+                <a href="laundry.html" class="service-card-scrollable">
                     <div class="service-image">
-                        <div class="service-overlay"></div>
-                        <img src="5.png" alt="Laundry Delivery">
+                        <img src="img/5.png" alt="Laundry Delivery">
                     </div>
                     <div class="service-content">
                         <h3 class="service-name">Laundry Delivery</h3>
@@ -1365,10 +1545,9 @@
                 </a>
                 
                 <!-- Gas Refill -->
-                <a href="#" class="service-card-scrollable">
+                <a href="gas-refill.html" class="service-card-scrollable">
                     <div class="service-image">
-                        <div class="service-overlay"></div>
-                        <img src="3.png" alt="Gas Refill">
+                        <img src="img/3.png" alt="Gas Refill">
                     </div>
                     <div class="service-content">
                         <h3 class="service-name">Gas Refill</h3>
@@ -1377,10 +1556,9 @@
                 </a>
                 
                 <!-- Buy For Me -->
-                <a href="#" class="service-card-scrollable">
+                <a href="buy-for-me.html" class="service-card-scrollable">
                     <div class="service-image">
-                        <div class="service-overlay"></div>
-                        <img src="4.png" alt="Buy For Me">
+                        <img src="img/4.png" alt="Buy For Me">
                     </div>
                     <div class="service-content">
                         <h3 class="service-name">Buy For Me</h3>
@@ -1440,13 +1618,19 @@
         </a>
     </nav>
 
-    <!-- Soft Transparent Loader -->
+    <!-- Enhanced Theme-Tailored Loader -->
     <div class="loader" id="pageLoader">
         <div class="loader-spinner"></div>
         <p class="loader-text">Loading...</p>
     </div>
 
-    <!-- Tracking Modal -->
+    <!-- Very Low Opacity Tracking Loader -->
+    <div class="tracking-loader" id="trackingLoader">
+        <div class="tracking-loader-spinner"></div>
+        <p class="tracking-loader-text">Loading tracking...</p>
+    </div>
+
+    <!-- Tracking Modal - Updated Professional Style -->
     <div class="tracking-modal" id="trackingModal">
         <div class="tracking-modal-content">
             <div class="tracking-modal-header">
@@ -1456,14 +1640,17 @@
                 </button>
             </div>
             <div class="tracking-modal-body">
-                <!-- Rider Info -->
+                <!-- Rider Info with Vehicle Type -->
                 <div class="rider-info">
                     <div class="rider-image">
                         <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rider">
                     </div>
                     <div class="rider-details">
                         <h3 id="riderName">Abdul Sani</h3>
-                        <p id="riderPhone">+234 812 345 6789</p>
+                        <p class="rider-phone" id="riderPhone">+234 812 345 6789</p>
+                        <span class="rider-vehicle" id="riderVehicle">
+                            <i class="fas fa-motorcycle"></i> Motorcycle
+                        </span>
                         <div class="rider-rating">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -1475,23 +1662,31 @@
                     </div>
                 </div>
 
-                <!-- Tracking Details -->
-                <div class="tracking-details-grid">
-                    <div class="tracking-detail-item">
-                        <h4>Pickup Location</h4>
-                        <p id="pickupLocation">Main Market, Gusau</p>
+                <!-- Compact Tracking Details -->
+                <div class="tracking-details-compact">
+                    <div class="detail-item-compact">
+                        <div class="detail-label">Pickup Location</div>
+                        <div class="detail-value" id="pickupLocation">Main Market, Gusau</div>
                     </div>
-                    <div class="tracking-detail-item">
-                        <h4>Delivery Location</h4>
-                        <p id="deliveryLocation">Tudun Wada, Gusau</p>
+                    <div class="detail-item-compact">
+                        <div class="detail-label">Delivery Location</div>
+                        <div class="detail-value" id="deliveryLocation">Tudun Wada, Gusau</div>
                     </div>
-                    <div class="tracking-detail-item">
-                        <h4>Contact Person</h4>
-                        <p id="contactPerson">Aisha Bello - +234 813 456 7890</p>
+                    <div class="detail-item-compact">
+                        <div class="detail-label">Contact Person</div>
+                        <div class="detail-value" id="contactPerson">Aisha Bello</div>
                     </div>
-                    <div class="tracking-detail-item">
-                        <h4>Package Details</h4>
-                        <p id="packageDetails">Medium sized package (5kg)</p>
+                    <div class="detail-item-compact">
+                        <div class="detail-label">Contact Phone</div>
+                        <div class="detail-value" id="contactPhone">+234 813 456 7890</div>
+                    </div>
+                    <div class="detail-item-compact">
+                        <div class="detail-label">Package Details</div>
+                        <div class="detail-value" id="packageDetails">Medium (5kg)</div>
+                    </div>
+                    <div class="detail-item-compact">
+                        <div class="detail-label">Estimated Time</div>
+                        <div class="detail-value" id="estimatedTime">30-45 mins</div>
                     </div>
                 </div>
 
@@ -1591,45 +1786,20 @@
             themeIconHeader.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
         });
         
-        // Create sparkle particles
-        function createSparkles() {
-            const sparkleCount = 20;
-            for (let i = 0; i < sparkleCount; i++) {
-                const sparkle = document.createElement('div');
-                sparkle.className = 'sparkle';
-                
-                // Random position
-                sparkle.style.left = `${Math.random() * 100}%`;
-                sparkle.style.top = `${Math.random() * 100}%`;
-                
-                // Random size
-                const size = Math.random() * 3 + 1;
-                sparkle.style.width = `${size}px`;
-                sparkle.style.height = `${size}px`;
-                
-                // Random opacity
-                sparkle.style.opacity = Math.random() * 0.1 + 0.05;
-                
-                // Random animation
-                sparkle.style.animation = `sparkle ${Math.random() * 3 + 2}s infinite alternate`;
-                
-                document.body.appendChild(sparkle);
-            }
-        }
-
-        // Soft Transparent Loader
+        // Enhanced Theme-Tailored Loader
         const pageLoader = document.getElementById('pageLoader');
+        const trackingLoader = document.getElementById('trackingLoader');
         const navItems = document.querySelectorAll('.nav-item');
         const serviceCards = document.querySelectorAll('.service-card-scrollable');
         const trackButtons = document.querySelectorAll('.track-btn');
         const createButton = document.querySelector('.create-button');
+        const errandItems = document.querySelectorAll('.errand-item');
         
         // Simulate initial page load
         window.addEventListener('load', () => {
             setTimeout(() => {
                 pageLoader.classList.remove('active');
             }, 800);
-            createSparkles();
         });
         
         // Navigation click handler
@@ -1641,7 +1811,7 @@
                 navItems.forEach(nav => nav.classList.remove('active'));
                 item.classList.add('active');
                 
-                // Show soft loader
+                // Show themed loader
                 pageLoader.classList.add('active');
                 
                 // Simulate page navigation
@@ -1656,69 +1826,118 @@
             });
         });
         
-        // Service card click handler
+        // Service card click handler with actual page navigation
         serviceCards.forEach(card => {
             card.addEventListener('click', (e) => {
                 e.preventDefault();
-                const serviceName = card.querySelector('.service-name').textContent;
+                const href = card.getAttribute('href');
                 
-                // Show soft loader
+                // Show themed loader
                 pageLoader.classList.add('active');
                 
-                // Simulate service loading
+                // Simulate page loading for 1.5 seconds
                 setTimeout(() => {
+                    // In a real app, this would navigate to the actual page
+                    // For demo purposes, we'll just load and stay on the same page
+                    // but in production, this would be: window.location.href = href;
+                    
+                    const serviceName = card.querySelector('.service-name').textContent;
+                    console.log(`Navigating to ${serviceName} page: ${href}`);
+                    
+                    // After loading, remove loader
                     pageLoader.classList.remove('active');
-                    alert(`Opening ${serviceName} service...`);
-                }, 800);
+                }, 1500);
             });
         });
         
-        // Tracking Modal
+        // Errand item click handler - only opens modal, no page navigation
+        errandItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                // Only trigger if not clicking on the track button
+                if (!e.target.closest('.track-btn')) {
+                    e.preventDefault();
+                    const errandId = item.getAttribute('data-errand');
+                    
+                    // Simulate track button click
+                    const trackBtn = item.querySelector('.track-btn');
+                    if (trackBtn) {
+                        trackBtn.click();
+                    }
+                }
+            });
+        });
+        
+        // Tracking Modal with Very Low Opacity Loader
         const trackingModal = document.getElementById('trackingModal');
         const closeTrackingModal = document.getElementById('closeTrackingModal');
         const callRiderBtn = document.getElementById('callRiderBtn');
         
-        // Track button click handler
+        // Track button click handler with 2-second low opacity loader
         trackButtons.forEach(button => {
-            button.addEventListener('click', () => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent errand item click
                 const errandId = button.getAttribute('data-errand');
                 
-                // Set different data based on errand ID
-                switch(errandId) {
-                    case '1': // Package (A - B)
-                        document.getElementById('riderName').textContent = 'Abdul Sani';
-                        document.getElementById('riderPhone').textContent = '+234 812 345 6789';
-                        document.getElementById('pickupLocation').textContent = 'Main Market, Gusau';
-                        document.getElementById('deliveryLocation').textContent = 'Tudun Wada, Gusau';
-                        document.getElementById('contactPerson').textContent = 'Aisha Bello - +234 813 456 7890';
-                        document.getElementById('packageDetails').textContent = 'Medium sized package (5kg)';
-                        document.getElementById('deliveryStatusBadge').textContent = 'Package Picked Up';
-                        updateStatusTimeline('picked');
-                        break;
-                    case '2': // Laundry Delivery
-                        document.getElementById('riderName').textContent = 'Musa Ahmed';
-                        document.getElementById('riderPhone').textContent = '+234 814 567 8901';
-                        document.getElementById('pickupLocation').textContent = 'Cleaners Center, Gusau';
-                        document.getElementById('deliveryLocation').textContent = 'Home Address, Gusau';
-                        document.getElementById('contactPerson').textContent = 'Usman - +234 801 234 5678';
-                        document.getElementById('packageDetails').textContent = 'Laundry bag (3kg)';
-                        document.getElementById('deliveryStatusBadge').textContent = 'In Progress';
-                        updateStatusTimeline('in-progress');
-                        break;
-                    case '3': // Grocery Delivery
-                        document.getElementById('riderName').textContent = 'Ibrahim Yusuf';
-                        document.getElementById('riderPhone').textContent = '+234 815 678 9012';
-                        document.getElementById('pickupLocation').textContent = 'Market, Gusau';
-                        document.getElementById('deliveryLocation').textContent = 'Home Address, Gusau';
-                        document.getElementById('contactPerson').textContent = 'Usman - +234 801 234 5678';
-                        document.getElementById('packageDetails').textContent = 'Grocery items (8kg)';
-                        document.getElementById('deliveryStatusBadge').textContent = 'Pending Pickup';
-                        updateStatusTimeline('pending');
-                        break;
-                }
+                // Show very low opacity loader
+                trackingLoader.classList.add('active');
                 
-                // Show tracking modal
-                trackingModal.classList.add('active');
+                // Set different data based on errand ID after 2 seconds
+                setTimeout(() => {
+                    const vehicleTypes = [
+                        { icon: 'fas fa-motorcycle', type: 'Motorcycle' },
+                        { icon: 'fas fa-bicycle', type: 'Bicycle' },
+                        { icon: 'fas fa-car', type: 'Car' },
+                        { icon: 'fas fa-truck-pickup', type: 'Pickup Truck' }
+                    ];
+                    
+                    const randomVehicle = vehicleTypes[Math.floor(Math.random() * vehicleTypes.length)];
+                    
+                    switch(errandId) {
+                        case '1': // Package (A - B)
+                            document.getElementById('riderName').textContent = 'Abdul Sani';
+                            document.getElementById('riderPhone').textContent = '+234 812 345 6789';
+                            document.getElementById('riderVehicle').innerHTML = `<i class="${randomVehicle.icon}"></i> ${randomVehicle.type}`;
+                            document.getElementById('pickupLocation').textContent = 'Main Market, Gusau';
+                            document.getElementById('deliveryLocation').textContent = 'Tudun Wada, Gusau';
+                            document.getElementById('contactPerson').textContent = 'Aisha Bello';
+                            document.getElementById('contactPhone').textContent = '+234 813 456 7890';
+                            document.getElementById('packageDetails').textContent = 'Medium (5kg)';
+                            document.getElementById('estimatedTime').textContent = '30-45 mins';
+                            document.getElementById('deliveryStatusBadge').textContent = 'Package Picked Up';
+                            updateStatusTimeline('picked');
+                            break;
+                        case '2': // Laundry Delivery
+                            document.getElementById('riderName').textContent = 'Musa Ahmed';
+                            document.getElementById('riderPhone').textContent = '+234 814 567 8901';
+                            document.getElementById('riderVehicle').innerHTML = `<i class="${randomVehicle.icon}"></i> ${randomVehicle.type}`;
+                            document.getElementById('pickupLocation').textContent = 'Cleaners Center, Gusau';
+                            document.getElementById('deliveryLocation').textContent = 'Home Address, Gusau';
+                            document.getElementById('contactPerson').textContent = 'Usman';
+                            document.getElementById('contactPhone').textContent = '+234 801 234 5678';
+                            document.getElementById('packageDetails').textContent = 'Laundry Bag (3kg)';
+                            document.getElementById('estimatedTime').textContent = '15-20 mins';
+                            document.getElementById('deliveryStatusBadge').textContent = 'In Progress';
+                            updateStatusTimeline('in-progress');
+                            break;
+                        case '3': // Grocery Delivery
+                            document.getElementById('riderName').textContent = 'Ibrahim Yusuf';
+                            document.getElementById('riderPhone').textContent = '+234 815 678 9012';
+                            document.getElementById('riderVehicle').innerHTML = `<i class="${randomVehicle.icon}"></i> ${randomVehicle.type}`;
+                            document.getElementById('pickupLocation').textContent = 'Main Market, Gusau';
+                            document.getElementById('deliveryLocation').textContent = 'Home Address, Gusau';
+                            document.getElementById('contactPerson').textContent = 'Usman';
+                            document.getElementById('contactPhone').textContent = '+234 801 234 5678';
+                            document.getElementById('packageDetails').textContent = 'Grocery (8kg)';
+                            document.getElementById('estimatedTime').textContent = '45-60 mins';
+                            document.getElementById('deliveryStatusBadge').textContent = 'Pending Pickup';
+                            updateStatusTimeline('pending');
+                            break;
+                    }
+                    
+                    // Hide loader and show tracking modal
+                    trackingLoader.classList.remove('active');
+                    trackingModal.classList.add('active');
+                }, 2000);
             });
         });
         
@@ -1766,7 +1985,7 @@
         
         // Create button handler
         createButton.addEventListener('click', () => {
-            // Show soft loader
+            // Show themed loader
             pageLoader.classList.add('active');
             
             // Simulate creating new errand
@@ -1779,7 +1998,7 @@
         // Change address button
         const changeAddressBtn = document.querySelector('.change-address-btn');
         changeAddressBtn.addEventListener('click', () => {
-            // Show soft loader
+            // Show themed loader
             pageLoader.classList.add('active');
             
             // Simulate address change
@@ -1795,7 +2014,7 @@
             button.addEventListener('click', (e) => {
                 e.preventDefault();
                 
-                // Show soft loader
+                // Show themed loader
                 pageLoader.classList.add('active');
                 
                 // Simulate loading all items
@@ -1809,7 +2028,7 @@
         // Promo button
         const promoButton = document.querySelector('.promo-button');
         promoButton.addEventListener('click', () => {
-            // Show soft loader
+            // Show themed loader
             pageLoader.classList.add('active');
             
             // Simulate promo page
@@ -1882,16 +2101,6 @@
                 </div>
             `;
         });
-        
-        // Add CSS for sparkle animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes sparkle {
-                0% { opacity: 0.2; transform: scale(1); }
-                100% { opacity: 0.3; transform: scale(1.5); }
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
 </html>
