@@ -17,7 +17,7 @@
             --secondary-blue: #4A90E2;
             --secondary-orange: #FF8A00;
             --secondary-red: #FF5252;
-            --background-light: #F3FFF7; /* Changed to lighter color */
+            --background-light: #F3FFF7;
             --card-background: #FFFFFF;
             --text-dark: #1A1A1A;
             --text-light: #666666;
@@ -65,6 +65,34 @@
             padding-bottom: 85px;
             position: relative;
             min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Sparkle Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(92, 196, 126, 0.02) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(92, 196, 126, 0.02) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(92, 196, 126, 0.01) 0%, transparent 20%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Sparkle particles */
+        .sparkle {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background-color: rgba(92, 196, 126, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
         }
 
         h1, h2, h3, h4, h5, h6 {
@@ -91,7 +119,7 @@
         .dashboard-header {
             background: var(--primary-dark);
             color: var(--text-white);
-            padding: 14px 0; /* Reduced padding */
+            padding: 14px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -105,7 +133,7 @@
         }
 
         .logo-img {
-            height: 36px; /* Slightly smaller logo */
+            height: 36px;
             width: auto;
             object-fit: contain;
             filter: brightness(0) invert(1);
@@ -121,7 +149,7 @@
         .theme-toggle-header {
             position: relative;
             background: rgba(255, 255, 255, 0.15);
-            width: 40px; /* Smaller button */
+            width: 40px;
             height: 40px;
             border-radius: 50%;
             display: flex;
@@ -150,7 +178,7 @@
         }
 
         .user-greeting {
-            font-size: 28px; /* Increased size */
+            font-size: 28px;
             font-weight: 700;
             color: var(--text-dark);
             display: flex;
@@ -170,7 +198,7 @@
         }
 
         .user-location {
-            font-size: 16px; /* Slightly larger */
+            font-size: 16px;
             color: var(--text-light);
             display: flex;
             align-items: center;
@@ -300,23 +328,8 @@
             gap: 8px;
         }
 
-        /* Services Grid - Standard Layout */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin-bottom: 25px;
-        }
-
-        @media (min-width: 768px) {
-            .services-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 20px;
-            }
-        }
-
-        /* Scrollable Frequently Used Section */
-        .scrollable-services {
+        /* Scrollable Quick Order Section */
+        .scrollable-quick-order {
             display: flex;
             overflow-x: auto;
             gap: 16px;
@@ -327,16 +340,16 @@
             -webkit-overflow-scrolling: touch;
         }
 
-        .scrollable-services::-webkit-scrollbar {
+        .scrollable-quick-order::-webkit-scrollbar {
             height: 6px;
         }
 
-        .scrollable-services::-webkit-scrollbar-track {
+        .scrollable-quick-order::-webkit-scrollbar-track {
             background: transparent;
             border-radius: 10px;
         }
 
-        .scrollable-services::-webkit-scrollbar-thumb {
+        .scrollable-quick-order::-webkit-scrollbar-thumb {
             background: var(--primary-green);
             border-radius: 10px;
         }
@@ -352,19 +365,19 @@
             overflow: hidden;
             text-decoration: none;
             color: inherit;
-            flex: 0 0 calc(50% - 8px); /* 2 cards visible at once */
+            flex: 0 0 calc(50% - 8px);
             min-width: 160px;
         }
 
         @media (min-width: 480px) {
             .service-card-scrollable {
-                flex: 0 0 calc(33.333% - 11px); /* 3 cards visible on larger phones */
+                flex: 0 0 calc(33.333% - 11px);
             }
         }
 
         @media (min-width: 768px) {
             .service-card-scrollable {
-                flex: 0 0 calc(25% - 12px); /* 4 cards visible on tablets */
+                flex: 0 0 calc(25% - 12px);
             }
         }
 
@@ -529,6 +542,32 @@
             box-shadow: var(--shadow-sm);
         }
 
+        /* Scrollable Frequently Used Section */
+        .scrollable-services {
+            display: flex;
+            overflow-x: auto;
+            gap: 16px;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-green) transparent;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .scrollable-services::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .scrollable-services::-webkit-scrollbar-track {
+            background: transparent;
+            border-radius: 10px;
+        }
+
+        .scrollable-services::-webkit-scrollbar-thumb {
+            background: var(--primary-green);
+            border-radius: 10px;
+        }
+
         /* Promo Banner with Image */
         .promo-banner {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -688,14 +727,14 @@
             font-size: 28px;
         }
 
-        /* Professional Loader */
+        /* Soft Transparent Loader */
         .loader {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--background-light);
+            background: rgba(243, 255, 247, 0.85); /* Soft transparent */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -704,6 +743,7 @@
             transition: opacity 0.3s, visibility 0.3s;
             opacity: 0;
             visibility: hidden;
+            backdrop-filter: blur(4px);
         }
 
         .loader.active {
@@ -714,7 +754,7 @@
         .loader-spinner {
             width: 60px;
             height: 60px;
-            border: 3px solid rgba(92, 196, 126, 0.1);
+            border: 3px solid rgba(92, 196, 126, 0.2);
             border-radius: 50%;
             border-top-color: var(--primary-green);
             animation: spin 1s ease-in-out infinite;
@@ -729,6 +769,271 @@
             font-size: 16px;
             color: var(--text-dark);
             font-weight: 500;
+        }
+
+        /* Tracking Modal */
+        .tracking-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            padding: 20px;
+        }
+
+        .tracking-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .tracking-modal-content {
+            background: var(--card-background);
+            border-radius: var(--border-radius-lg);
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            animation: modalSlideUp 0.3s ease-out;
+        }
+
+        @keyframes modalSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tracking-modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: var(--card-background);
+            z-index: 1;
+        }
+
+        .tracking-modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .close-modal-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 24px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .close-modal-btn:hover {
+            background: var(--primary-light);
+            color: var(--primary-green);
+        }
+
+        .tracking-modal-body {
+            padding: 20px;
+        }
+
+        .rider-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .rider-image {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 3px solid var(--primary-green);
+        }
+
+        .rider-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .rider-details h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: var(--text-dark);
+        }
+
+        .rider-details p {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .rider-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .rider-rating i {
+            color: #FFC107;
+            font-size: 14px;
+        }
+
+        .tracking-details-grid {
+            display: grid;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .tracking-detail-item {
+            background: var(--primary-light);
+            padding: 16px;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--primary-green);
+        }
+
+        .tracking-detail-item h4 {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .tracking-detail-item p {
+            font-size: 16px;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .delivery-status {
+            background: var(--primary-light);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+        }
+
+        .status-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .status-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .status-badge-large {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .status-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .status-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .status-step-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--border-color);
+            color: var(--text-light);
+            flex-shrink: 0;
+        }
+
+        .status-step.active .status-step-icon {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .status-step.completed .status-step-icon {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .status-step-content {
+            flex: 1;
+        }
+
+        .status-step-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 2px;
+        }
+
+        .status-step-time {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .status-step.completed .status-step-title,
+        .status-step.active .status-step-title {
+            color: var(--primary-green);
+        }
+
+        .call-rider-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .call-rider-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         /* Status Badge */
@@ -763,6 +1068,10 @@
             
             .user-greeting {
                 font-size: 24px;
+            }
+            
+            .tracking-modal-content {
+                margin: 10px;
             }
         }
 
@@ -895,7 +1204,7 @@
             </div>
         </section>
 
-        <!-- Quick Order Section -->
+        <!-- Quick Order Section - Scrollable -->
         <section class="quick-order-section">
             <div class="section-header">
                 <h2 class="section-title">Quick Order</h2>
@@ -905,7 +1214,8 @@
                 </a>
             </div>
             
-            <div class="services-grid">
+            <div class="scrollable-quick-order">
+                <!-- Home Delivery -->
                 <a href="#" class="service-card-scrollable">
                     <div class="service-image">
                         <div class="service-overlay"></div>
@@ -917,6 +1227,7 @@
                     </div>
                 </a>
                 
+                <!-- Repairs & Services -->
                 <a href="#" class="service-card-scrollable">
                     <div class="service-image">
                         <div class="service-overlay"></div>
@@ -925,6 +1236,18 @@
                     <div class="service-content">
                         <h3 class="service-name">Repairs & Services</h3>
                         <p class="service-description">Professional repairs and maintenance services</p>
+                    </div>
+                </a>
+                
+                <!-- Gas Refill -->
+                <a href="#" class="service-card-scrollable">
+                    <div class="service-image">
+                        <div class="service-overlay"></div>
+                        <img src="3.png" alt="Gas Refill">
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-name">Gas Refill</h3>
+                        <p class="service-description">Safe gas cylinder refills delivered to your home</p>
                     </div>
                 </a>
             </div>
@@ -947,7 +1270,7 @@
                         <img src="2.png" alt="Package Delivery">
                     </div>
                     <div class="errand-details">
-                        <h3 class="errand-name">Package Delivery</h3>
+                        <h3 class="errand-name">Package (A - B)</h3>
                         <div class="errand-location">
                             <i class="fas fa-map-marker-alt"></i>
                             From Main Market to Tudun Wada
@@ -958,20 +1281,20 @@
                         </span>
                     </div>
                     <div class="errand-actions">
-                        <button class="track-btn">Track</button>
+                        <button class="track-btn" data-errand="1">Track</button>
                     </div>
                 </div>
                 
                 <!-- Errand 2 -->
                 <div class="errand-item">
                     <div class="errand-image">
-                        <img src="5.png" alt="Laundry Pickup">
+                        <img src="5.png" alt="Laundry Delivery">
                     </div>
                     <div class="errand-details">
-                        <h3 class="errand-name">Laundry Service</h3>
+                        <h3 class="errand-name">Laundry Delivery</h3>
                         <div class="errand-location">
                             <i class="fas fa-map-marker-alt"></i>
-                            Pickup from your location
+                            From Cleaners to Home
                         </div>
                         <span class="status-badge status-progress">
                             <i class="fas fa-sync-alt"></i>
@@ -979,7 +1302,7 @@
                         </span>
                     </div>
                     <div class="errand-actions">
-                        <button class="track-btn">Track</button>
+                        <button class="track-btn" data-errand="2">Track</button>
                     </div>
                 </div>
                 
@@ -1000,7 +1323,7 @@
                         </span>
                     </div>
                     <div class="errand-actions">
-                        <button class="track-btn">Track</button>
+                        <button class="track-btn" data-errand="3">Track</button>
                     </div>
                 </div>
             </div>
@@ -1017,35 +1340,35 @@
             </div>
             
             <div class="scrollable-services">
-                <!-- Card 1 -->
+                <!-- Package (A - B) -->
                 <a href="#" class="service-card-scrollable">
                     <div class="service-image">
                         <div class="service-overlay"></div>
-                        <img src="2.png" alt="Package Pickup">
+                        <img src="2.png" alt="Package (A - B)">
                     </div>
                     <div class="service-content">
-                        <h3 class="service-name">Package Pickup</h3>
+                        <h3 class="service-name">Package (A - B)</h3>
                         <p class="service-description">Send packages anywhere in the city</p>
                     </div>
                 </a>
                 
-                <!-- Card 2 -->
+                <!-- Laundry Delivery -->
                 <a href="#" class="service-card-scrollable">
                     <div class="service-image">
                         <div class="service-overlay"></div>
-                        <img src="5.png" alt="Laundry Pickup">
+                        <img src="5.png" alt="Laundry Delivery">
                     </div>
                     <div class="service-content">
-                        <h3 class="service-name">Laundry Pickup</h3>
-                        <p class="service-description">We clean and deliver your laundry</p>
+                        <h3 class="service-name">Laundry Delivery</h3>
+                        <p class="service-description">We deliver your cleaned clothes</p>
                     </div>
                 </a>
                 
-                <!-- Card 3 - Additional -->
+                <!-- Gas Refill -->
                 <a href="#" class="service-card-scrollable">
                     <div class="service-image">
                         <div class="service-overlay"></div>
-                        <img src="1.png" alt="Gas Refill">
+                        <img src="3.png" alt="Gas Refill">
                     </div>
                     <div class="service-content">
                         <h3 class="service-name">Gas Refill</h3>
@@ -1053,39 +1376,15 @@
                     </div>
                 </a>
                 
-                <!-- Card 4 - Additional -->
+                <!-- Buy For Me -->
                 <a href="#" class="service-card-scrollable">
                     <div class="service-image">
                         <div class="service-overlay"></div>
-                        <img src="6.png" alt="Buy For Me">
+                        <img src="4.png" alt="Buy For Me">
                     </div>
                     <div class="service-content">
                         <h3 class="service-name">Buy For Me</h3>
                         <p class="service-description">We purchase and deliver items for you</p>
-                    </div>
-                </a>
-                
-                <!-- Card 5 - Additional -->
-                <a href="#" class="service-card-scrollable">
-                    <div class="service-image">
-                        <div class="service-overlay"></div>
-                        <img src="2.png" alt="Document Delivery">
-                    </div>
-                    <div class="service-content">
-                        <h3 class="service-name">Document Delivery</h3>
-                        <p class="service-description">Secure document delivery service</p>
-                    </div>
-                </a>
-                
-                <!-- Card 6 - Additional -->
-                <a href="#" class="service-card-scrollable">
-                    <div class="service-image">
-                        <div class="service-overlay"></div>
-                        <img src="5.png" alt="Food Delivery">
-                    </div>
-                    <div class="service-content">
-                        <h3 class="service-name">Food Delivery</h3>
-                        <p class="service-description">Hot meals from your favorite restaurants</p>
                     </div>
                 </a>
             </div>
@@ -1141,10 +1440,130 @@
         </a>
     </nav>
 
-    <!-- Professional Loader -->
+    <!-- Soft Transparent Loader -->
     <div class="loader" id="pageLoader">
         <div class="loader-spinner"></div>
         <p class="loader-text">Loading...</p>
+    </div>
+
+    <!-- Tracking Modal -->
+    <div class="tracking-modal" id="trackingModal">
+        <div class="tracking-modal-content">
+            <div class="tracking-modal-header">
+                <h2 class="tracking-modal-title">Track Your Errand</h2>
+                <button class="close-modal-btn" id="closeTrackingModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="tracking-modal-body">
+                <!-- Rider Info -->
+                <div class="rider-info">
+                    <div class="rider-image">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rider">
+                    </div>
+                    <div class="rider-details">
+                        <h3 id="riderName">Abdul Sani</h3>
+                        <p id="riderPhone">+234 812 345 6789</p>
+                        <div class="rider-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span style="margin-left: 5px; font-size: 14px;">4.5</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tracking Details -->
+                <div class="tracking-details-grid">
+                    <div class="tracking-detail-item">
+                        <h4>Pickup Location</h4>
+                        <p id="pickupLocation">Main Market, Gusau</p>
+                    </div>
+                    <div class="tracking-detail-item">
+                        <h4>Delivery Location</h4>
+                        <p id="deliveryLocation">Tudun Wada, Gusau</p>
+                    </div>
+                    <div class="tracking-detail-item">
+                        <h4>Contact Person</h4>
+                        <p id="contactPerson">Aisha Bello - +234 813 456 7890</p>
+                    </div>
+                    <div class="tracking-detail-item">
+                        <h4>Package Details</h4>
+                        <p id="packageDetails">Medium sized package (5kg)</p>
+                    </div>
+                </div>
+
+                <!-- Delivery Status -->
+                <div class="delivery-status">
+                    <div class="status-header">
+                        <h3 class="status-title">Delivery Status</h3>
+                        <span class="status-badge-large status-assigned" id="deliveryStatusBadge">
+                            Package Picked Up
+                        </span>
+                    </div>
+                    
+                    <div class="status-timeline" id="statusTimeline">
+                        <div class="status-step completed">
+                            <div class="status-step-icon">
+                                <i class="fas fa-clipboard-check"></i>
+                            </div>
+                            <div class="status-step-content">
+                                <div class="status-step-title">Order Confirmed</div>
+                                <div class="status-step-time">Today, 9:30 AM</div>
+                            </div>
+                        </div>
+                        
+                        <div class="status-step completed">
+                            <div class="status-step-icon">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                            <div class="status-step-content">
+                                <div class="status-step-title">Rider Assigned</div>
+                                <div class="status-step-time">Today, 9:45 AM</div>
+                            </div>
+                        </div>
+                        
+                        <div class="status-step active">
+                            <div class="status-step-icon">
+                                <i class="fas fa-box-open"></i>
+                            </div>
+                            <div class="status-step-content">
+                                <div class="status-step-title">Package Picked Up</div>
+                                <div class="status-step-time">Today, 10:15 AM</div>
+                            </div>
+                        </div>
+                        
+                        <div class="status-step">
+                            <div class="status-step-icon">
+                                <i class="fas fa-shipping-fast"></i>
+                            </div>
+                            <div class="status-step-content">
+                                <div class="status-step-title">In Transit</div>
+                                <div class="status-step-time">Estimated: 10:30 AM</div>
+                            </div>
+                        </div>
+                        
+                        <div class="status-step">
+                            <div class="status-step-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="status-step-content">
+                                <div class="status-step-title">Delivered</div>
+                                <div class="status-step-time">Estimated: 11:00 AM</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Call Rider Button -->
+                <button class="call-rider-btn" id="callRiderBtn">
+                    <i class="fas fa-phone"></i>
+                    Call Rider
+                </button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -1172,7 +1591,33 @@
             themeIconHeader.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
         });
         
-        // Loader Simulation
+        // Create sparkle particles
+        function createSparkles() {
+            const sparkleCount = 20;
+            for (let i = 0; i < sparkleCount; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                
+                // Random position
+                sparkle.style.left = `${Math.random() * 100}%`;
+                sparkle.style.top = `${Math.random() * 100}%`;
+                
+                // Random size
+                const size = Math.random() * 3 + 1;
+                sparkle.style.width = `${size}px`;
+                sparkle.style.height = `${size}px`;
+                
+                // Random opacity
+                sparkle.style.opacity = Math.random() * 0.1 + 0.05;
+                
+                // Random animation
+                sparkle.style.animation = `sparkle ${Math.random() * 3 + 2}s infinite alternate`;
+                
+                document.body.appendChild(sparkle);
+            }
+        }
+
+        // Soft Transparent Loader
         const pageLoader = document.getElementById('pageLoader');
         const navItems = document.querySelectorAll('.nav-item');
         const serviceCards = document.querySelectorAll('.service-card-scrollable');
@@ -1184,6 +1629,7 @@
             setTimeout(() => {
                 pageLoader.classList.remove('active');
             }, 800);
+            createSparkles();
         });
         
         // Navigation click handler
@@ -1195,7 +1641,7 @@
                 navItems.forEach(nav => nav.classList.remove('active'));
                 item.classList.add('active');
                 
-                // Show loader
+                // Show soft loader
                 pageLoader.classList.add('active');
                 
                 // Simulate page navigation
@@ -1216,7 +1662,7 @@
                 e.preventDefault();
                 const serviceName = card.querySelector('.service-name').textContent;
                 
-                // Show loader
+                // Show soft loader
                 pageLoader.classList.add('active');
                 
                 // Simulate service loading
@@ -1227,23 +1673,100 @@
             });
         });
         
+        // Tracking Modal
+        const trackingModal = document.getElementById('trackingModal');
+        const closeTrackingModal = document.getElementById('closeTrackingModal');
+        const callRiderBtn = document.getElementById('callRiderBtn');
+        
         // Track button click handler
         trackButtons.forEach(button => {
             button.addEventListener('click', () => {
-                // Show loader
-                pageLoader.classList.add('active');
+                const errandId = button.getAttribute('data-errand');
                 
-                // Simulate tracking page
-                setTimeout(() => {
-                    pageLoader.classList.remove('active');
-                    alert('Opening tracking page...');
-                }, 800);
+                // Set different data based on errand ID
+                switch(errandId) {
+                    case '1': // Package (A - B)
+                        document.getElementById('riderName').textContent = 'Abdul Sani';
+                        document.getElementById('riderPhone').textContent = '+234 812 345 6789';
+                        document.getElementById('pickupLocation').textContent = 'Main Market, Gusau';
+                        document.getElementById('deliveryLocation').textContent = 'Tudun Wada, Gusau';
+                        document.getElementById('contactPerson').textContent = 'Aisha Bello - +234 813 456 7890';
+                        document.getElementById('packageDetails').textContent = 'Medium sized package (5kg)';
+                        document.getElementById('deliveryStatusBadge').textContent = 'Package Picked Up';
+                        updateStatusTimeline('picked');
+                        break;
+                    case '2': // Laundry Delivery
+                        document.getElementById('riderName').textContent = 'Musa Ahmed';
+                        document.getElementById('riderPhone').textContent = '+234 814 567 8901';
+                        document.getElementById('pickupLocation').textContent = 'Cleaners Center, Gusau';
+                        document.getElementById('deliveryLocation').textContent = 'Home Address, Gusau';
+                        document.getElementById('contactPerson').textContent = 'Usman - +234 801 234 5678';
+                        document.getElementById('packageDetails').textContent = 'Laundry bag (3kg)';
+                        document.getElementById('deliveryStatusBadge').textContent = 'In Progress';
+                        updateStatusTimeline('in-progress');
+                        break;
+                    case '3': // Grocery Delivery
+                        document.getElementById('riderName').textContent = 'Ibrahim Yusuf';
+                        document.getElementById('riderPhone').textContent = '+234 815 678 9012';
+                        document.getElementById('pickupLocation').textContent = 'Market, Gusau';
+                        document.getElementById('deliveryLocation').textContent = 'Home Address, Gusau';
+                        document.getElementById('contactPerson').textContent = 'Usman - +234 801 234 5678';
+                        document.getElementById('packageDetails').textContent = 'Grocery items (8kg)';
+                        document.getElementById('deliveryStatusBadge').textContent = 'Pending Pickup';
+                        updateStatusTimeline('pending');
+                        break;
+                }
+                
+                // Show tracking modal
+                trackingModal.classList.add('active');
             });
         });
         
+        // Close tracking modal
+        closeTrackingModal.addEventListener('click', () => {
+            trackingModal.classList.remove('active');
+        });
+        
+        // Close modal when clicking outside
+        trackingModal.addEventListener('click', (e) => {
+            if (e.target === trackingModal) {
+                trackingModal.classList.remove('active');
+            }
+        });
+        
+        // Call rider button
+        callRiderBtn.addEventListener('click', () => {
+            const phoneNumber = document.getElementById('riderPhone').textContent;
+            alert(`Calling ${phoneNumber}...`);
+        });
+        
+        // Update status timeline based on status
+        function updateStatusTimeline(status) {
+            const steps = document.querySelectorAll('.status-step');
+            steps.forEach(step => step.classList.remove('active', 'completed'));
+            
+            switch(status) {
+                case 'pending':
+                    steps[0].classList.add('completed');
+                    steps[1].classList.add('active');
+                    break;
+                case 'picked':
+                    steps[0].classList.add('completed');
+                    steps[1].classList.add('completed');
+                    steps[2].classList.add('active');
+                    break;
+                case 'in-progress':
+                    steps[0].classList.add('completed');
+                    steps[1].classList.add('completed');
+                    steps[2].classList.add('completed');
+                    steps[3].classList.add('active');
+                    break;
+            }
+        }
+        
         // Create button handler
         createButton.addEventListener('click', () => {
-            // Show loader
+            // Show soft loader
             pageLoader.classList.add('active');
             
             // Simulate creating new errand
@@ -1256,7 +1779,7 @@
         // Change address button
         const changeAddressBtn = document.querySelector('.change-address-btn');
         changeAddressBtn.addEventListener('click', () => {
-            // Show loader
+            // Show soft loader
             pageLoader.classList.add('active');
             
             // Simulate address change
@@ -1272,7 +1795,7 @@
             button.addEventListener('click', (e) => {
                 e.preventDefault();
                 
-                // Show loader
+                // Show soft loader
                 pageLoader.classList.add('active');
                 
                 // Simulate loading all items
@@ -1286,7 +1809,7 @@
         // Promo button
         const promoButton = document.querySelector('.promo-button');
         promoButton.addEventListener('click', () => {
-            // Show loader
+            // Show soft loader
             pageLoader.classList.add('active');
             
             // Simulate promo page
@@ -1302,7 +1825,8 @@
             img.addEventListener('error', function() {
                 const parent = this.parentElement;
                 const serviceName = parent.parentElement.querySelector('.service-name')?.textContent || 
-                                   parent.parentElement.querySelector('.errand-name')?.textContent;
+                                   parent.parentElement.querySelector('.errand-name')?.textContent ||
+                                   parent.parentElement.querySelector('#riderName')?.textContent;
                 
                 // Create fallback icon based on service type
                 let iconClass = 'fas fa-box';
@@ -1313,8 +1837,9 @@
                 if (serviceName?.includes('Grocery')) iconClass = 'fas fa-shopping-basket';
                 if (serviceName?.includes('Gas')) iconClass = 'fas fa-fire';
                 if (serviceName?.includes('Buy')) iconClass = 'fas fa-shopping-cart';
-                if (serviceName?.includes('Document')) iconClass = 'fas fa-file-alt';
-                if (serviceName?.includes('Food')) iconClass = 'fas fa-utensils';
+                if (serviceName?.includes('Abdul') || serviceName?.includes('Musa') || serviceName?.includes('Ibrahim')) {
+                    iconClass = 'fas fa-user';
+                }
                 
                 // Replace image with icon
                 parent.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:rgba(92, 196, 126, 0.1);">
@@ -1332,13 +1857,12 @@
         
         // Scroll to right slightly on frequently used section
         window.addEventListener('load', () => {
-            const scrollableSection = document.querySelector('.scrollable-services');
-            if (scrollableSection) {
-                // Scroll a little to show it's scrollable
+            const scrollableSections = document.querySelectorAll('.scrollable-quick-order, .scrollable-services');
+            scrollableSections.forEach(section => {
                 setTimeout(() => {
-                    scrollableSection.scrollLeft = 20;
+                    section.scrollLeft = 20;
                 }, 1500);
-            }
+            });
         });
         
         // Simulate network status for loader
@@ -1358,6 +1882,16 @@
                 </div>
             `;
         });
+        
+        // Add CSS for sparkle animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sparkle {
+                0% { opacity: 0.2; transform: scale(1); }
+                100% { opacity: 0.3; transform: scale(1.5); }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
