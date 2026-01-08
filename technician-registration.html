@@ -76,9 +76,21 @@
 
         .container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1440px;
             margin: 0 auto;
             padding: 0 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 2rem;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .container {
+                padding: 0 4rem;
+            }
         }
 
         /* Header */
@@ -185,6 +197,67 @@
             margin-right: auto;
         }
 
+        /* Hero with Image Layout */
+        .hero-with-image {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            width: 100%;
+        }
+
+        @media (min-width: 992px) {
+            .hero-with-image {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                gap: 2rem;
+            }
+        }
+
+        .hero-text {
+            flex: 1;
+            text-align: left;
+        }
+
+        @media (max-width: 991px) {
+            .hero-text {
+                text-align: center;
+            }
+        }
+
+        .hero-image {
+            flex: 0 0 280px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media (max-width: 991px) {
+            .hero-image {
+                flex: 0 0 auto;
+                margin-top: 1rem;
+                order: -1;
+            }
+        }
+
+        .medium-technician-img {
+            width: 280px;
+            height: auto;
+            border-radius: 18px;
+            filter: drop-shadow(0 6px 15px rgba(0, 0, 0, 0.3));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
         /* Type Selection Cards */
         .type-selection-container {
             background-color: var(--card-bg);
@@ -220,7 +293,7 @@
             }
         }
 
-        /* Updated Type Cards with Enhanced Shadows */
+        /* Type Cards with Enhanced Shadows */
         .type-card {
             background-color: var(--light-bg);
             border-radius: var(--border-radius);
@@ -596,46 +669,113 @@
             width: auto;
         }
 
-        /* Skill Type Selection */
-        .skill-type-options {
+        /* Operating Areas Checkbox Grid */
+        .operating-areas-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 0.5rem;
-        }
-
-        .skill-type-option {
-            padding: 1rem;
-            border: 2px solid rgba(92, 196, 126, 0.3);
-            border-radius: var(--border-radius);
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .skill-type-option:hover {
-            border-color: var(--primary-green);
-            background-color: rgba(92, 196, 126, 0.1);
-        }
-
-        .skill-type-option.selected {
-            border-color: var(--primary-green);
-            background-color: rgba(92, 196, 126, 0.2);
-            font-weight: 600;
-        }
-
-        /* Service Areas */
-        .service-areas-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 0.8rem;
             margin-top: 0.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 1rem;
+            background-color: rgba(92, 196, 126, 0.05);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(92, 196, 126, 0.2);
         }
 
-        .service-area-checkbox {
+        .dark-mode .operating-areas-container {
+            background-color: rgba(163, 233, 176, 0.1);
+        }
+
+        .operating-area-checkbox {
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+
+        .operating-area-checkbox:hover {
+            background-color: rgba(92, 196, 126, 0.1);
+        }
+
+        .operating-area-checkbox input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary-green);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .operating-area-checkbox label {
+            cursor: pointer;
+            margin-bottom: 0;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        /* Custom Area Input */
+        .custom-area-input {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: rgba(92, 196, 126, 0.05);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(92, 196, 126, 0.2);
+        }
+
+        .custom-area-input .input-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .custom-area-input input {
+            flex: 1;
+        }
+
+        .custom-area-input .btn-add {
+            padding: 0.5rem 1rem;
+            background-color: var(--primary-green);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .custom-area-input .btn-add:hover {
+            background-color: var(--dark-green);
+        }
+
+        .custom-areas-list {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .custom-area-tag {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.4rem 0.8rem;
+            background-color: rgba(92, 196, 126, 0.2);
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .custom-area-tag .remove-tag {
+            background: none;
+            border: none;
+            color: #ff4757;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
         }
 
         /* Form Navigation */
@@ -741,10 +881,54 @@
             line-height: 1.6;
         }
 
-        /* Footer */
+        /* Loader Styles */
+       /* Loader Styles - FIXED */
+.loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    display: none;
+}
+
+.loader-overlay > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--primary-green);
+    animation: spin 1s ease-in-out infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loader-content {
+    text-align: center;
+    color: white;
+}
+
+        /* Enhanced Footer Styles - EXACT SAME AS RIDERS REGISTRATION */
         footer {
             background-color: var(--light-bg);
-            padding: 3rem 0 2rem;
+            padding: 4rem 0 2rem;
             border-top: 1px solid rgba(92, 196, 126, 0.2);
             margin-top: 2rem;
         }
@@ -752,7 +936,7 @@
         .footer-container {
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 3rem;
         }
 
         @media (min-width: 768px) {
@@ -782,11 +966,14 @@
             opacity: 0.7;
             font-size: 0.9rem;
             margin-bottom: 1.5rem;
+            line-height: 1.6;
         }
 
         .footer-social {
             display: flex;
-            gap: 1rem;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
         }
 
         .social-icon {
@@ -810,6 +997,51 @@
             color: white;
         }
 
+        .payment-icons {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .payment-icon {
+            height: 25px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 4px;
+            background-color: var(--card-bg);
+            padding: 5px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        @media (min-width: 768px) {
+            .payment-icon {
+                height: 30px;
+            }
+        }
+
+        .app-stores {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .app-store {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .app-store:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
         .footer-links {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -819,7 +1051,7 @@
 
         @media (min-width: 768px) {
             .footer-links {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(4, 1fr);
             }
         }
 
@@ -839,18 +1071,20 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            font-size: 0.9rem;
         }
 
         .footer-column li i {
             color: var(--primary-green);
             font-size: 0.9rem;
             width: 20px;
+            flex-shrink: 0;
         }
 
         .footer-column a {
             color: var(--text-dark);
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             opacity: 0.8;
             transition: var(--transition);
         }
@@ -858,6 +1092,13 @@
         .footer-column a:hover {
             opacity: 1;
             color: var(--primary-green);
+            text-decoration: underline;
+        }
+
+        .footer-column span {
+            color: var(--text-dark);
+            opacity: 0.8;
+            font-size: 0.9rem;
         }
 
         .footer-bottom {
@@ -867,7 +1108,42 @@
             border-top: 1px solid rgba(92, 196, 126, 0.2);
             color: var(--text-dark);
             opacity: 0.7;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+        }
+
+        .footer-bottom-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .footer-bottom-content {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-bottom-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .footer-bottom-links a:hover {
+            opacity: 1;
+            color: var(--primary-green);
+            text-decoration: underline;
         }
 
         /* Responsive Adjustments */
@@ -878,6 +1154,14 @@
             
             .hero-subtitle {
                 font-size: 1rem;
+            }
+            
+            .medium-technician-img {
+                width: 220px;
+            }
+            
+            .hero-image {
+                flex: 0 0 220px;
             }
             
             .type-selection-container {
@@ -912,18 +1196,32 @@
                 width: 100%;
             }
             
-            .skill-type-options {
-                grid-template-columns: 1fr;
+            .operating-areas-container {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                max-height: 250px;
             }
             
-            .service-areas-container {
-                grid-template-columns: repeat(2, 1fr);
+            .operating-area-checkbox input[type="checkbox"] {
+                width: 22px;
+                height: 22px;
+            }
+            
+            .operating-area-checkbox label {
+                font-size: 0.95rem;
             }
         }
 
         @media (max-width: 480px) {
             .hero-title {
                 font-size: 1.8rem;
+            }
+            
+            .medium-technician-img {
+                width: 180px;
+            }
+            
+            .hero-image {
+                flex: 0 0 180px;
             }
             
             .registration-container {
@@ -952,13 +1250,51 @@
                 font-size: 1.2rem;
             }
             
-            .service-areas-container {
+            .operating-areas-container {
                 grid-template-columns: 1fr;
+                max-height: 200px;
+            }
+            
+            .operating-area-checkbox input[type="checkbox"] {
+                width: 24px;
+                height: 24px;
+            }
+            
+            .operating-area-checkbox {
+                padding: 0.6rem;
+            }
+            
+            .custom-area-input .input-group {
+                flex-direction: column;
+            }
+            
+            .custom-area-input .btn-add {
+                width: 100%;
+            }
+        }
+
+        /* Special adjustment for checkbox size on mobile */
+        @media (max-width: 768px) {
+            .checkbox-item input[type="checkbox"],
+            .radio-item input[type="radio"] {
+                width: 20px;
+                height: 20px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Loader Overlay -->
+    <div class="loader-overlay" id="loaderOverlay">
+        <div>
+            <div class="loader"></div>
+            <div class="loader-content">
+                <h3>Submitting Application...</h3>
+                <p>Please wait while we process your registration</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
     <header>
         <div class="container header-container">
@@ -979,11 +1315,13 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-with-image">
+                    
+                    
                     <div class="hero-text">
-                        <h1 class="hero-title">Join Our Network of Technicians</h1>
+                        <h1 class="hero-title">Join Our Team of Technicians</h1>
                         <p class="hero-subtitle">
-                            Connect with customers needing skilled technical services. 
-                            Join thousands of trusted technicians on Errand X platform.
+                            Earn flexible income by providing technical services in your area. 
+                            Join skilled technicians who trust Errand X for reliable income opportunities.
                         </p>
                         
                         <!-- Type Selection Cards -->
@@ -992,10 +1330,10 @@
                             <div class="type-selection">
                                 <div class="type-card" id="individualCard" data-type="individual">
                                     <div class="type-icon">
-                                        <i class="fas fa-user-cog"></i>
+                                        <i class="fas fa-user"></i>
                                     </div>
                                     <h3>Individual Technician</h3>
-                                    <p>Register as an individual technician using your personal information and skills</p>
+                                    <p>Register as an individual technician using your personal information</p>
                                 </div>
                                 
                                 <div class="type-card" id="companyCard" data-type="company">
@@ -1013,8 +1351,9 @@
         </div>
     </section>
 
+    <!-- Registration Container - Initially Hidden -->
     <div class="container">
-        <!-- Individual Technician Registration Form -->
+        <!-- Individual Registration Form -->
         <div id="individualForm" class="registration-container">
             <!-- Steps Navigation -->
             <div class="steps-navigation">
@@ -1028,7 +1367,7 @@
                 </div>
                 <div class="step-item" data-step="3">
                     <div class="step-circle">3</div>
-                    <span class="step-title">Skills & Experience</span>
+                    <span class="step-title">Work Details</span>
                 </div>
                 <div class="step-item" data-step="4">
                     <div class="step-circle">4</div>
@@ -1117,15 +1456,65 @@
                             </select>
                         </div>
                         
+                        <!-- ADDED: State and City Selection -->
+                        <div class="form-group">
+                            <label for="state" class="required">State</label>
+                            <select id="state" class="form-control" required>
+                                <option value="">Select State</option>
+                                <option value="abia">Abia</option>
+                                <option value="adamawa">Adamawa</option>
+                                <option value="akwa-ibom">Akwa Ibom</option>
+                                <option value="anambra">Anambra</option>
+                                <option value="bauchi">Bauchi</option>
+                                <option value="bayelsa">Bayelsa</option>
+                                <option value="benue">Benue</option>
+                                <option value="borno">Borno</option>
+                                <option value="cross-river">Cross River</option>
+                                <option value="delta">Delta</option>
+                                <option value="ebonyi">Ebonyi</option>
+                                <option value="edo">Edo</option>
+                                <option value="ekiti">Ekiti</option>
+                                <option value="enugu">Enugu</option>
+                                <option value="gombe">Gombe</option>
+                                <option value="imo">Imo</option>
+                                <option value="jigawa">Jigawa</option>
+                                <option value="kaduna">Kaduna</option>
+                                <option value="kano">Kano</option>
+                                <option value="katsina">Katsina</option>
+                                <option value="kebbi">Kebbi</option>
+                                <option value="kogi">Kogi</option>
+                                <option value="kwara">Kwara</option>
+                                <option value="lagos">Lagos</option>
+                                <option value="nasarawa">Nasarawa</option>
+                                <option value="niger">Niger</option>
+                                <option value="ogun">Ogun</option>
+                                <option value="ondo">Ondo</option>
+                                <option value="osun">Osun</option>
+                                <option value="oyo">Oyo</option>
+                                <option value="plateau">Plateau</option>
+                                <option value="rivers">Rivers</option>
+                                <option value="sokoto">Sokoto</option>
+                                <option value="taraba">Taraba</option>
+                                <option value="yobe">Yobe</option>
+                                <option value="zamfara">Zamfara</option>
+                                <option value="fct">FCT, Abuja</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="city" class="required">City/Town</label>
+                            <input type="text" id="city" class="form-control" placeholder="Enter your city/town" required>
+                        </div>
+                        
                         <div class="form-group full-width">
                             <label for="address" class="required">Home Address</label>
                             <textarea id="address" class="form-control" rows="3" placeholder="Enter your full address" required></textarea>
                         </div>
                         
                         <div class="form-group full-width">
-                            <label for="passportPhoto" class="required">Upload Passport Photo (clear face)</label>
+                            <label for="passportPhoto" class="required">Upload Passport Photo</label>
                             <div class="file-upload">
-                                <input type="file" id="passportPhoto" class="file-upload-input" accept="image/*" required>
+                                <input type="file" id="passportPhoto" class="file-upload-input" accept="image/*" required onchange="validateFileSize(this, 5)">
                                 <label for="passportPhoto" class="file-upload-label">
                                     <i class="fas fa-camera"></i>
                                     <span>Click to upload passport photo</span>
@@ -1137,95 +1526,192 @@
                     </div>
                 </div>
 
-                <!-- Step 3: Skill & Experience -->
+                <!-- Step 3: Technician Work Details - UPDATED -->
                 <div class="form-step" data-step="3">
                     <div class="step-header">
-                        <h2 class="step-title-main">Skill & Experience</h2>
-                        <p class="step-subtitle">Information about your technical skills</p>
+                        <h2 class="step-title-main">Technician Work Details</h2>
+                        <p class="step-subtitle">Information about your skills and availability</p>
                     </div>
 
                     <div class="form-grid">
-                        <div class="form-group full-width">
-                            <label for="skillType" class="required">Skill Type</label>
-                            <div class="skill-type-options">
-                                <div class="skill-type-option" data-value="electrician">Electrician</div>
-                                <div class="skill-type-option" data-value="plumber">Plumber</div>
-                                <div class="skill-type-option" data-value="generator-repair">Generator Repair</div>
-                                <div class="skill-type-option" data-value="carpenter">Carpenter</div>
-                                <div class="skill-type-option" data-value="ac-repair">AC Repair</div>
-                                <div class="skill-type-option" data-value="painter">Painter</div>
-                                <div class="skill-type-option" data-value="welder">Welder</div>
-                                <div class="skill-type-option" data-value="other">Other</div>
-                            </div>
-                            <input type="hidden" id="skillType" required>
-                            <div id="otherSkillContainer" style="display: none; margin-top: 1rem;">
-                                <label for="otherSkill">Specify Other Skill</label>
-                                <input type="text" id="otherSkill" class="form-control" placeholder="Enter your skill">
-                            </div>
+                        <div class="form-group">
+                            <label for="specialization" class="required">Primary Specialization</label>
+                            <select id="specialization" class="form-control" required>
+                                <option value="">Select specialization</option>
+                                <option value="electrician">Electrician</option>
+                                <option value="plumber">Plumber</option>
+                                <option value="carpenter">Carpenter</option>
+                                <option value="painter">Painter</option>
+                                <option value="ac-technician">AC Technician</option>
+                                <option value="generator-technician">Generator Technician</option>
+                                <option value="electronics-repair">Electronics Repair</option>
+                                <option value="computer-repair">Computer Repair</option>
+                                <option value="phone-repair">Phone Repair</option>
+                                <option value="welder">Welder</option>
+                                <option value="mechanic">Mechanic</option>
+                                <option value="other">Other</option>
+                            </select>
                         </div>
                         
                         <div class="form-group">
                             <label for="yearsExperience" class="required">Years of Experience</label>
                             <select id="yearsExperience" class="form-control" required>
                                 <option value="">Select years</option>
-                                <option value="0-1">0-1 year</option>
-                                <option value="1-3">1-3 years</option>
+                                <option value="less-than-1">Less than 1 year</option>
+                                <option value="1-2">1-2 years</option>
                                 <option value="3-5">3-5 years</option>
-                                <option value="5-10">5-10 years</option>
+                                <option value="6-10">6-10 years</option>
                                 <option value="10+">10+ years</option>
                             </select>
                         </div>
                         
                         <div class="form-group">
-                            <label for="toolsAvailable" class="required">Tools Available?</label>
-                            <select id="toolsAvailable" class="form-control" required>
+                            <label for="certification">Professional Certification (Optional)</label>
+                            <input type="text" id="certification" class="form-control" placeholder="e.g., COREN, NIEEE">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="toolsOwned">Do you own your tools?</label>
+                            <select id="toolsOwned" class="form-control">
                                 <option value="">Select option</option>
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
+                                <option value="yes">Yes, I have all tools</option>
+                                <option value="some">I have some tools</option>
+                                <option value="no">No, I need tools</option>
                             </select>
                         </div>
                         
+                        <!-- ADDED: Operating Areas Section - ONLY FOR INDIVIDUAL -->
                         <div class="form-group full-width">
-                            <label for="serviceAreas" class="required">Service Areas (zones)</label>
-                            <div class="service-areas-container">
-                                <div class="service-area-checkbox">
-                                    <input type="checkbox" id="zone1" value="Lagos Mainland">
-                                    <label for="zone1">Lagos Mainland</label>
+                            <label for="operatingAreas" class="required">Operating Areas (Select zones)</label>
+                            <p style="margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-dark); opacity: 0.8;">Select areas where you can provide services:</p>
+                            
+                            <div class="operating-areas-container" id="operatingAreasContainer">
+                                <!-- Predefined areas for Gusau, Zamfara -->
+                                <div class="operating-area-checkbox">
+                                    <input type="checkbox" id="area1" name="operatingArea" value="Tudun Wada">
+                                    <label for="area1">Tudun Wada</label>
                                 </div>
-                                <div class="service-area-checkbox">
-                                    <input type="checkbox" id="zone2" value="Lagos Island">
-                                    <label for="zone2">Lagos Island</label>
+                                <div class="operating-area-checkbox">
+                                    <input type="checkbox" id="area2" name="operatingArea" value="Samaru">
+                                    <label for="area2">Samaru</label>
                                 </div>
-                                <div class="service-area-checkbox">
-                                    <input type="checkbox" id="zone3" value="Ikeja">
-                                    <label for="zone3">Ikeja</label>
+                                <div class="operating-area-checkbox">
+                                    <input type="checkbox" id="area3" name="operatingArea" value="Damba">
+                                    <label for="area3">Damba</label>
                                 </div>
-                                <div class="service-area-checkbox">
-                                    <input type="checkbox" id="zone4" value="Lekki">
-                                    <label for="zone4">Lekki</label>
+                                <div class="operating-area-checkbox">
+                                    <input type="checkbox" id="area4" name="operatingArea" value="Unguwar Dallatu">
+                                    <label for="area4">Unguwar Dallatu</label>
                                 </div>
-                                <div class="service-area-checkbox">
-                                    <input type="checkbox" id="zone5" value="Victoria Island">
-                                    <label for="zone5">Victoria Island</label>
+                                <div class="operating-area-checkbox">
+                                    <input type="checkbox" id="area5" name="operatingArea" value="Unguwar Mayana">
+                                    <label for="area5">Unguwar Mayana</label>
                                 </div>
-                                <div class="service-area-checkbox">
-                                    <input type="checkbox" id="zone6" value="Ajah">
-                                    <label for="zone6">Ajah</label>
+                                <div class="operating-area-checkbox">
+                                    <input type="checkbox" id="area6" name="operatingArea" value="Unguwar Rogo">
+                                    <label for="area6">Unguwar Rogo</label>
                                 </div>
-                                <div class="service-area-checkbox">
-                                    <input type="checkbox" id="zone7" value="Surulere">
-                                    <label for="zone7">Surulere</label>
+                                <div class="operating-area-checkbox">
+                                    <input type="checkbox" id="area7" name="operatingArea" value="Unguwar Jangebe">
+                                    <label for="area7">Unguwar Jangebe</label>
                                 </div>
-                                <div class="service-area-checkbox">
-                                    <input type="checkbox" id="zone8" value="Yaba">
-                                    <label for="zone8">Yaba</label>
+                                <div class="operating-area-checkbox">
+                                    <input type="checkbox" id="area8" name="operatingArea" value="Sabon Gari">
+                                    <label for="area8">Sabon Gari</label>
+                                </div>
+                                <div class="operating-area-checkbox">
+                                    <input type="checkbox" id="area9" name="operatingArea" value="Kanwuri">
+                                    <label for="area9">Kanwuri</label>
+                                </div>
+                                <div class="operating-area-checkbox">
+                                    <input type="checkbox" id="area10" name="operatingArea" value="Barakallahu">
+                                    <label for="area10">Barakallahu</label>
+                                </div>
+                                <div class="operating-area-checkbox">
+                                    <input type="checkbox" id="area11" name="operatingArea" value="Galadima">
+                                    <label for="area11">Galadima</label>
+                                </div>
+                                <div class="operating-area-checkbox">
+                                    <input type="checkbox" id="area12" name="operatingArea" value="Madawaki">
+                                    <label for="area12">Madawaki</label>
+                                </div>
+                                <div class="operating-area-checkbox">
+                                    <input type="checkbox" id="area13" name="operatingArea" value="Sarkin Pawa Area">
+                                    <label for="area13">Sarkin Pawa Area</label>
+                                </div>
+                                <div class="operating-area-checkbox">
+                                    <input type="checkbox" id="area14" name="operatingArea" value="Old Market Area">
+                                    <label for="area14">Old Market Area</label>
+                                </div>
+                                <div class="operating-area-checkbox">
+                                    <input type="checkbox" id="area15" name="operatingArea" value="New Market Area">
+                                    <label for="area15">New Market Area</label>
+                                </div>
+                                <div class="operating-area-checkbox">
+                                    <input type="checkbox" id="area16" name="operatingArea" value="Tudun Kuka">
+                                    <label for="area16">Tudun Kuka</label>
+                                </div>
+                                <div class="operating-area-checkbox">
+                                    <input type="checkbox" id="area17" name="operatingArea" value="Yarima Area">
+                                    <label for="area17">Yarima Area</label>
+                                </div>
+                                <div class="operating-area-checkbox">
+                                    <input type="checkbox" id="area18" name="operatingArea" value="Federal Low Cost">
+                                    <label for="area18">Federal Low Cost</label>
+                                </div>
+                                <div class="operating-area-checkbox">
+                                    <input type="checkbox" id="area19" name="operatingArea" value="High Court Area">
+                                    <label for="area19">High Court Area</label>
+                                </div>
+                                <div class="operating-area-checkbox">
+                                    <input type="checkbox" id="area20" name="operatingArea" value="Bye-pass Area">
+                                    <label for="area20">Bye-pass Area</label>
+                                </div>
+                                <div class="operating-area-checkbox">
+                                    <input type="checkbox" id="area21" name="operatingArea" value="Zaria Road Axis">
+                                    <label for="area21">Zaria Road Axis</label>
+                                </div>
+                                <div class="operating-area-checkbox">
+                                    <input type="checkbox" id="area22" name="operatingArea" value="Sokoto Road Axis">
+                                    <label for="area22">Sokoto Road Axis</label>
                                 </div>
                             </div>
+                            
+                            <!-- Custom Area Input -->
+                            <div class="custom-area-input">
+                                <p style="margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-dark);">Add other areas not listed above:</p>
+                                <div class="input-group">
+                                    <input type="text" id="customAreaInput" class="form-control" placeholder="Enter area name">
+                                    <button type="button" class="btn-add" id="addCustomAreaBtn">
+                                        <i class="fas fa-plus"></i> Add
+                                    </button>
+                                </div>
+                                <div id="customAreasList" class="custom-areas-list"></div>
+                            </div>
+                            
+                            <input type="hidden" id="operatingAreas" name="operatingAreas" required>
                         </div>
                         
                         <div class="form-group full-width">
-                            <label for="experienceDescription">Short Experience Description (Optional)</label>
-                            <textarea id="experienceDescription" class="form-control" rows="3" placeholder="Briefly describe your experience and expertise"></textarea>
+                            <label class="required">Availability (Select one or more)</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="morning" name="availability" value="morning">
+                                    <label for="morning">Morning (6am - 12pm)</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="afternoon" name="availability" value="afternoon">
+                                    <label for="afternoon">Afternoon (12pm - 6pm)</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="evening" name="availability" value="evening">
+                                    <label for="evening">Evening (6pm - 12am)</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="fullDay" name="availability" value="fullDay">
+                                    <label for="fullDay">Full Day (24/7)</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1242,11 +1728,11 @@
                             <label for="governmentId" class="required">Government ID Upload</label>
                             <small style="display: block; margin-bottom: 0.5rem; color: var(--text-dark); opacity: 0.7;">NIN Slip / Voter's Card / Driver's License</small>
                             <div class="file-upload">
-                                <input type="file" id="governmentId" class="file-upload-input" accept="image/*,.pdf" required>
+                                <input type="file" id="governmentId" class="file-upload-input" accept="image/*,.pdf" required onchange="validateFileSize(this, 5)">
                                 <label for="governmentId" class="file-upload-label">
                                     <i class="fas fa-id-card"></i>
                                     <span>Upload Government ID</span>
-                                    <small style="display: block; margin-top: 0.5rem; opacity: 0.7;">PDF or image, max 10MB</small>
+                                    <small style="display: block; margin-top: 0.5rem; opacity: 0.7;">PDF or image, max 5MB</small>
                                 </label>
                             </div>
                             <div id="idPreview" class="file-preview"></div>
@@ -1255,7 +1741,7 @@
                         <div class="form-group full-width">
                             <label for="selfieWithId" class="required">Selfie Holding ID</label>
                             <div class="file-upload">
-                                <input type="file" id="selfieWithId" class="file-upload-input" accept="image/*" required>
+                                <input type="file" id="selfieWithId" class="file-upload-input" accept="image/*" required onchange="validateFileSize(this, 5)">
                                 <label for="selfieWithId" class="file-upload-label">
                                     <i class="fas fa-user-check"></i>
                                     <span>Upload Selfie with ID</span>
@@ -1266,39 +1752,13 @@
                         </div>
                         
                         <div class="form-group full-width">
-                            <label for="proofOfAddress">Proof of Address (Optional)</label>
+                            <label for="certificateFile">Professional Certificate (Optional)</label>
                             <div class="file-upload">
-                                <input type="file" id="proofOfAddress" class="file-upload-input" accept="image/*,.pdf">
-                                <label for="proofOfAddress" class="file-upload-label">
-                                    <i class="fas fa-file-invoice"></i>
-                                    <span>Upload Proof of Address</span>
-                                    <small style="display: block; margin-top: 0.5rem; opacity: 0.7;">Utility bill, bank statement, etc.</small>
-                                </label>
-                            </div>
-                            <div id="addressProofPreview" class="file-preview"></div>
-                        </div>
-                        
-                        <div class="form-group full-width">
-                            <label for="workPhotos">Upload Work Photos (Optional)</label>
-                            <div class="file-upload">
-                                <input type="file" id="workPhotos" class="file-upload-input" accept="image/*" multiple>
-                                <label for="workPhotos" class="file-upload-label">
-                                    <i class="fas fa-images"></i>
-                                    <span>Upload Work Photos</span>
-                                    <small style="display: block; margin-top: 0.5rem; opacity: 0.7;">Photos of your previous work, max 5MB each</small>
-                                </label>
-                            </div>
-                            <div id="workPhotosPreview" class="file-preview"></div>
-                        </div>
-                        
-                        <div class="form-group full-width">
-                            <label for="certificateUpload">Certificate Upload (Optional)</label>
-                            <div class="file-upload">
-                                <input type="file" id="certificateUpload" class="file-upload-input" accept="image/*,.pdf">
-                                <label for="certificateUpload" class="file-upload-label">
+                                <input type="file" id="certificateFile" class="file-upload-input" accept="image/*,.pdf" onchange="validateFileSize(this, 5)">
+                                <label for="certificateFile" class="file-upload-label">
                                     <i class="fas fa-certificate"></i>
-                                    <span>Upload Certificate</span>
-                                    <small style="display: block; margin-top: 0.5rem; opacity: 0.7;">Professional certifications, max 10MB</small>
+                                    <span>Upload Professional Certificate</span>
+                                    <small style="display: block; margin-top: 0.5rem; opacity: 0.7;">PDF or image, max 5MB</small>
                                 </label>
                             </div>
                             <div id="certificatePreview" class="file-preview"></div>
@@ -1394,7 +1854,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="companyPhone" class="required">Phone Number (Primary)</label>
+                            <label for="companyPhone" class="required">Phone Number</label>
                             <div class="phone-input-group">
                                 <div class="phone-prefix">+234</div>
                                 <div class="phone-input">
@@ -1405,7 +1865,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="companyPhoneOptional">Phone Number (Optional)</label>
+                            <label for="companyPhoneOptional">Secondary Phone Number (Optional)</label>
                             <div class="phone-input-group">
                                 <div class="phone-prefix">+234</div>
                                 <div class="phone-input">
@@ -1431,7 +1891,7 @@
                     </div>
                 </div>
 
-                <!-- Step 2: Company Information -->
+                <!-- Step 2: Company Information - UPDATED (REMOVED OPERATING AREAS) -->
                 <div class="form-step" data-step="2">
                     <div class="step-header">
                         <h2 class="step-title-main">Company Information</h2>
@@ -1439,6 +1899,56 @@
                     </div>
 
                     <div class="form-grid">
+                        <!-- State and City Selection -->
+                        <div class="form-group">
+                            <label for="companyState" class="required">State</label>
+                            <select id="companyState" class="form-control" required>
+                                <option value="">Select State</option>
+                                <option value="abia">Abia</option>
+                                <option value="adamawa">Adamawa</option>
+                                <option value="akwa-ibom">Akwa Ibom</option>
+                                <option value="anambra">Anambra</option>
+                                <option value="bauchi">Bauchi</option>
+                                <option value="bayelsa">Bayelsa</option>
+                                <option value="benue">Benue</option>
+                                <option value="borno">Borno</option>
+                                <option value="cross-river">Cross River</option>
+                                <option value="delta">Delta</option>
+                                <option value="ebonyi">Ebonyi</option>
+                                <option value="edo">Edo</option>
+                                <option value="ekiti">Ekiti</option>
+                                <option value="enugu">Enugu</option>
+                                <option value="gombe">Gombe</option>
+                                <option value="imo">Imo</option>
+                                <option value="jigawa">Jigawa</option>
+                                <option value="kaduna">Kaduna</option>
+                                <option value="kano">Kano</option>
+                                <option value="katsina">Katsina</option>
+                                <option value="kebbi">Kebbi</option>
+                                <option value="kogi">Kogi</option>
+                                <option value="kwara">Kwara</option>
+                                <option value="lagos">Lagos</option>
+                                <option value="nasarawa">Nasarawa</option>
+                                <option value="niger">Niger</option>
+                                <option value="ogun">Ogun</option>
+                                <option value="ondo">Ondo</option>
+                                <option value="osun">Osun</option>
+                                <option value="oyo">Oyo</option>
+                                <option value="plateau">Plateau</option>
+                                <option value="rivers">Rivers</option>
+                                <option value="sokoto">Sokoto</option>
+                                <option value="taraba">Taraba</option>
+                                <option value="yobe">Yobe</option>
+                                <option value="zamfara">Zamfara</option>
+                                <option value="fct">FCT, Abuja</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="companyCity" class="required">City/Town</label>
+                            <input type="text" id="companyCity" class="form-control" placeholder="Enter company city/town" required>
+                        </div>
+                        
                         <div class="form-group full-width">
                             <label for="officeAddress" class="required">Office Address</label>
                             <textarea id="officeAddress" class="form-control" rows="3" placeholder="Enter company address" required></textarea>
@@ -1457,14 +1967,14 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="numEmployees" class="required">Number of Employees</label>
-                            <select id="numEmployees" class="form-control" required>
+                            <label for="numTechnicians" class="required">Number of Technicians</label>
+                            <select id="numTechnicians" class="form-control" required>
                                 <option value="">Select range</option>
-                                <option value="1-5">1-5 employees</option>
-                                <option value="6-10">6-10 employees</option>
-                                <option value="11-20">11-20 employees</option>
-                                <option value="21-50">21-50 employees</option>
-                                <option value="51+">51+ employees</option>
+                                <option value="1-5">1-5 technicians</option>
+                                <option value="6-10">6-10 technicians</option>
+                                <option value="11-20">11-20 technicians</option>
+                                <option value="21-50">21-50 technicians</option>
+                                <option value="51+">51+ technicians</option>
                             </select>
                         </div>
                         
@@ -1476,11 +1986,11 @@
                         <div class="form-group full-width">
                             <label for="cacCertificate">Upload CAC Certificate (Optional)</label>
                             <div class="file-upload">
-                                <input type="file" id="cacCertificate" class="file-upload-input" accept="image/*,.pdf">
+                                <input type="file" id="cacCertificate" class="file-upload-input" accept="image/*,.pdf" onchange="validateFileSize(this, 5)">
                                 <label for="cacCertificate" class="file-upload-label">
                                     <i class="fas fa-file-certificate"></i>
                                     <span>Upload CAC Certificate</span>
-                                    <small style="display: block; margin-top: 0.5rem; opacity: 0.7;">PDF or image, max 10MB</small>
+                                    <small style="display: block; margin-top: 0.5rem; opacity: 0.7;">PDF or image, max 5MB</small>
                                 </label>
                             </div>
                             <div id="cacPreview" class="file-preview"></div>
@@ -1499,7 +2009,7 @@
                         <div class="form-group full-width">
                             <label for="companyGovernmentId" class="required">Government ID of Contact Person</label>
                             <div class="file-upload">
-                                <input type="file" id="companyGovernmentId" class="file-upload-input" accept="image/*,.pdf" required>
+                                <input type="file" id="companyGovernmentId" class="file-upload-input" accept="image/*,.pdf" required onchange="validateFileSize(this, 5)">
                                 <label for="companyGovernmentId" class="file-upload-label">
                                     <i class="fas fa-id-card"></i>
                                     <span>Upload Government ID</span>
@@ -1512,7 +2022,7 @@
                         <div class="form-group full-width">
                             <label for="companySelfieWithId" class="required">Selfie with ID</label>
                             <div class="file-upload">
-                                <input type="file" id="companySelfieWithId" class="file-upload-input" accept="image/*" required>
+                                <input type="file" id="companySelfieWithId" class="file-upload-input" accept="image/*" required onchange="validateFileSize(this, 5)">
                                 <label for="companySelfieWithId" class="file-upload-label">
                                     <i class="fas fa-user-check"></i>
                                     <span>Upload Selfie with ID</span>
@@ -1591,14 +2101,14 @@
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- EXACT SAME FOOTER AS RIDERS-REGISTRATION.HTML -->
     <footer>
         <div class="container">
             <div class="footer-container">
                 <div class="footer-info">
                     <img src="logo.png" alt="Errand X" class="footer-logo">
                     <p class="footer-copyright">
-                        Errand X connects skilled technicians with customers needing technical services. Available 24/7.
+                        Errand X provides fast and reliable delivery services. Available 24/7.
                     </p>
                     
                     <div class="footer-social">
@@ -1611,6 +2121,26 @@
                         <a href="#" class="social-icon">
                             <i class="fab fa-whatsapp"></i>
                         </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="app-stores">
+                        <img src="playstore.png" alt="Google Play" class="app-store">
+                        <img src="appstore.png" alt="App Store" class="app-store">
+                    </div>
+                    
+                    <div class="payment-icons">
+                        <img src="paystack.png" alt="Paystack" class="payment-icon">
+                        <img src="flutterwave.png" alt="Flutterwave" class="payment-icon">
+                        <img src="remita.png" alt="Remita" class="payment-icon">
+                        <img src="mastercard.png" alt="Mastercard" class="payment-icon">
+                        <img src="visa.png" alt="Visa" class="payment-icon">
+                        <img src="verve.png" alt="Verve" class="payment-icon">
                     </div>
                 </div>
                 
@@ -1618,36 +2148,56 @@
                     <div class="footer-column">
                         <h4>Company</h4>
                         <ul>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Careers</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li><a href="index.html#about">About Us</a></li>
+                            <li><a href="index.html#careers">Careers</a></li>
+                            <li><a href="index.html#contact">Contact</a></li>
+                            <li><a href="index.html#blog">Blog</a></li>
+                            <li><a href="index.html#press">Press</a></li>
                         </ul>
                     </div>
                     
                     <div class="footer-column">
                         <h4>Services</h4>
                         <ul>
-                            <li><a href="#">Electrician</a></li>
-                            <li><a href="#">Plumber</a></li>
-                            <li><a href="#">Generator Repair</a></li>
-                            <li><a href="#">Carpenter</a></li>
+                            <li><a href="index.html#delivery">Delivery</a></li>
+                            <li><a href="index.html#errands">Errands</a></li>
+                            <li><a href="index.html#home-services">Home Services</a></li>
+                            <li><a href="index.html#gas-refill">Gas Refill</a></li>
+                            <li><a href="index.html#laundry">Laundry</a></li>
+                            <li><a href="index.html#technicians">Technicians</a></li>
                         </ul>
                     </div>
                     
                     <div class="footer-column">
                         <h4>Support</h4>
                         <ul>
-                            <li><a href="#">Help Center</a></li>
-                            <li><a href="#">Safety</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Terms</a></li>
+                            <li><a href="index.html#help">Help Center</a></li>
+                            <li><a href="index.html#safety">Safety</a></li>
+                            <li><a href="index.html#faq">FAQ</a></li>
+                            <li><a href="index.html#privacy">Privacy Policy</a></li>
+                            <li><a href="index.html#terms">Terms of Service</a></li>
+                            <li><a href="index.html#cookies">Cookie Policy</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Contact Info</h4>
+                        <ul>
+                            <li><i class="fas fa-envelope"></i><a href="mailto:support@errandx.com">support@errandx.com</a></li>
+                            <li><i class="fas fa-phone"></i><a href="tel:+2348001234567">+234 800 123 4567</a></li>
+                            <li><i class="fas fa-phone"></i><a href="tel:+2349009876543">+234 900 987 6543</a></li>
+                            <li><i class="fas fa-map-marker-alt"></i><span>123 Business District, Lagos, Nigeria</span></li>
+                            <li><i class="fas fa-clock"></i><span>24/7 Customer Support</span></li>
                         </ul>
                     </div>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                © 2026 ErrandX. Powered by Tanumart.
+                <div class="footer-bottom-content">
+                    <p>© 2026 ErrandX. All rights reserved. Powered by <a href="#" style="color: var(--primary-green); text-decoration: none;">Tanumart</a>.</p>
+                    
+                </div>
             </div>
         </div>
     </footer>
@@ -1657,11 +2207,9 @@
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = themeToggle.querySelector('i');
         
-        // Check for saved theme or prefer-color-scheme
         const savedTheme = localStorage.getItem('theme') || 
                           (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         
-        // Apply saved theme
         if (savedTheme === 'dark') {
             document.body.classList.add('dark-mode');
             themeIcon.className = 'fas fa-sun';
@@ -1681,26 +2229,22 @@
         const individualForm = document.getElementById('individualForm');
         const companyForm = document.getElementById('companyForm');
         const successMessage = document.getElementById('successMessage');
+        const loaderOverlay = document.getElementById('loaderOverlay');
 
         let selectedType = null;
 
         function selectType(type) {
             selectedType = type;
             
-            // Hide all forms and success message first
             individualForm.classList.remove('active');
             companyForm.classList.remove('active');
             successMessage.classList.remove('active');
             
-            // Update card selection
             if (type === 'individual') {
                 individualCard.classList.add('selected');
                 companyCard.classList.remove('selected');
-                
-                // Show individual form with slide animation
                 individualForm.classList.add('active');
                 
-                // Scroll to form with smooth animation
                 setTimeout(() => {
                     individualForm.scrollIntoView({ 
                         behavior: 'smooth', 
@@ -1712,11 +2256,8 @@
             } else {
                 individualCard.classList.remove('selected');
                 companyCard.classList.add('selected');
-                
-                // Show company form with slide animation
                 companyForm.classList.add('active');
                 
-                // Scroll to form with smooth animation
                 setTimeout(() => {
                     companyForm.scrollIntoView({ 
                         behavior: 'smooth', 
@@ -1750,35 +2291,6 @@
         
         let companyCurrentStep = 1;
         const companyTotalSteps = 4;
-
-        // Skill Type Selection
-        const skillTypeOptions = document.querySelectorAll('.skill-type-option');
-        const skillTypeInput = document.getElementById('skillType');
-        const otherSkillContainer = document.getElementById('otherSkillContainer');
-        const otherSkillInput = document.getElementById('otherSkill');
-
-        skillTypeOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                // Remove selected class from all options
-                skillTypeOptions.forEach(opt => opt.classList.remove('selected'));
-                
-                // Add selected class to clicked option
-                this.classList.add('selected');
-                
-                const value = this.getAttribute('data-value');
-                skillTypeInput.value = value;
-                
-                // Show/hide other skill input
-                if (value === 'other') {
-                    otherSkillContainer.style.display = 'block';
-                    otherSkillInput.required = true;
-                } else {
-                    otherSkillContainer.style.display = 'none';
-                    otherSkillInput.required = false;
-                    otherSkillInput.value = '';
-                }
-            });
-        });
 
         // File Upload Previews
         function setupFileUpload(inputId, previewId) {
@@ -1829,22 +2341,113 @@
             return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
         }
 
+        // File size validation function
+        function validateFileSize(fileInput, maxSizeMB) {
+            if (fileInput.files.length > 0) {
+                const fileSize = fileInput.files[0].size;
+                const maxSize = maxSizeMB * 1024 * 1024; // Convert MB to bytes
+                
+                if (fileSize > maxSize) {
+                    alert(`File size exceeds ${maxSizeMB}MB. Please select a smaller file.`);
+                    fileInput.value = ''; // Clear the file input
+                    
+                    // Clear preview if exists
+                    const previewId = fileInput.id + 'Preview';
+                    const previewDiv = document.getElementById(previewId);
+                    if (previewDiv) {
+                        previewDiv.innerHTML = '';
+                        previewDiv.classList.remove('show');
+                    }
+                    
+                    return false;
+                }
+            }
+            return true;
+        }
+
         // Initialize file uploads for individual form
         setupFileUpload('passportPhoto', 'passportPreview');
         setupFileUpload('governmentId', 'idPreview');
         setupFileUpload('selfieWithId', 'selfiePreview');
-        setupFileUpload('proofOfAddress', 'addressProofPreview');
-        setupFileUpload('workPhotos', 'workPhotosPreview');
-        setupFileUpload('certificateUpload', 'certificatePreview');
+        setupFileUpload('certificateFile', 'certificatePreview');
 
         // Initialize file uploads for company form
         setupFileUpload('cacCertificate', 'cacPreview');
         setupFileUpload('companyGovernmentId', 'companyIdPreview');
         setupFileUpload('companySelfieWithId', 'companySelfiePreview');
 
+        // Individual Operating Areas Management
+        const customAreaInput = document.getElementById('customAreaInput');
+        const addCustomAreaBtn = document.getElementById('addCustomAreaBtn');
+        const customAreasList = document.getElementById('customAreasList');
+        const operatingAreasInput = document.getElementById('operatingAreas');
+        
+        let customAreas = [];
+        let selectedAreas = [];
+
+        // Function to update the hidden input with selected areas
+        function updateOperatingAreasInput() {
+            const allCheckboxes = document.querySelectorAll('input[name="operatingArea"]:checked');
+            selectedAreas = Array.from(allCheckboxes).map(cb => cb.value);
+            
+            selectedAreas = [...selectedAreas, ...customAreas];
+            
+            operatingAreasInput.value = selectedAreas.join(', ');
+            
+            const isValid = selectedAreas.length > 0;
+            operatingAreasInput.setCustomValidity(isValid ? '' : 'Please select at least one operating area');
+            
+            return isValid;
+        }
+
+        // Function to add a custom area for individual form
+        function addCustomArea() {
+            const areaName = customAreaInput.value.trim();
+            
+            if (areaName && !customAreas.includes(areaName) && !selectedAreas.includes(areaName)) {
+                customAreas.push(areaName);
+                
+                const tag = document.createElement('div');
+                tag.className = 'custom-area-tag';
+                tag.innerHTML = `
+                    <span>${areaName}</span>
+                    <button type="button" class="remove-tag" data-area="${areaName}">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                
+                customAreasList.appendChild(tag);
+                customAreaInput.value = '';
+                
+                tag.querySelector('.remove-tag').addEventListener('click', function() {
+                    const areaToRemove = this.getAttribute('data-area');
+                    customAreas = customAreas.filter(area => area !== areaToRemove);
+                    tag.remove();
+                    updateOperatingAreasInput();
+                });
+                
+                updateOperatingAreasInput();
+            } else if (areaName) {
+                alert('This area is already added');
+            }
+        }
+
+        // Event listeners for individual form
+        addCustomAreaBtn.addEventListener('click', addCustomArea);
+
+        customAreaInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addCustomArea();
+            }
+        });
+
+        document.querySelectorAll('input[name="operatingArea"]').forEach(checkbox => {
+            checkbox.addEventListener('change', updateOperatingAreasInput);
+        });
+
         // Individual Form Functions
         function updateIndividualStepNavigation() {
-            // Update step indicators
             individualSteps.forEach(step => {
                 const stepNum = parseInt(step.dataset.step);
                 step.classList.remove('active', 'completed');
@@ -1856,7 +2459,6 @@
                 }
             });
             
-            // Show/hide form steps
             individualFormSteps.forEach(step => {
                 const stepNum = parseInt(step.dataset.step);
                 if (stepNum === currentStep) {
@@ -1866,12 +2468,10 @@
                 }
             });
             
-            // Update button visibility
             prevBtn.disabled = currentStep === 1;
             nextBtn.style.display = currentStep < totalSteps ? 'flex' : 'none';
             submitBtn.style.display = currentStep === totalSteps ? 'flex' : 'none';
             
-            // Update review summary on step 5
             if (currentStep === 5) {
                 updateIndividualReviewSummary();
             }
@@ -1895,7 +2495,6 @@
 
         // Company Form Functions
         function updateCompanyStepNavigation() {
-            // Update step indicators
             companySteps.forEach(step => {
                 const stepNum = parseInt(step.dataset.step);
                 step.classList.remove('active', 'completed');
@@ -1907,7 +2506,6 @@
                 }
             });
             
-            // Show/hide form steps
             companyFormSteps.forEach(step => {
                 const stepNum = parseInt(step.dataset.step);
                 if (stepNum === companyCurrentStep) {
@@ -1917,12 +2515,10 @@
                 }
             });
             
-            // Update button visibility
             companyPrevBtn.disabled = companyCurrentStep === 1;
             companyNextBtn.style.display = companyCurrentStep < companyTotalSteps ? 'flex' : 'none';
             companySubmitBtn.style.display = companyCurrentStep === companyTotalSteps ? 'flex' : 'none';
             
-            // Update review summary on step 4
             if (companyCurrentStep === 4) {
                 updateCompanyReviewSummary();
             }
@@ -1955,7 +2551,6 @@
                     isValid = false;
                     field.style.borderColor = '#ff4757';
                     
-                    // Add error message
                     if (!field.nextElementSibling || !field.nextElementSibling.classList.contains('error-message')) {
                         const errorMsg = document.createElement('small');
                         errorMsg.className = 'error-message';
@@ -1968,7 +2563,6 @@
                 } else {
                     field.style.borderColor = '';
                     
-                    // Remove error message
                     const errorMsg = field.parentNode.querySelector('.error-message');
                     if (errorMsg) {
                         errorMsg.remove();
@@ -1976,22 +2570,42 @@
                 }
             });
             
-            // Special validation for service areas checkboxes
+            // Validation for operating areas
             if (currentStep === 3) {
-                const serviceAreaCheckboxes = document.querySelectorAll('.service-area-checkbox input:checked');
-                if (serviceAreaCheckboxes.length === 0) {
+                const operatingAreasValid = updateOperatingAreasInput();
+                if (!operatingAreasValid) {
                     isValid = false;
-                    const serviceAreasLabel = document.querySelector('label[for="zone1"]').parentNode.parentNode.parentNode.querySelector('label');
-                    serviceAreasLabel.style.color = '#ff4757';
+                    const operatingAreasLabel = document.querySelector('label[for="operatingAreas"]');
+                    operatingAreasLabel.style.color = '#ff4757';
                     
-                    if (!serviceAreasLabel.nextElementSibling || !serviceAreasLabel.nextElementSibling.classList.contains('error-message')) {
+                    if (!operatingAreasLabel.nextElementSibling || !operatingAreasLabel.nextElementSibling.classList.contains('error-message')) {
                         const errorMsg = document.createElement('small');
                         errorMsg.className = 'error-message';
                         errorMsg.style.color = '#ff4757';
                         errorMsg.style.display = 'block';
                         errorMsg.style.marginTop = '0.3rem';
-                        errorMsg.textContent = 'Please select at least one service area';
-                        serviceAreasLabel.parentNode.appendChild(errorMsg);
+                        errorMsg.textContent = 'Please select at least one operating area';
+                        operatingAreasLabel.parentNode.appendChild(errorMsg);
+                    }
+                }
+            }
+            
+            // Validation for availability checkboxes
+            if (currentStep === 3) {
+                const availabilityCheckboxes = document.querySelectorAll('input[name="availability"]:checked');
+                if (availabilityCheckboxes.length === 0) {
+                    isValid = false;
+                    const availabilityLabel = document.querySelector('label[for="morning"]').parentNode.parentNode;
+                    availabilityLabel.style.color = '#ff4757';
+                    
+                    if (!availabilityLabel.nextElementSibling || !availabilityLabel.nextElementSibling.classList.contains('error-message')) {
+                        const errorMsg = document.createElement('small');
+                        errorMsg.className = 'error-message';
+                        errorMsg.style.color = '#ff4757';
+                        errorMsg.style.display = 'block';
+                        errorMsg.style.marginTop = '0.3rem';
+                        errorMsg.textContent = 'Please select at least one availability option';
+                        availabilityLabel.parentNode.appendChild(errorMsg);
                     }
                 }
             }
@@ -2017,6 +2631,30 @@
                 }
             }
             
+            // File size validation for current step
+            if (currentStep === 2) {
+                const passportPhoto = document.getElementById('passportPhoto');
+                if (passportPhoto.files.length > 0 && !validateFileSize(passportPhoto, 5)) {
+                    isValid = false;
+                }
+            }
+            
+            if (currentStep === 4) {
+                const governmentId = document.getElementById('governmentId');
+                const selfieWithId = document.getElementById('selfieWithId');
+                const certificateFile = document.getElementById('certificateFile');
+                
+                if (governmentId.files.length > 0 && !validateFileSize(governmentId, 5)) {
+                    isValid = false;
+                }
+                if (selfieWithId.files.length > 0 && !validateFileSize(selfieWithId, 5)) {
+                    isValid = false;
+                }
+                if (certificateFile.files.length > 0 && !validateFileSize(certificateFile, 5)) {
+                    isValid = false;
+                }
+            }
+            
             return isValid;
         }
 
@@ -2030,7 +2668,6 @@
                     isValid = false;
                     field.style.borderColor = '#ff4757';
                     
-                    // Add error message
                     if (!field.nextElementSibling || !field.nextElementSibling.classList.contains('error-message')) {
                         const errorMsg = document.createElement('small');
                         errorMsg.className = 'error-message';
@@ -2043,7 +2680,6 @@
                 } else {
                     field.style.borderColor = '';
                     
-                    // Remove error message
                     const errorMsg = field.parentNode.querySelector('.error-message');
                     if (errorMsg) {
                         errorMsg.remove();
@@ -2072,6 +2708,26 @@
                 }
             }
             
+            // File size validation for current step
+            if (companyCurrentStep === 2) {
+                const cacCertificate = document.getElementById('cacCertificate');
+                if (cacCertificate.files.length > 0 && !validateFileSize(cacCertificate, 5)) {
+                    isValid = false;
+                }
+            }
+            
+            if (companyCurrentStep === 3) {
+                const companyGovernmentId = document.getElementById('companyGovernmentId');
+                const companySelfieWithId = document.getElementById('companySelfieWithId');
+                
+                if (companyGovernmentId.files.length > 0 && !validateFileSize(companyGovernmentId, 5)) {
+                    isValid = false;
+                }
+                if (companySelfieWithId.files.length > 0 && !validateFileSize(companySelfieWithId, 5)) {
+                    isValid = false;
+                }
+            }
+            
             return isValid;
         }
 
@@ -2080,7 +2736,6 @@
             const summaryDiv = document.getElementById('reviewSummary');
             summaryDiv.innerHTML = '';
             
-            // Collect form data
             const formData = {
                 fullName: document.getElementById('fullName').value,
                 phonePrimary: '+234 ' + document.getElementById('phonePrimary').value,
@@ -2088,15 +2743,17 @@
                 email: document.getElementById('email').value,
                 dob: document.getElementById('dob').value,
                 gender: document.getElementById('gender').value,
+                state: document.getElementById('state').value,
+                city: document.getElementById('city').value,
                 address: document.getElementById('address').value,
-                skillType: skillTypeInput.value === 'other' ? otherSkillInput.value : skillTypeInput.value,
+                specialization: document.getElementById('specialization').value,
                 yearsExperience: document.getElementById('yearsExperience').value,
-                toolsAvailable: document.getElementById('toolsAvailable').value,
-                serviceAreas: Array.from(document.querySelectorAll('.service-area-checkbox input:checked')).map(cb => cb.value).join(', '),
-                experienceDescription: document.getElementById('experienceDescription').value || 'Not provided'
+                certification: document.getElementById('certification').value || 'Not provided',
+                toolsOwned: document.getElementById('toolsOwned').value || 'Not specified',
+                operatingAreas: operatingAreasInput.value,
+                availability: Array.from(document.querySelectorAll('input[name="availability"]:checked')).map(cb => cb.nextElementSibling.textContent).join(', ')
             };
             
-            // Create summary items
             const summaryItems = [
                 { label: 'Full Name', value: formData.fullName },
                 { label: 'Primary Phone', value: formData.phonePrimary },
@@ -2104,15 +2761,17 @@
                 { label: 'Email', value: formData.email },
                 { label: 'Date of Birth', value: formData.dob },
                 { label: 'Gender', value: formData.gender },
+                { label: 'State', value: formData.state },
+                { label: 'City/Town', value: formData.city },
                 { label: 'Address', value: formData.address },
-                { label: 'Skill Type', value: formData.skillType },
-                { label: 'Years of Experience', value: formData.yearsExperience },
-                { label: 'Tools Available', value: formData.toolsAvailable },
-                { label: 'Service Areas', value: formData.serviceAreas },
-                { label: 'Experience Description', value: formData.experienceDescription }
+                { label: 'Specialization', value: formData.specialization },
+                { label: 'Years Experience', value: formData.yearsExperience },
+                { label: 'Certification', value: formData.certification },
+                { label: 'Tools Owned', value: formData.toolsOwned },
+                { label: 'Operating Areas', value: formData.operatingAreas },
+                { label: 'Availability', value: formData.availability }
             ];
             
-            // Add summary items to DOM
             summaryItems.forEach(item => {
                 const itemDiv = document.createElement('div');
                 itemDiv.style.display = 'flex';
@@ -2140,33 +2799,34 @@
             const summaryDiv = document.getElementById('companyReviewSummary');
             summaryDiv.innerHTML = '';
             
-            // Collect form data
             const formData = {
                 companyName: document.getElementById('companyName').value,
                 contactPerson: document.getElementById('contactPerson').value,
                 companyPhone: '+234 ' + document.getElementById('companyPhone').value,
                 companyPhoneOptional: document.getElementById('companyPhoneOptional').value ? '+234 ' + document.getElementById('companyPhoneOptional').value : 'Not provided',
                 companyEmail: document.getElementById('companyEmail').value,
+                companyState: document.getElementById('companyState').value,
+                companyCity: document.getElementById('companyCity').value,
                 officeAddress: document.getElementById('officeAddress').value,
                 yearsOperation: document.getElementById('yearsOperation').value,
-                numEmployees: document.getElementById('numEmployees').value,
+                numTechnicians: document.getElementById('numTechnicians').value,
                 cacNumber: document.getElementById('cacNumber').value || 'Not provided'
             };
             
-            // Create summary items
             const summaryItems = [
                 { label: 'Company Name', value: formData.companyName },
                 { label: 'Contact Person', value: formData.contactPerson },
                 { label: 'Phone Number', value: formData.companyPhone },
                 { label: 'Secondary Phone', value: formData.companyPhoneOptional },
                 { label: 'Email', value: formData.companyEmail },
+                { label: 'State', value: formData.companyState },
+                { label: 'City/Town', value: formData.companyCity },
                 { label: 'Office Address', value: formData.officeAddress },
                 { label: 'Years in Operation', value: formData.yearsOperation },
-                { label: 'Number of Employees', value: formData.numEmployees },
+                { label: 'Number of Technicians', value: formData.numTechnicians },
                 { label: 'CAC Number', value: formData.cacNumber }
             ];
             
-            // Add summary items to DOM
             summaryItems.forEach(item => {
                 const itemDiv = document.createElement('div');
                 itemDiv.style.display = 'flex';
@@ -2190,16 +2850,25 @@
             });
         }
 
-        // Form Submission
+        // Form Submission with Loader
         function submitIndividualForm() {
             if (validateCurrentStep() && document.getElementById('confirmInfo').checked) {
-                // Show success message
-                individualForm.style.display = 'none';
-                successMessage.classList.add('active');
-                successMessage.scrollIntoView({ behavior: 'smooth' });
+                // Show loader
+                loaderOverlay.style.display = 'flex';
                 
-                // In a real app, you would send the form data to your backend here
-                console.log('Individual technician form submitted');
+                // Simulate processing for 3 seconds
+                setTimeout(() => {
+                    // Hide loader
+                    loaderOverlay.style.display = 'none';
+                    
+                    // Show success message
+                    individualForm.style.display = 'none';
+                    successMessage.classList.add('active');
+                    successMessage.scrollIntoView({ behavior: 'smooth' });
+                    
+                    console.log('Individual technician form submitted');
+                    console.log('Operating areas:', operatingAreasInput.value);
+                }, 3000);
             } else {
                 alert('Please confirm that the information is correct');
             }
@@ -2207,13 +2876,21 @@
 
         function submitCompanyForm() {
             if (validateCurrentCompanyStep() && document.getElementById('companyConfirmInfo').checked) {
-                // Show success message
-                companyForm.style.display = 'none';
-                successMessage.classList.add('active');
-                successMessage.scrollIntoView({ behavior: 'smooth' });
+                // Show loader
+                loaderOverlay.style.display = 'flex';
                 
-                // In a real app, you would send the form data to your backend here
-                console.log('Company technician form submitted');
+                // Simulate processing for 3 seconds
+                setTimeout(() => {
+                    // Hide loader
+                    loaderOverlay.style.display = 'none';
+                    
+                    // Show success message
+                    companyForm.style.display = 'none';
+                    successMessage.classList.add('active');
+                    successMessage.scrollIntoView({ behavior: 'smooth' });
+                    
+                    console.log('Company technician form submitted');
+                }, 3000);
             } else {
                 alert('Please confirm that the information is correct');
             }
@@ -2225,26 +2902,19 @@
             updateIndividualStepNavigation();
             document.getElementById('individualRegistration').reset();
             
-            // Clear skill type selection
-            skillTypeOptions.forEach(opt => opt.classList.remove('selected'));
-            skillTypeInput.value = '';
-            otherSkillContainer.style.display = 'none';
-            otherSkillInput.value = '';
+            document.querySelectorAll('input[name="operatingArea"]').forEach(cb => cb.checked = false);
+            customAreas = [];
+            customAreasList.innerHTML = '';
+            customAreaInput.value = '';
+            updateOperatingAreasInput();
             
-            // Clear file previews
             document.querySelectorAll('.file-preview').forEach(preview => {
                 preview.innerHTML = '';
                 preview.classList.remove('show');
             });
             
-            // Clear file inputs
             document.querySelectorAll('.file-upload-input').forEach(input => {
                 input.value = '';
-            });
-            
-            // Clear checkboxes
-            document.querySelectorAll('.service-area-checkbox input').forEach(checkbox => {
-                checkbox.checked = false;
             });
         }
 
@@ -2253,20 +2923,17 @@
             updateCompanyStepNavigation();
             document.getElementById('companyRegistration').reset();
             
-            // Clear file previews
             document.querySelectorAll('.file-preview').forEach(preview => {
                 preview.innerHTML = '';
                 preview.classList.remove('show');
             });
             
-            // Clear file inputs
             document.querySelectorAll('.file-upload-input').forEach(input => {
                 input.value = '';
             });
         }
 
         // Event Listeners
-        // Individual form
         nextBtn.addEventListener('click', nextIndividualStep);
         prevBtn.addEventListener('click', prevIndividualStep);
         submitBtn.addEventListener('click', (e) => {
@@ -2274,7 +2941,6 @@
             submitIndividualForm();
         });
         
-        // Company form
         companyNextBtn.addEventListener('click', nextCompanyStep);
         companyPrevBtn.addEventListener('click', prevCompanyStep);
         companySubmitBtn.addEventListener('click', (e) => {
@@ -2282,7 +2948,6 @@
             submitCompanyForm();
         });
         
-        // New application button
         document.getElementById('newApplicationBtn').addEventListener('click', () => {
             successMessage.classList.remove('active');
             if (selectedType === 'individual') {
@@ -2303,10 +2968,8 @@
         // Phone number formatting
         document.querySelectorAll('input[type="tel"]').forEach(input => {
             input.addEventListener('input', function() {
-                // Remove any non-digit characters
                 this.value = this.value.replace(/[^\d]/g, '');
                 
-                // Limit to 10 digits
                 if (this.value.length > 10) {
                     this.value = this.value.slice(0, 10);
                 }
@@ -2340,6 +3003,9 @@
                 }
             });
         });
+
+        // Initialize operating areas
+        updateOperatingAreasInput();
     </script>
 </body>
 </html>
