@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ErrandX Dashboard</title>
+    <title>Home Delivery - ErrandX</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
+        /* Copying all styles from home page */
         :root {
             /* Professional Color Palette */
             --primary-green: #5CC47E;
@@ -17,6 +19,8 @@
             --secondary-blue: #4A90E2;
             --secondary-orange: #FF8A00;
             --secondary-red: #FF5252;
+            --secondary-green: #4CAF50;
+            --secondary-gray: #9E9E9E;
             --background-light: #F3FFF7;
             --card-background: #FFFFFF;
             --text-dark: #1A1A1A;
@@ -26,7 +30,7 @@
             --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.12);
             --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.16);
             --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.20);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: all 0.2s ease;
             --border-radius-sm: 8px;
             --border-radius: 16px;
             --border-radius-lg: 24px;
@@ -39,6 +43,8 @@
             --secondary-blue: #6AAFFF;
             --secondary-orange: #FFA033;
             --secondary-red: #FF6B6B;
+            --secondary-green: #66BB6A;
+            --secondary-gray: #BDBDBD;
             --background-light: #0F2A1C;
             --card-background: #1F4B2E;
             --text-dark: #F0F7F2;
@@ -68,7 +74,7 @@
             overflow-x: hidden;
         }
 
-        /* Enhanced Animated Background Effect - More Visible */
+        /* Enhanced Animated Background Effect */
         body::before {
             content: '';
             position: fixed;
@@ -107,7 +113,7 @@
             100% { background-position: -400% 0; }
         }
 
-        /* Enhanced floating elements - More Visible */
+        /* Enhanced floating elements */
         .bg-float {
             position: fixed;
             border-radius: 50%;
@@ -210,6 +216,27 @@
             gap: 16px;
         }
 
+        /* Back Button */
+        .back-button {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 18px;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
         /* Theme Toggle in Header */
         .theme-toggle-header {
             position: relative;
@@ -236,460 +263,875 @@
             padding: 20px 0;
         }
 
-        /* User Greeting - Larger with waving hand */
-        .user-greeting-section {
+        /* Page Header - Simplified */
+        .page-header {
             margin-bottom: 20px;
-            margin-top: 10px;
+            margin-top: 20px;
         }
 
-        .user-greeting {
+        .page-title {
             font-size: 28px;
             font-weight: 700;
             color: var(--text-dark);
-            display: flex;
-            align-items: center;
-            gap: 12px;
         }
 
-        .wave-hand {
-            animation: wave 2s infinite;
-            display: inline-block;
+        /* Delivery Steps */
+        .delivery-steps {
+            margin-bottom: 30px;
         }
 
-        @keyframes wave {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(-20deg); }
-            75% { transform: rotate(20deg); }
-        }
-
-        .user-location {
-            font-size: 16px;
-            color: var(--text-light);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 6px;
-        }
-
-        .location-icon {
-            color: var(--primary-green);
-        }
-
-        /* Welcome Section */
-        .welcome-section {
-            margin-bottom: 24px;
-        }
-
-        .welcome-title {
-            font-size: 22px;
-            color: var(--text-dark);
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .welcome-subtitle {
-            font-size: 14px;
-            color: var(--text-light);
-        }
-
-        /* Professional Address Card - Enhanced Shadows */
-        .address-card {
-            background: var(--card-background);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            margin-bottom: 25px;
-            box-shadow: var(--shadow-md);
-            transition: var(--transition);
-        }
-
-        .address-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
-        }
-
-        .address-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-
-        .address-icon {
-            color: var(--primary-green);
-            font-size: 18px;
-        }
-
-        .change-address-btn {
-            background: var(--primary-light);
-            color: var(--primary-green);
-            border: 2px solid var(--primary-green);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .change-address-btn:hover {
-            background: var(--primary-green);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .address-details {
-            margin-top: 12px;
-        }
-
-        .address-text {
-            font-size: 15px;
-            color: var(--text-dark);
-            margin-bottom: 6px;
-            line-height: 1.5;
-        }
-
-        .address-note {
-            font-size: 13px;
-            color: var(--text-light);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        /* Section Headers */
-        .section-header {
+        .steps-indicator {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 18px;
-            margin-top: 30px;
-        }
-
-        .section-title {
-            font-size: 18px;
-            color: var(--text-dark);
-            font-weight: 600;
-        }
-
-        .view-all-btn {
-            color: var(--primary-green);
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: var(--transition);
-        }
-
-        .view-all-btn:hover {
-            gap: 8px;
-        }
-
-        /* Scrollable Quick Order Section - Enhanced Shadows */
-        .scrollable-quick-order {
-            display: flex;
-            overflow-x: auto;
-            gap: 16px;
-            padding-bottom: 10px;
-            margin-bottom: 25px;
-            scrollbar-width: thin;
-            scrollbar-color: var(--primary-green) transparent;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .scrollable-quick-order::-webkit-scrollbar {
-            height: 6px;
-        }
-
-        .scrollable-quick-order::-webkit-scrollbar-track {
-            background: transparent;
-            border-radius: 10px;
-        }
-
-        .scrollable-quick-order::-webkit-scrollbar-thumb {
-            background: var(--primary-green);
-            border-radius: 10px;
-        }
-
-        .service-card-scrollable {
-            background: var(--card-background);
-            border-radius: var(--border-radius);
-            padding: 0;
-            box-shadow: var(--shadow-md);
-            transition: var(--transition);
-            cursor: pointer;
-            overflow: hidden;
-            text-decoration: none;
-            color: inherit;
-            flex: 0 0 calc(50% - 8px);
-            min-width: 160px;
-        }
-
-        @media (min-width: 480px) {
-            .service-card-scrollable {
-                flex: 0 0 calc(33.333% - 11px);
-            }
-        }
-
-        @media (min-width: 768px) {
-            .service-card-scrollable {
-                flex: 0 0 calc(25% - 12px);
-            }
-        }
-
-        .service-card-scrollable:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .service-image {
-            width: 100%;
-            height: 130px;
-            overflow: hidden;
             position: relative;
+            margin-bottom: 40px;
         }
 
-        .service-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
+        .steps-indicator::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: var(--border-color);
+            z-index: 1;
         }
 
-        .service-card-scrollable:hover .service-image img {
-            transform: scale(1.05);
+        .dark-mode .steps-indicator::before {
+            background: var(--border-color);
         }
 
-        .service-content {
-            padding: 16px;
-        }
-
-        .service-name {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 6px;
-        }
-
-        .service-description {
-            font-size: 13px;
-            color: var(--text-light);
-            line-height: 1.4;
-        }
-
-        /* Active Errands Table - Enhanced Shadows & Larger Images */
-        .active-errands-section {
-            margin-top: 30px;
-        }
-
-        .errands-table {
-            background: var(--card-background);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-        }
-
-        .errand-item {
+        .step {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            padding: 18px;
-            border-bottom: 1px solid var(--border-color);
-            transition: var(--transition);
-            cursor: pointer;
-            color: inherit;
-            text-decoration: none;
-        }
-
-        .errand-item:hover {
-            background: var(--primary-light);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .errand-item:last-child {
-            border-bottom: none;
-        }
-
-        .errand-image {
-            width: 70px;
-            height: 70px;
-            border-radius: 12px;
-            overflow: hidden;
-            margin-right: 16px;
-            flex-shrink: 0;
-        }
-
-        .errand-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .errand-details {
+            position: relative;
+            z-index: 2;
             flex: 1;
         }
 
-        .errand-name {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 4px;
-        }
-
-        .errand-location {
-            font-size: 13px;
-            color: var(--text-light);
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--border-color);
             display: flex;
             align-items: center;
-            gap: 5px;
-            margin-bottom: 6px;
-        }
-
-        .errand-status {
-            display: inline-flex;
-            align-items: center;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-            gap: 6px;
-        }
-
-        .status-assigned {
-            background: rgba(74, 144, 226, 0.1);
-            color: var(--secondary-blue);
-        }
-
-        .status-progress {
-            background: rgba(255, 138, 0, 0.1);
-            color: var(--secondary-orange);
-        }
-
-        .status-pending {
-            background: rgba(255, 82, 82, 0.1);
-            color: var(--secondary-red);
-        }
-
-        .errand-actions {
-            margin-left: 12px;
-        }
-
-        .track-btn {
-            background: var(--primary-green);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-            cursor: pointer;
+            justify-content: center;
+            margin-bottom: 8px;
+            color: var(--text-light);
+            font-weight: 600;
             transition: var(--transition);
         }
 
-        .track-btn:hover {
-            background: var(--primary-dark);
+        .step.active .step-icon {
+            background: var(--primary-green);
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(92, 196, 126, 0.3);
+        }
+
+        .step.completed .step-icon {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .step-title {
+            font-size: 12px;
+            color: var(--text-light);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .step.active .step-title {
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+
+        .step-content {
+            display: none;
+        }
+
+        .step-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Form Sections */
+        .form-section {
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary-green);
+            font-size: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* Form Groups */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-label.required::after {
+            content: ' *';
+            color: var(--secondary-red);
+        }
+
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            font-size: 16px;
+            color: var(--text-dark);
+            background: var(--card-background);
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(92, 196, 126, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Location Options */
+        .location-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .location-option {
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--primary-light);
+        }
+
+        .location-option:hover {
+            border-color: var(--primary-green);
             transform: translateY(-2px);
             box-shadow: var(--shadow-sm);
         }
 
-        /* Scrollable Frequently Used Section */
-        .scrollable-services {
-            display: flex;
-            overflow-x: auto;
-            gap: 16px;
-            padding-bottom: 10px;
-            margin-bottom: 25px;
-            scrollbar-width: thin;
-            scrollbar-color: var(--primary-green) transparent;
-            -webkit-overflow-scrolling: touch;
+        .location-option.selected {
+            border-color: var(--primary-green);
+            background: rgba(92, 196, 126, 0.1);
+            transform: translateY(-2px);
         }
 
-        .scrollable-services::-webkit-scrollbar {
-            height: 6px;
-        }
-
-        .scrollable-services::-webkit-scrollbar-track {
-            background: transparent;
-            border-radius: 10px;
-        }
-
-        .scrollable-services::-webkit-scrollbar-thumb {
-            background: var(--primary-green);
-            border-radius: 10px;
-        }
-
-        /* Promo Banner with Image - Enhanced Shadows */
-        .promo-banner {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: var(--border-radius);
-            padding: 25px;
-            margin-top: 30px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .promo-content {
-            position: relative;
-            z-index: 2;
-            color: white;
-        }
-
-        .promo-title {
-            font-size: 18px;
-            font-weight: 600;
+        .location-icon {
+            font-size: 24px;
+            color: var(--primary-green);
             margin-bottom: 8px;
         }
 
-        .promo-text {
+        .location-name {
             font-size: 14px;
-            opacity: 0.9;
-            margin-bottom: 16px;
-            max-width: 200px;
+            font-weight: 500;
+            color: var(--text-dark);
         }
 
-        .promo-button {
-            background: white;
-            color: #667eea;
+        /* Real Map */
+        .map-container {
+            width: 100%;
+            height: 300px;
+            border-radius: var(--border-radius-sm);
+            margin-top: 15px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        #pickupMap {
+            width: 100%;
+            height: 100%;
+        }
+
+        .map-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .map-btn {
+            background: var(--primary-green);
+            color: white;
             border: none;
             padding: 10px 20px;
-            border-radius: 25px;
+            border-radius: var(--border-radius-sm);
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
             transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .map-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .map-btn.secondary {
+            background: var(--secondary-gray);
+        }
+
+        .map-btn.secondary:hover {
+            background: #757575;
+        }
+
+        /* Address List */
+        .address-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .address-item {
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            padding: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .address-item:hover {
+            border-color: var(--primary-green);
+            transform: translateY(-2px);
             box-shadow: var(--shadow-sm);
         }
 
-        .promo-button:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
+        .address-item.selected {
+            border-color: var(--primary-green);
+            background: rgba(92, 196, 126, 0.05);
+            border-left: 4px solid var(--primary-green);
         }
 
-        .promo-image {
-            position: absolute;
-            right: 0;
-            top: 0;
-            height: 100%;
-            width: 150px;
-            background: url('img/x.png') center/cover no-repeat;
-            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        .address-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .promo-image::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
+        .address-details {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        .address-type {
+            display: inline-block;
+            background: rgba(92, 196, 126, 0.1);
+            color: var(--primary-green);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+            margin-top: 8px;
+        }
+
+        .add-address-btn {
+            width: 100%;
+            padding: 15px;
+            border: 2px dashed var(--border-color);
+            border-radius: var(--border-radius-sm);
+            background: transparent;
+            color: var(--text-light);
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .add-address-btn:hover {
+            border-color: var(--primary-green);
+            color: var(--primary-green);
+            background: rgba(92, 196, 126, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Receiver Information */
+        .receiver-options {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .receiver-option {
+            flex: 1;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            padding: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--primary-light);
+            text-align: center;
+        }
+
+        .receiver-option:hover {
+            border-color: var(--primary-green);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .receiver-option.selected {
+            border-color: var(--primary-green);
+            background: rgba(92, 196, 126, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .receiver-icon {
+            font-size: 24px;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+
+        .receiver-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .receiver-desc {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .receiver-info-display {
+            background: var(--primary-light);
+            border-radius: var(--border-radius-sm);
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .info-label {
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .info-value {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .receiver-form {
+            background: var(--primary-light);
+            border-radius: var(--border-radius-sm);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* Phone Number Inputs */
+        .phone-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        .phone-input-group .form-input {
+            flex: 1;
+        }
+
+        .add-phone-btn, .remove-phone-btn {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            min-width: 48px;
+            height: 48px;
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 0 15px;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .add-phone-btn i, .remove-phone-btn i {
+            margin-right: 5px;
+        }
+
+        .remove-phone-btn {
+            background: var(--secondary-red);
+        }
+
+        .add-phone-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .remove-phone-btn:hover {
+            background: #d32f2f;
+            transform: translateY(-2px);
+        }
+
+        /* Photo Upload */
+        .photo-upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--border-radius-sm);
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 15px;
+        }
+
+        .photo-upload-area:hover {
+            border-color: var(--primary-green);
+            background: rgba(92, 196, 126, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .upload-icon {
+            font-size: 36px;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+
+        .upload-text {
+            font-size: 14px;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .upload-subtext {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        #itemPhotoInput {
+            display: none;
+        }
+
+        .photo-preview {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .preview-image {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Rider Selection */
+        .riders-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .rider-item {
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .rider-item:hover {
+            border-color: var(--primary-green);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .rider-item.selected {
+            border-color: var(--primary-green);
+            background: rgba(92, 196, 126, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .rider-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .rider-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .rider-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--primary-green);
+        }
+
+        .rider-image img {
             width: 100%;
             height: 100%;
-            background: linear-gradient(to right, rgba(102, 126, 234, 0.9), transparent);
+            object-fit: cover;
+        }
+
+        .rider-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .rider-details {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rider-vehicle {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(92, 196, 126, 0.1);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--primary-green);
+        }
+
+        .rider-rating {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 14px;
+        }
+
+        .rider-rating i {
+            color: #FFC107;
+            font-size: 12px;
+        }
+
+        .rider-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .rider-price span {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+
+        .rider-online-status {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--secondary-green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Checkout Section */
+        .checkout-summary {
+            background: var(--primary-light);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .summary-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+
+        .summary-details {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        .summary-label {
+            color: var(--text-light);
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+            padding-top: 15px;
+            border-top: 2px solid var(--border-color);
+        }
+
+        /* Timer */
+        .timer-container {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(92, 196, 126, 0.1);
+            border-radius: var(--border-radius);
+        }
+
+        .timer-title {
+            font-size: 16px;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .timer {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary-green);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .timer-warning {
+            color: var(--secondary-orange);
+        }
+
+        .timer-expired {
+            color: var(--secondary-red);
+        }
+
+        .timer-message {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 10px;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 18px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .next-btn, .payment-btn {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .next-btn:hover, .payment-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .prev-btn {
+            background: var(--secondary-gray);
+            color: white;
+        }
+
+        .prev-btn:hover {
+            background: #757575;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .action-btn:disabled {
+            background: var(--border-color);
+            color: var(--text-light);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            padding: 20px;
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--card-background);
+            border-radius: var(--border-radius-lg);
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            animation: modalSlideUp 0.3s ease-out;
+        }
+
+        @keyframes modalSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: var(--card-background);
+            z-index: 1;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .close-modal-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 24px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .close-modal-btn:hover {
+            background: var(--primary-light);
+            color: var(--primary-green);
+            transform: translateY(-2px);
+        }
+
+        .modal-body {
+            padding: 20px;
         }
 
         /* Professional Bottom Navigation */
@@ -783,64 +1225,6 @@
             font-size: 28px;
         }
 
-        /* Very Low Opacity Loader for Tracking */
-        .tracking-loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 2500;
-            transition: opacity 0.3s, visibility 0.3s;
-            opacity: 0;
-            visibility: hidden;
-            backdrop-filter: blur(2px);
-        }
-
-        .tracking-loader.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .tracking-loader {
-            background: rgba(243, 255, 247, 0.15);
-        }
-
-        .dark-mode .tracking-loader {
-            background: rgba(15, 42, 28, 0.15);
-        }
-
-        .tracking-loader-spinner {
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(92, 196, 126, 0.2);
-            border-radius: 50%;
-            border-top-color: var(--primary-green);
-            animation: spin 1s ease-in-out infinite;
-            margin-bottom: 15px;
-        }
-
-        .dark-mode .tracking-loader-spinner {
-            border-color: rgba(109, 216, 143, 0.2);
-            border-top-color: var(--primary-green);
-        }
-
-        .tracking-loader-text {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-dark);
-            opacity: 0.7;
-        }
-
-        .dark-mode .tracking-loader-text {
-            color: var(--text-light);
-            opacity: 0.6;
-        }
-
         /* Enhanced Theme-Tailored Loader */
         .loader {
             position: fixed;
@@ -920,338 +1304,45 @@
             color: var(--text-light);
         }
 
-        /* Tracking Modal - Updated Professional Style */
-        .tracking-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 3000;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-            padding: 20px;
-        }
-
-        .tracking-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .tracking-modal-content {
-            background: var(--card-background);
-            border-radius: var(--border-radius-lg);
-            width: 100%;
-            max-width: 500px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: var(--shadow-lg);
-            animation: modalSlideUp 0.3s ease-out;
-        }
-
-        @keyframes modalSlideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .tracking-modal-header {
-            padding: 20px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            background: var(--card-background);
-            z-index: 1;
-        }
-
-        .tracking-modal-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-
-        .close-modal-btn {
-            background: none;
-            border: none;
-            color: var(--text-light);
-            font-size: 24px;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-        }
-
-        .close-modal-btn:hover {
-            background: var(--primary-light);
-            color: var(--primary-green);
-        }
-
-        .tracking-modal-body {
-            padding: 20px;
-        }
-
-        /* Updated Rider Info with Vehicle Type */
-        .rider-info {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .rider-image {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            overflow: hidden;
-            flex-shrink: 0;
-            border: 3px solid var(--primary-green);
-        }
-
-        .rider-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .rider-details h3 {
-            font-size: 18px;
-            margin-bottom: 5px;
-            color: var(--text-dark);
-        }
-
-        .rider-phone {
-            font-size: 14px;
-            color: var(--text-light);
-            margin-bottom: 6px;
-        }
-
-        .rider-vehicle {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(92, 196, 126, 0.1);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--primary-green);
-        }
-
-        .rider-rating {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            margin-top: 8px;
-        }
-
-        .rider-rating i {
-            color: #FFC107;
-            font-size: 14px;
-        }
-
-        /* Updated Compact Tracking Details */
-        .tracking-details-compact {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
-        .detail-item-compact {
-            background: var(--primary-light);
-            padding: 12px;
-            border-radius: var(--border-radius-sm);
-        }
-
-        .detail-label {
-            font-size: 11px;
-            color: var(--text-light);
-            text-transform: uppercase;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
-        }
-
-        .detail-value {
-            font-size: 14px;
-            color: var(--text-dark);
-            font-weight: 500;
-        }
-
-        /* Delivery Status */
-        .delivery-status {
-            background: var(--primary-light);
-            padding: 20px;
-            border-radius: var(--border-radius);
-            margin-bottom: 20px;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .status-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 16px;
-        }
-
-        .status-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-
-        .status-badge-large {
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .status-timeline {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .status-step {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .status-step-icon {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--border-color);
-            color: var(--text-light);
-            flex-shrink: 0;
-            font-size: 14px;
-        }
-
-        .status-step.active .status-step-icon {
-            background: var(--primary-green);
-            color: white;
-        }
-
-        .status-step.completed .status-step-icon {
-            background: var(--primary-green);
-            color: white;
-        }
-
-        .status-step-content {
-            flex: 1;
-        }
-
-        .status-step-title {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-dark);
-            margin-bottom: 2px;
-        }
-
-        .status-step-time {
-            font-size: 12px;
-            color: var(--text-light);
-        }
-
-        .status-step.completed .status-step-title,
-        .status-step.active .status-step-title {
-            color: var(--primary-green);
-        }
-
-        .call-rider-btn {
-            width: 100%;
-            padding: 16px;
-            background: var(--primary-green);
-            color: white;
-            border: none;
-            border-radius: var(--border-radius);
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            box-shadow: var(--shadow-md);
-        }
-
-        .call-rider-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* Status Badge */
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-            gap: 6px;
-        }
-
         /* Responsive Adjustments */
         @media (max-width: 480px) {
             .container {
                 padding: 0 16px;
             }
             
-            .service-image {
-                height: 120px;
-            }
-            
-            .promo-image {
-                width: 120px;
-            }
-            
-            .create-button {
-                width: 64px;
-                height: 64px;
-            }
-            
-            .user-greeting {
+            .page-title {
                 font-size: 24px;
             }
             
-            .tracking-modal-content {
-                margin: 10px;
+            .step-title {
+                font-size: 10px;
             }
             
-            .tracking-details-compact {
+            .location-options {
                 grid-template-columns: 1fr;
-                gap: 10px;
             }
             
-            .errand-image {
-                width: 65px;
-                height: 65px;
+            .receiver-options {
+                flex-direction: column;
+            }
+            
+            .rider-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .rider-price {
+                align-self: flex-end;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .add-phone-btn, .remove-phone-btn {
+                padding: 0 10px;
+                font-size: 12px;
             }
         }
 
@@ -1260,74 +1351,14 @@
                 padding: 25px 0;
             }
             
-            .services-grid {
-                gap: 20px;
-            }
-            
-            .service-image {
-                height: 150px;
-            }
-            
-            .promo-banner {
-                padding: 30px;
-            }
-            
-            .promo-image {
-                width: 200px;
-            }
-            
-            .user-greeting {
+            .page-title {
                 font-size: 32px;
             }
         }
-
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            background: var(--card-background);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-md);
-        }
-
-        .empty-icon {
-            font-size: 48px;
-            color: var(--border-color);
-            margin-bottom: 16px;
-        }
-
-        .empty-title {
-            font-size: 16px;
-            color: var(--text-dark);
-            margin-bottom: 8px;
-        }
-
-        .empty-text {
-            font-size: 14px;
-            color: var(--text-light);
-            max-width: 300px;
-            margin: 0 auto 20px;
-        }
-
-        /* Utility Classes */
-        .text-primary {
-            color: var(--primary-green);
-        }
-
-        .text-secondary {
-            color: var(--text-light);
-        }
-
-        .mb-1 { margin-bottom: 8px; }
-        .mb-2 { margin-bottom: 16px; }
-        .mb-3 { margin-bottom: 24px; }
-        .mt-1 { margin-top: 8px; }
-        .mt-2 { margin-top: 16px; }
-        .mt-3 { margin-top: 24px; }
     </style>
 </head>
 <body>
-    <!-- Enhanced Background Floating Elements - More Visible -->
+    <!-- Enhanced Background Floating Elements -->
     <div class="bg-float"></div>
     <div class="bg-float"></div>
     <div class="bg-float"></div>
@@ -1335,8 +1366,13 @@
     <!-- Reduced Header Size -->
     <header class="dashboard-header">
         <div class="container header-container">
-            <div class="logo-container">
-                <img src="img/logo.png" alt="ErrandX" class="logo-img">
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <button class="back-button" id="backButton">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="logo-container">
+                    <img src="img/logo.png" alt="ErrandX" class="logo-img">
+                </div>
             </div>
             
             <div class="user-info">
@@ -1349,248 +1385,495 @@
 
     <!-- Dashboard Content -->
     <main class="dashboard-content container">
-        <!-- User Greeting Section with Waving Hand -->
-        <section class="user-greeting-section">
-            <h1 class="user-greeting">
-                Hi Usman 
-                <span class="wave-hand">👋</span>
-            </h1>
-            <div class="user-location">
-                <i class="fas fa-map-marker-alt location-icon"></i>
-                <span>Gusau</span>
+        <!-- Page Header -->
+        <section class="page-header">
+            <h1 class="page-title">Home Delivery</h1>
+        </section>
+
+        <!-- Delivery Steps Indicator -->
+        <section class="delivery-steps">
+            <div class="steps-indicator">
+                <div class="step active" data-step="1">
+                    <div class="step-icon">1</div>
+                    <div class="step-title">Pickup Details</div>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-icon">2</div>
+                    <div class="step-title">Delivery Details</div>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-icon">3</div>
+                    <div class="step-title">Select Rider</div>
+                </div>
+                <div class="step" data-step="4">
+                    <div class="step-icon">4</div>
+                    <div class="step-title">Checkout</div>
+                </div>
             </div>
-        </section>
 
-        <!-- Welcome Section -->
-        <section class="welcome-section">
-            <h2 class="welcome-title">What do you want to do today?</h2>
-            <p class="welcome-subtitle">Choose from our wide range of services</p>
-        </section>
-
-        <!-- Professional Address Card -->
-        <section class="address-section">
-            <div class="address-card">
-                <div class="address-header">
-                    <div class="address-title">
-                        <i class="fas fa-home address-icon"></i>
-                        Default Address
+            <!-- Step 1: Pickup Details -->
+            <div class="step-content active" id="step1">
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h2 class="section-title">Pickup Location</h2>
                     </div>
-                    <button class="change-address-btn">
-                        Change Address
+
+                    <div class="form-group">
+                        <label class="form-label required">Pickup Location Type</label>
+                        <div class="location-options">
+                            <div class="location-option selected" data-type="shop">
+                                <div class="location-icon">
+                                    <i class="fas fa-store"></i>
+                                </div>
+                                <div class="location-name">Shop</div>
+                            </div>
+                            <div class="location-option" data-type="home">
+                                <div class="location-icon">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <div class="location-name">Home</div>
+                            </div>
+                            <div class="location-option" data-type="custom">
+                                <div class="location-icon">
+                                    <i class="fas fa-map-pin"></i>
+                                </div>
+                                <div class="location-name">Custom</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label required">Pickup Address</label>
+                        <textarea class="form-textarea" id="pickupAddress" placeholder="Enter detailed pickup address" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Select on Map (Optional)</label>
+                        <div class="map-container">
+                            <div id="pickupMap"></div>
+                        </div>
+                        <div class="map-controls">
+                            <button class="map-btn secondary" id="useCurrentLocation">
+                                <i class="fas fa-location-arrow"></i> Use My Location
+                            </button>
+                            <button class="map-btn" id="confirmMapLocation">
+                                <i class="fas fa-check"></i> Confirm Location
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label required">Pickup Contact Person</label>
+                        <input type="text" class="form-input" id="pickupContactName" placeholder="Enter contact person name">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label required">Pickup Contact Phone</label>
+                        <div class="phone-input-group">
+                            <input type="tel" class="form-input" id="pickupContactPhone" placeholder="Enter phone number">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="action-btn next-btn" id="nextToStep2">
+                        Continue to Delivery Details <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
-                <div class="address-details">
-                    <p class="address-text">Home: Tudun wada sabuwar hanya gusau, Zamfara State</p>
-                    <p class="address-note">
-                        <i class="fas fa-info-circle"></i>
-                        Your current delivery location
-                    </p>
-                </div>
             </div>
-        </section>
 
-        <!-- Quick Order Section - Scrollable -->
-        <section class="quick-order-section">
-            <div class="section-header">
-                <h2 class="section-title">Quick Order</h2>
-                <a href="#" class="view-all-btn">
-                    View All
-                    <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-            
-            <div class="scrollable-quick-order">
-                <!-- Home Delivery -->
-                <a href="home-delivery.html" class="service-card-scrollable">
-                    <div class="service-image">
-                        <img src="img/1.png" alt="Home Delivery">
-                    </div>
-                    <div class="service-content">
-                        <h3 class="service-name">Home Delivery</h3>
-                        <p class="service-description">Get anything delivered to your doorstep quickly</p>
-                    </div>
-                </a>
-                
-                <!-- Repairs & Services -->
-                <a href="repair-services.html" class="service-card-scrollable">
-                    <div class="service-image">
-                        <img src="img/6.png" alt="Repairs & Services">
-                    </div>
-                    <div class="service-content">
-                        <h3 class="service-name">Repairs & Services</h3>
-                        <p class="service-description">Professional repairs and maintenance services</p>
-                    </div>
-                </a>
-                
-                <!-- Gas Refill -->
-                <a href="gas-refill.html" class="service-card-scrollable">
-                    <div class="service-image">
-                        <img src="img/3.png" alt="Gas Refill">
-                    </div>
-                    <div class="service-content">
-                        <h3 class="service-name">Gas Refill</h3>
-                        <p class="service-description">Safe gas cylinder refills delivered to your home</p>
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <!-- Active Errands Section -->
-        <section class="active-errands-section">
-            <div class="section-header">
-                <h2 class="section-title">Active Errands</h2>
-                <a href="#" class="view-all-btn">
-                    View All
-                    <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-            
-            <div class="errands-table">
-                <!-- Errand 1 -->
-                <div class="errand-item" data-errand="1">
-                    <div class="errand-image">
-                        <img src="img/2.png" alt="Package Delivery">
-                    </div>
-                    <div class="errand-details">
-                        <h3 class="errand-name">Package (A - B)</h3>
-                        <div class="errand-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            From Main Market to Tudun Wada
+            <!-- Step 2: Delivery Details -->
+            <div class="step-content" id="step2">
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-home"></i>
                         </div>
-                        <span class="status-badge status-assigned">
-                            <i class="fas fa-user"></i>
-                            Rider Assigned
-                        </span>
+                        <h2 class="section-title">Delivery Location</h2>
                     </div>
-                    <div class="errand-actions">
-                        <button class="track-btn" data-errand="1">Track</button>
-                    </div>
-                </div>
-                
-                <!-- Errand 2 -->
-                <div class="errand-item" data-errand="2">
-                    <div class="errand-image">
-                        <img src="img/5.png" alt="Laundry Delivery">
-                    </div>
-                    <div class="errand-details">
-                        <h3 class="errand-name">Laundry Delivery</h3>
-                        <div class="errand-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            From Cleaners to Home
-                        </div>
-                        <span class="status-badge status-progress">
-                            <i class="fas fa-sync-alt"></i>
-                            In Progress
-                        </span>
-                    </div>
-                    <div class="errand-actions">
-                        <button class="track-btn" data-errand="2">Track</button>
-                    </div>
-                </div>
-                
-                <!-- Errand 3 -->
-                <div class="errand-item" data-errand="3">
-                    <div class="errand-image">
-                        <img src="img/1.png" alt="Grocery Delivery">
-                    </div>
-                    <div class="errand-details">
-                        <h3 class="errand-name">Grocery Delivery</h3>
-                        <div class="errand-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            From Market to Home
-                        </div>
-                        <span class="status-badge status-pending">
-                            <i class="fas fa-clock"></i>
-                            Pending Pickup
-                        </span>
-                    </div>
-                    <div class="errand-actions">
-                        <button class="track-btn" data-errand="3">Track</button>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Frequently Used Services - Scrollable with more cards -->
-        <section class="frequent-services-section mt-3">
-            <div class="section-header">
-                <h2 class="section-title">Frequently Used</h2>
-                <a href="#" class="view-all-btn">
-                    See All
-                    <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-            
-            <div class="scrollable-services">
-                <!-- Package (A - B) -->
-                <a href="package.html" class="service-card-scrollable">
-                    <div class="service-image">
-                        <img src="img/2.png" alt="Package (A - B)">
+                    <div class="form-group">
+                        <label class="form-label required">Select Home Address</label>
+                        <div class="address-list" id="homeAddresses">
+                            <div class="address-item selected" data-address="home1">
+                                <div class="address-title">
+                                    Home Address
+                                    <span class="address-type">Primary</span>
+                                </div>
+                                <div class="address-details">
+                                    123 Main Street, Tudun Wada<br>
+                                    Gusau, Zamfara State
+                                </div>
+                            </div>
+                            <div class="address-item" data-address="home2">
+                                <div class="address-title">
+                                    Parents' House
+                                    <span class="address-type">Family</span>
+                                </div>
+                                <div class="address-details">
+                                    78 Family Road, Unguwan Gwaza<br>
+                                    Gusau, Zamfara State
+                                </div>
+                            </div>
+                        </div>
+                        <button class="add-address-btn" id="addAddressBtn">
+                            <i class="fas fa-plus"></i> Add New Address
+                        </button>
                     </div>
-                    <div class="service-content">
-                        <h3 class="service-name">Package (A - B)</h3>
-                        <p class="service-description">Send packages anywhere in the city</p>
-                    </div>
-                </a>
-                
-                <!-- Laundry Delivery -->
-                <a href="laundry.html" class="service-card-scrollable">
-                    <div class="service-image">
-                        <img src="img/5.png" alt="Laundry Delivery">
-                    </div>
-                    <div class="service-content">
-                        <h3 class="service-name">Laundry Delivery</h3>
-                        <p class="service-description">We deliver your cleaned clothes</p>
-                    </div>
-                </a>
-                
-                <!-- Gas Refill -->
-                <a href="gas-refill.html" class="service-card-scrollable">
-                    <div class="service-image">
-                        <img src="img/3.png" alt="Gas Refill">
-                    </div>
-                    <div class="service-content">
-                        <h3 class="service-name">Gas Refill</h3>
-                        <p class="service-description">Safe gas cylinder refills delivered</p>
-                    </div>
-                </a>
-                
-                <!-- Buy For Me -->
-                <a href="buy-for-me.html" class="service-card-scrollable">
-                    <div class="service-image">
-                        <img src="img/4.png" alt="Buy For Me">
-                    </div>
-                    <div class="service-content">
-                        <h3 class="service-name">Buy For Me</h3>
-                        <p class="service-description">We purchase and deliver items for you</p>
-                    </div>
-                </a>
-            </div>
-        </section>
 
-        <!-- Professional Promo Banner -->
-        <section class="promo-section mt-3">
-            <div class="promo-banner">
-                <div class="promo-content">
-                    <h2 class="promo-title">Save more with bulk errands!</h2>
-                    <p class="promo-text">Multiple pickups in one trip for maximum efficiency and savings</p>
-                    <button class="promo-button">Learn More</button>
+                    <div class="form-group">
+                        <label class="form-label required">Receiver Information</label>
+                        <div class="receiver-options">
+                            <div class="receiver-option selected" id="receiverSelf">
+                                <div class="receiver-icon">
+                                    <i class="fas fa-user-check"></i>
+                                </div>
+                                <div class="receiver-title">It's me</div>
+                                <div class="receiver-desc">Receiver is yourself</div>
+                            </div>
+                            <div class="receiver-option" id="receiverOther">
+                                <div class="receiver-icon">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div class="receiver-title">Someone else</div>
+                                <div class="receiver-desc">Different receiver</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Display user info when "It's me" is selected -->
+                        <div class="receiver-info-display" id="selfReceiverInfo">
+                            <div class="info-row">
+                                <span class="info-label">Name:</span>
+                                <span class="info-value" id="userNameDisplay">Usman Abdullahi</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Phone Numbers:</span>
+                                <span class="info-value" id="userPhoneDisplay">+234 801 234 5678, +234 812 345 6789</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Form for "Someone else" -->
+                        <div class="receiver-form" id="otherReceiverForm" style="display: none;">
+                            <div class="form-group">
+                                <label class="form-label required">Receiver Name</label>
+                                <input type="text" class="form-input" id="receiverName" placeholder="Enter receiver full name">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label required">Receiver Phone Numbers</label>
+                                <div id="receiverPhoneInputs">
+                                    <div class="phone-input-group">
+                                        <input type="tel" class="form-input" placeholder="Primary phone number">
+                                        <button type="button" class="remove-phone-btn" style="display: none;">
+                                            <i class="fas fa-minus"></i> Remove
+                                        </button>
+                                    </div>
+                                </div>
+                                <button type="button" class="add-phone-btn" id="addReceiverPhone">
+                                    <i class="fas fa-plus"></i> Add Another Number
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label required">Item Description</label>
+                        <textarea class="form-textarea" id="itemDescription" placeholder="Describe the item to be delivered" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Item Photo (Optional)</label>
+                        <div class="photo-upload-area" id="itemPhotoUpload">
+                            <div class="upload-icon">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                            <div class="upload-text">Add item photo</div>
+                            <div class="upload-subtext">Click to upload or drag and drop</div>
+                            <input type="file" id="itemPhotoInput" accept="image/*">
+                        </div>
+                        <div class="photo-preview" id="itemPhotoPreview" style="display: none;">
+                            <img id="previewItemImage" class="preview-image" alt="Item preview">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Delivery Note (Optional)</label>
+                        <textarea class="form-textarea" id="deliveryNote" placeholder="Any special instructions for the rider" rows="2"></textarea>
+                    </div>
                 </div>
-                <div class="promo-image"></div>
+
+                <div class="action-buttons">
+                    <button class="action-btn prev-btn" id="backToStep1">
+                        <i class="fas fa-arrow-left"></i> Back to Pickup
+                    </button>
+                    <button class="action-btn next-btn" id="nextToStep3">
+                        Continue to Select Rider <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 3: Select Rider -->
+            <div class="step-content" id="step3">
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-motorcycle"></i>
+                        </div>
+                        <h2 class="section-title">Select a Rider</h2>
+                    </div>
+
+                    <div class="riders-list" id="ridersList">
+                        <!-- Rider 1 -->
+                        <div class="rider-item selected" data-rider="1">
+                            <div class="rider-online-status">
+                                <span class="online-dot"></span>
+                                <span>Online</span>
+                            </div>
+                            <div class="rider-header">
+                                <div class="rider-info">
+                                    <div class="rider-image">
+                                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Abdul Sani">
+                                    </div>
+                                    <div>
+                                        <div class="rider-name">Abdul Sani</div>
+                                        <div class="rider-details">
+                                            <span class="rider-vehicle">
+                                                <i class="fas fa-motorcycle"></i> Motorcycle
+                                            </span>
+                                            <span class="rider-rating">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star-half-alt"></i>
+                                                <span>4.5</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="rider-price">₦850</div>
+                            </div>
+                        </div>
+
+                        <!-- Rider 2 -->
+                        <div class="rider-item" data-rider="2">
+                            <div class="rider-online-status">
+                                <span class="online-dot"></span>
+                                <span>Online</span>
+                            </div>
+                            <div class="rider-header">
+                                <div class="rider-info">
+                                    <div class="rider-image">
+                                        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Musa Ahmed">
+                                    </div>
+                                    <div>
+                                        <div class="rider-name">Musa Ahmed</div>
+                                        <div class="rider-details">
+                                            <span class="rider-vehicle">
+                                                <i class="fas fa-car"></i> Car
+                                            </span>
+                                            <span class="rider-rating">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <span>5.0</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="rider-price">₦950</div>
+                            </div>
+                        </div>
+
+                        <!-- Rider 3 -->
+                        <div class="rider-item" data-rider="3">
+                            <div class="rider-online-status">
+                                <span class="online-dot"></span>
+                                <span>Online</span>
+                            </div>
+                            <div class="rider-header">
+                                <div class="rider-info">
+                                    <div class="rider-image">
+                                        <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Ibrahim Yusuf">
+                                    </div>
+                                    <div>
+                                        <div class="rider-name">Ibrahim Yusuf</div>
+                                        <div class="rider-details">
+                                            <span class="rider-vehicle">
+                                                <i class="fas fa-bicycle"></i> Bicycle
+                                            </span>
+                                            <span class="rider-rating">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <span>4.0</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="rider-price">₦650</div>
+                            </div>
+                        </div>
+
+                        <!-- Rider 4 -->
+                        <div class="rider-item" data-rider="4">
+                            <div class="rider-online-status">
+                                <span class="online-dot"></span>
+                                <span>Online</span>
+                            </div>
+                            <div class="rider-header">
+                                <div class="rider-info">
+                                    <div class="rider-image">
+                                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Suleiman Bello">
+                                    </div>
+                                    <div>
+                                        <div class="rider-name">Suleiman Bello</div>
+                                        <div class="rider-details">
+                                            <span class="rider-vehicle">
+                                                <i class="fas fa-truck-pickup"></i> Pickup
+                                            </span>
+                                            <span class="rider-rating">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star-half-alt"></i>
+                                                <span>4.7</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="rider-price">₦750</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checkout-summary">
+                        <h3 class="summary-title">Order Summary</h3>
+                        <div class="summary-details">
+                            <div class="summary-row">
+                                <span class="summary-label">Delivery Distance</span>
+                                <span>5.2 km</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Estimated Time</span>
+                                <span>25-35 mins</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Service Fee</span>
+                                <span>₦150</span>
+                            </div>
+                        </div>
+                        <div class="summary-total">
+                            <span>Total Amount</span>
+                            <span id="totalAmount">₦850</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="action-btn prev-btn" id="backToStep2">
+                        <i class="fas fa-arrow-left"></i> Back to Delivery
+                    </button>
+                    <button class="action-btn next-btn" id="nextToStep4">
+                        Proceed to Checkout <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 4: Checkout -->
+            <div class="step-content" id="step4">
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h2 class="section-title">Checkout & Payment</h2>
+                    </div>
+
+                    <div class="checkout-summary">
+                        <h3 class="summary-title">Order Summary</h3>
+                        <div class="summary-details">
+                            <div class="summary-row">
+                                <span class="summary-label">Pickup Location</span>
+                                <span id="summaryPickup">-</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Delivery Location</span>
+                                <span id="summaryDelivery">-</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Selected Rider</span>
+                                <span id="summaryRider">-</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Rider Fee</span>
+                                <span id="summaryRiderFee">₦850</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Service Fee</span>
+                                <span>₦150</span>
+                            </div>
+                        </div>
+                        <div class="summary-total">
+                            <span>Total Amount</span>
+                            <span id="summaryTotal">₦1,000</span>
+                        </div>
+                    </div>
+
+                    <div class="timer-container" id="timerContainer">
+                        <div class="timer-title">Waiting for rider to accept your order</div>
+                        <div class="timer" id="countdownTimer">02:00</div>
+                        <div class="timer-message" id="timerMessage">Rider has 2 minutes to accept your request</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label required">Select Payment Method</label>
+                        <div class="location-options">
+                            <div class="location-option selected" data-payment="card">
+                                <div class="location-icon">
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                                <div class="location-name">Card Payment</div>
+                            </div>
+                            <div class="location-option" data-payment="transfer">
+                                <div class="location-icon">
+                                    <i class="fas fa-university"></i>
+                                </div>
+                                <div class="location-name">Bank Transfer</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="action-btn prev-btn" id="backToStep3">
+                        <i class="fas fa-arrow-left"></i> Back to Riders
+                    </button>
+                    <button class="action-btn payment-btn" id="proceedPayment" disabled>
+                        <i class="fas fa-lock"></i> Proceed to Payment
+                    </button>
+                </div>
             </div>
         </section>
     </main>
 
     <!-- Professional Bottom Navigation -->
     <nav class="bottom-nav">
-        <a href="#" class="nav-item active">
+        <a href="index.html" class="nav-item">
             <div class="nav-icon">
                 <i class="fas fa-home"></i>
             </div>
             <span class="nav-text">Home</span>
         </a>
         
-        <a href="#" class="nav-item">
+        <a href="orders.html" class="nav-item">
             <div class="nav-icon">
                 <i class="fas fa-clipboard-list"></i>
             </div>
@@ -1610,7 +1893,7 @@
             <span class="nav-text">Favorites</span>
         </a>
         
-        <a href="#" class="nav-item">
+        <a href="profile.html" class="nav-item">
             <div class="nav-icon">
                 <i class="fas fa-user"></i>
             </div>
@@ -1624,142 +1907,102 @@
         <p class="loader-text">Loading...</p>
     </div>
 
-    <!-- Very Low Opacity Tracking Loader -->
-    <div class="tracking-loader" id="trackingLoader">
-        <div class="tracking-loader-spinner"></div>
-        <p class="tracking-loader-text">Loading tracking...</p>
-    </div>
-
-    <!-- Tracking Modal - Updated Professional Style -->
-    <div class="tracking-modal" id="trackingModal">
-        <div class="tracking-modal-content">
-            <div class="tracking-modal-header">
-                <h2 class="tracking-modal-title">Track Your Errand</h2>
-                <button class="close-modal-btn" id="closeTrackingModal">
+    <!-- Add Address Modal -->
+    <div class="modal" id="addAddressModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Add New Address</h2>
+                <button class="close-modal-btn" id="closeAddressModal">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <div class="tracking-modal-body">
-                <!-- Rider Info with Vehicle Type -->
-                <div class="rider-info">
-                    <div class="rider-image">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rider">
-                    </div>
-                    <div class="rider-details">
-                        <h3 id="riderName">Abdul Sani</h3>
-                        <p class="rider-phone" id="riderPhone">+234 812 345 6789</p>
-                        <span class="rider-vehicle" id="riderVehicle">
-                            <i class="fas fa-motorcycle"></i> Motorcycle
-                        </span>
-                        <div class="rider-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <span style="margin-left: 5px; font-size: 14px;">4.5</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Compact Tracking Details -->
-                <div class="tracking-details-compact">
-                    <div class="detail-item-compact">
-                        <div class="detail-label">Pickup Location</div>
-                        <div class="detail-value" id="pickupLocation">Main Market, Gusau</div>
-                    </div>
-                    <div class="detail-item-compact">
-                        <div class="detail-label">Delivery Location</div>
-                        <div class="detail-value" id="deliveryLocation">Tudun Wada, Gusau</div>
-                    </div>
-                    <div class="detail-item-compact">
-                        <div class="detail-label">Contact Person</div>
-                        <div class="detail-value" id="contactPerson">Aisha Bello</div>
-                    </div>
-                    <div class="detail-item-compact">
-                        <div class="detail-label">Contact Phone</div>
-                        <div class="detail-value" id="contactPhone">+234 813 456 7890</div>
-                    </div>
-                    <div class="detail-item-compact">
-                        <div class="detail-label">Package Details</div>
-                        <div class="detail-value" id="packageDetails">Medium (5kg)</div>
-                    </div>
-                    <div class="detail-item-compact">
-                        <div class="detail-label">Estimated Time</div>
-                        <div class="detail-value" id="estimatedTime">30-45 mins</div>
-                    </div>
-                </div>
-
-                <!-- Delivery Status -->
-                <div class="delivery-status">
-                    <div class="status-header">
-                        <h3 class="status-title">Delivery Status</h3>
-                        <span class="status-badge-large status-assigned" id="deliveryStatusBadge">
-                            Package Picked Up
-                        </span>
+            <div class="modal-body">
+                <form id="addressForm">
+                    <div class="form-group">
+                        <label class="form-label required">Address Title</label>
+                        <input type="text" class="form-input" id="newAddressTitle" placeholder="e.g., Home, Office, Parents' House" required>
                     </div>
                     
-                    <div class="status-timeline" id="statusTimeline">
-                        <div class="status-step completed">
-                            <div class="status-step-icon">
-                                <i class="fas fa-clipboard-check"></i>
-                            </div>
-                            <div class="status-step-content">
-                                <div class="status-step-title">Order Confirmed</div>
-                                <div class="status-step-time">Today, 9:30 AM</div>
-                            </div>
-                        </div>
-                        
-                        <div class="status-step completed">
-                            <div class="status-step-icon">
-                                <i class="fas fa-user-check"></i>
-                            </div>
-                            <div class="status-step-content">
-                                <div class="status-step-title">Rider Assigned</div>
-                                <div class="status-step-time">Today, 9:45 AM</div>
-                            </div>
-                        </div>
-                        
-                        <div class="status-step active">
-                            <div class="status-step-icon">
-                                <i class="fas fa-box-open"></i>
-                            </div>
-                            <div class="status-step-content">
-                                <div class="status-step-title">Package Picked Up</div>
-                                <div class="status-step-time">Today, 10:15 AM</div>
-                            </div>
-                        </div>
-                        
-                        <div class="status-step">
-                            <div class="status-step-icon">
-                                <i class="fas fa-shipping-fast"></i>
-                            </div>
-                            <div class="status-step-content">
-                                <div class="status-step-title">In Transit</div>
-                                <div class="status-step-time">Estimated: 10:30 AM</div>
-                            </div>
-                        </div>
-                        
-                        <div class="status-step">
-                            <div class="status-step-icon">
-                                <i class="fas fa-check-circle"></i>
-                            </div>
-                            <div class="status-step-content">
-                                <div class="status-step-title">Delivered</div>
-                                <div class="status-step-time">Estimated: 11:00 AM</div>
-                            </div>
+                    <div class="form-group">
+                        <label class="form-label required">Address Details</label>
+                        <textarea class="form-textarea" id="newAddressDetails" placeholder="Enter full address" rows="4" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Address Type</label>
+                        <select class="form-select" id="newAddressType" required>
+                            <option value="Home">Home</option>
+                            <option value="Office">Office</option>
+                            <option value="Family">Family</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Set as Primary Address</label>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="setAsPrimary" style="width: 20px; height: 20px;">
+                            <label for="setAsPrimary" style="font-size: 14px; color: var(--text-dark);">Make this your primary delivery address</label>
                         </div>
                     </div>
-                </div>
-
-                <!-- Call Rider Button -->
-                <button class="call-rider-btn" id="callRiderBtn">
-                    <i class="fas fa-phone"></i>
-                    Call Rider
-                </button>
+                    
+                    <div class="action-buttons" style="margin-top: 30px;">
+                        <button type="button" class="action-btn prev-btn" id="cancelAddressBtn">Cancel</button>
+                        <button type="submit" class="action-btn next-btn">Save Address</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+
+    <!-- Payment Processing Modal -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Payment Processing</h2>
+                <button class="close-modal-btn" id="closePaymentModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="text-align: center; padding: 20px 0;">
+                    <div class="loader-spinner" style="margin: 0 auto 20px;"></div>
+                    <h3 style="margin-bottom: 10px; color: var(--text-dark);">Processing Payment</h3>
+                    <p style="color: var(--text-light); margin-bottom: 30px;">Please wait while we process your payment of <strong id="paymentAmount">₦1,000</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Confirmed Modal -->
+    <div class="modal" id="orderConfirmedModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Order Confirmed!</h2>
+                <button class="close-modal-btn" id="closeOrderModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="text-align: center; padding: 20px 0;">
+                    <div style="width: 80px; height: 80px; background: var(--primary-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                        <i class="fas fa-check" style="color: white; font-size: 36px;"></i>
+                    </div>
+                    <h3 style="margin-bottom: 10px; color: var(--text-dark);">Your order has been confirmed!</h3>
+                    <p style="color: var(--text-light); margin-bottom: 20px;">Rider <strong id="confirmedRiderName">Abdul Sani</strong> has accepted your delivery request.</p>
+                    <p style="color: var(--text-light); margin-bottom: 30px;">Estimated delivery time: <strong>25-35 minutes</strong></p>
+                    
+                    <div class="action-buttons">
+                        <button class="action-btn prev-btn" id="viewOrderDetails">View Order Details</button>
+                        <button class="action-btn next-btn" id="goToOrders">Track Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <script>
         // Theme Toggle in Header
@@ -1788,17 +2031,174 @@
         
         // Enhanced Theme-Tailored Loader
         const pageLoader = document.getElementById('pageLoader');
-        const trackingLoader = document.getElementById('trackingLoader');
         const navItems = document.querySelectorAll('.nav-item');
-        const serviceCards = document.querySelectorAll('.service-card-scrollable');
-        const trackButtons = document.querySelectorAll('.track-btn');
+        const backButton = document.getElementById('backButton');
         const createButton = document.querySelector('.create-button');
-        const errandItems = document.querySelectorAll('.errand-item');
+        
+        // Step Navigation Elements
+        const steps = document.querySelectorAll('.step');
+        const stepContents = document.querySelectorAll('.step-content');
+        let currentStep = 1;
+        
+        // Step 1 Elements
+        const locationOptions = document.querySelectorAll('.location-option[data-type]');
+        const nextToStep2Btn = document.getElementById('nextToStep2');
+        
+        // Step 2 Elements
+        const addressItems = document.querySelectorAll('.address-item');
+        const addAddressBtn = document.getElementById('addAddressBtn');
+        const receiverSelf = document.getElementById('receiverSelf');
+        const receiverOther = document.getElementById('receiverOther');
+        const selfReceiverInfo = document.getElementById('selfReceiverInfo');
+        const otherReceiverForm = document.getElementById('otherReceiverForm');
+        const addReceiverPhone = document.getElementById('addReceiverPhone');
+        const receiverPhoneInputs = document.getElementById('receiverPhoneInputs');
+        const itemPhotoUpload = document.getElementById('itemPhotoUpload');
+        const itemPhotoInput = document.getElementById('itemPhotoInput');
+        const itemPhotoPreview = document.getElementById('itemPhotoPreview');
+        const previewItemImage = document.getElementById('previewItemImage');
+        const backToStep1Btn = document.getElementById('backToStep1');
+        const nextToStep3Btn = document.getElementById('nextToStep3');
+        
+        // Step 3 Elements
+        const riderItems = document.querySelectorAll('.rider-item');
+        const totalAmount = document.getElementById('totalAmount');
+        const backToStep2Btn = document.getElementById('backToStep2');
+        const nextToStep4Btn = document.getElementById('nextToStep4');
+        
+        // Step 4 Elements
+        const summaryPickup = document.getElementById('summaryPickup');
+        const summaryDelivery = document.getElementById('summaryDelivery');
+        const summaryRider = document.getElementById('summaryRider');
+        const summaryRiderFee = document.getElementById('summaryRiderFee');
+        const summaryTotal = document.getElementById('summaryTotal');
+        const countdownTimer = document.getElementById('countdownTimer');
+        const timerMessage = document.getElementById('timerMessage');
+        const paymentOptions = document.querySelectorAll('.location-option[data-payment]');
+        const proceedPaymentBtn = document.getElementById('proceedPayment');
+        const backToStep3Btn = document.getElementById('backToStep3');
+        
+        // Modal Elements
+        const addAddressModal = document.getElementById('addAddressModal');
+        const closeAddressModal = document.getElementById('closeAddressModal');
+        const cancelAddressBtn = document.getElementById('cancelAddressBtn');
+        const addressForm = document.getElementById('addressForm');
+        const paymentModal = document.getElementById('paymentModal');
+        const closePaymentModal = document.getElementById('closePaymentModal');
+        const paymentAmount = document.getElementById('paymentAmount');
+        const orderConfirmedModal = document.getElementById('orderConfirmedModal');
+        const closeOrderModal = document.getElementById('closeOrderModal');
+        const confirmedRiderName = document.getElementById('confirmedRiderName');
+        const viewOrderDetailsBtn = document.getElementById('viewOrderDetails');
+        const goToOrdersBtn = document.getElementById('goToOrders');
+        
+        // Timer variables
+        let timerInterval;
+        let timeLeft = 120; // 2 minutes in seconds
+        
+        // Selected options
+        let selectedRider = 1;
+        let selectedRiderPrice = 850;
+        let selectedPayment = 'card';
+        
+        // Map variables
+        let map;
+        let marker;
+        let userLocation = [11.9814, 6.7714]; // Gusau, Zamfara coordinates
+        
+        // User data (simulated - in real app, this would come from profile)
+        const userData = {
+            name: "Usman Abdullahi",
+            phones: ["+234 801 234 5678", "+234 812 345 6789"]
+        };
         
         // Simulate initial page load
         window.addEventListener('load', () => {
             setTimeout(() => {
                 pageLoader.classList.remove('active');
+                initializeMap();
+            }, 800);
+        });
+        
+        // Initialize Leaflet Map
+        function initializeMap() {
+            // Initialize map
+            map = L.map('pickupMap').setView(userLocation, 13);
+            
+            // Add tile layer (OpenStreetMap)
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                maxZoom: 19
+            }).addTo(map);
+            
+            // Add initial marker
+            marker = L.marker(userLocation, {
+                draggable: true,
+                title: "Drag to set pickup location"
+            }).addTo(map);
+            
+            // Add marker drag event
+            marker.on('dragend', function(e) {
+                const position = marker.getLatLng();
+                updateAddressFromMap(position.lat, position.lng);
+            });
+            
+            // Add click event to map to move marker
+            map.on('click', function(e) {
+                marker.setLatLng(e.latlng);
+                updateAddressFromMap(e.latlng.lat, e.latlng.lng);
+            });
+        }
+        
+        // Update address field from map coordinates
+        function updateAddressFromMap(lat, lng) {
+            // In a real app, you would use reverse geocoding API
+            // For demo, we'll just show coordinates
+            const addressField = document.getElementById('pickupAddress');
+            addressField.value = `Lat: ${lat.toFixed(6)}, Lng: ${lng.toFixed(6)}\nSelected location from map`;
+        }
+        
+        // Use current location button
+        document.getElementById('useCurrentLocation').addEventListener('click', function() {
+            if (navigator.geolocation) {
+                pageLoader.classList.add('active');
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        
+                        // Update map view
+                        map.setView([lat, lng], 15);
+                        marker.setLatLng([lat, lng]);
+                        
+                        // Update address field
+                        updateAddressFromMap(lat, lng);
+                        
+                        pageLoader.classList.remove('active');
+                        showNotification('Location updated successfully!', 'success');
+                    },
+                    function(error) {
+                        pageLoader.classList.remove('active');
+                        showNotification('Unable to get your location. Please enable location services.', 'error');
+                    }
+                );
+            } else {
+                showNotification('Geolocation is not supported by your browser', 'error');
+            }
+        });
+        
+        // Confirm map location button
+        document.getElementById('confirmMapLocation').addEventListener('click', function() {
+            const position = marker.getLatLng();
+            updateAddressFromMap(position.lat, position.lng);
+            showNotification('Location confirmed!', 'success');
+        });
+        
+        // Back button handler
+        backButton.addEventListener('click', () => {
+            pageLoader.classList.add('active');
+            setTimeout(() => {
+                window.history.back();
             }, 800);
         });
         
@@ -1814,273 +2214,483 @@
                 // Show themed loader
                 pageLoader.classList.add('active');
                 
+                // Get href from anchor tag
+                const href = item.getAttribute('href');
+                
                 // Simulate page navigation
                 setTimeout(() => {
-                    pageLoader.classList.remove('active');
-                    
-                    // Update page title based on navigation
-                    const navText = item.querySelector('.nav-text').textContent;
-                    document.querySelector('.welcome-title').textContent = 
-                        `What do you want to do in ${navText}?`;
+                    if (href && href !== '#') {
+                        window.location.href = href;
+                    } else {
+                        pageLoader.classList.remove('active');
+                    }
                 }, 1000);
             });
         });
         
-        // Service card click handler with actual page navigation
-        serviceCards.forEach(card => {
-            card.addEventListener('click', (e) => {
-                e.preventDefault();
-                const href = card.getAttribute('href');
-                
-                // Show themed loader
-                pageLoader.classList.add('active');
-                
-                // Simulate page loading for 1.5 seconds
-                setTimeout(() => {
-                    // In a real app, this would navigate to the actual page
-                    // For demo purposes, we'll just load and stay on the same page
-                    // but in production, this would be: window.location.href = href;
-                    
-                    const serviceName = card.querySelector('.service-name').textContent;
-                    console.log(`Navigating to ${serviceName} page: ${href}`);
-                    
-                    // After loading, remove loader
-                    pageLoader.classList.remove('active');
-                }, 1500);
-            });
+        // Create button handler
+        createButton.addEventListener('click', () => {
+            pageLoader.classList.add('active');
+            setTimeout(() => {
+                pageLoader.classList.remove('active');
+                window.location.href = 'index.html';
+            }, 800);
         });
         
-        // Errand item click handler - only opens modal, no page navigation
-        errandItems.forEach(item => {
-            item.addEventListener('click', (e) => {
-                // Only trigger if not clicking on the track button
-                if (!e.target.closest('.track-btn')) {
-                    e.preventDefault();
-                    const errandId = item.getAttribute('data-errand');
-                    
-                    // Simulate track button click
-                    const trackBtn = item.querySelector('.track-btn');
-                    if (trackBtn) {
-                        trackBtn.click();
-                    }
+        // Step Navigation Functions
+        function goToStep(stepNumber) {
+            // Update steps indicator
+            steps.forEach(step => {
+                const stepNum = parseInt(step.getAttribute('data-step'));
+                step.classList.remove('active', 'completed');
+                
+                if (stepNum < stepNumber) {
+                    step.classList.add('completed');
+                } else if (stepNum === stepNumber) {
+                    step.classList.add('active');
                 }
             });
-        });
+            
+            // Show/hide step contents
+            stepContents.forEach(content => {
+                content.classList.remove('active');
+                if (content.id === `step${stepNumber}`) {
+                    content.classList.add('active');
+                }
+            });
+            
+            currentStep = stepNumber;
+            
+            // Scroll to top of step content
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
         
-        // Tracking Modal with Very Low Opacity Loader
-        const trackingModal = document.getElementById('trackingModal');
-        const closeTrackingModal = document.getElementById('closeTrackingModal');
-        const callRiderBtn = document.getElementById('callRiderBtn');
-        
-        // Track button click handler with 2-second low opacity loader
-        trackButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent errand item click
-                const errandId = button.getAttribute('data-errand');
-                
-                // Show very low opacity loader
-                trackingLoader.classList.add('active');
-                
-                // Set different data based on errand ID after 2 seconds
-                setTimeout(() => {
-                    const vehicleTypes = [
-                        { icon: 'fas fa-motorcycle', type: 'Motorcycle' },
-                        { icon: 'fas fa-bicycle', type: 'Bicycle' },
-                        { icon: 'fas fa-car', type: 'Car' },
-                        { icon: 'fas fa-truck-pickup', type: 'Pickup Truck' }
-                    ];
-                    
-                    const randomVehicle = vehicleTypes[Math.floor(Math.random() * vehicleTypes.length)];
-                    
-                    switch(errandId) {
-                        case '1': // Package (A - B)
-                            document.getElementById('riderName').textContent = 'Abdul Sani';
-                            document.getElementById('riderPhone').textContent = '+234 812 345 6789';
-                            document.getElementById('riderVehicle').innerHTML = `<i class="${randomVehicle.icon}"></i> ${randomVehicle.type}`;
-                            document.getElementById('pickupLocation').textContent = 'Main Market, Gusau';
-                            document.getElementById('deliveryLocation').textContent = 'Tudun Wada, Gusau';
-                            document.getElementById('contactPerson').textContent = 'Aisha Bello';
-                            document.getElementById('contactPhone').textContent = '+234 813 456 7890';
-                            document.getElementById('packageDetails').textContent = 'Medium (5kg)';
-                            document.getElementById('estimatedTime').textContent = '30-45 mins';
-                            document.getElementById('deliveryStatusBadge').textContent = 'Package Picked Up';
-                            updateStatusTimeline('picked');
-                            break;
-                        case '2': // Laundry Delivery
-                            document.getElementById('riderName').textContent = 'Musa Ahmed';
-                            document.getElementById('riderPhone').textContent = '+234 814 567 8901';
-                            document.getElementById('riderVehicle').innerHTML = `<i class="${randomVehicle.icon}"></i> ${randomVehicle.type}`;
-                            document.getElementById('pickupLocation').textContent = 'Cleaners Center, Gusau';
-                            document.getElementById('deliveryLocation').textContent = 'Home Address, Gusau';
-                            document.getElementById('contactPerson').textContent = 'Usman';
-                            document.getElementById('contactPhone').textContent = '+234 801 234 5678';
-                            document.getElementById('packageDetails').textContent = 'Laundry Bag (3kg)';
-                            document.getElementById('estimatedTime').textContent = '15-20 mins';
-                            document.getElementById('deliveryStatusBadge').textContent = 'In Progress';
-                            updateStatusTimeline('in-progress');
-                            break;
-                        case '3': // Grocery Delivery
-                            document.getElementById('riderName').textContent = 'Ibrahim Yusuf';
-                            document.getElementById('riderPhone').textContent = '+234 815 678 9012';
-                            document.getElementById('riderVehicle').innerHTML = `<i class="${randomVehicle.icon}"></i> ${randomVehicle.type}`;
-                            document.getElementById('pickupLocation').textContent = 'Main Market, Gusau';
-                            document.getElementById('deliveryLocation').textContent = 'Home Address, Gusau';
-                            document.getElementById('contactPerson').textContent = 'Usman';
-                            document.getElementById('contactPhone').textContent = '+234 801 234 5678';
-                            document.getElementById('packageDetails').textContent = 'Grocery (8kg)';
-                            document.getElementById('estimatedTime').textContent = '45-60 mins';
-                            document.getElementById('deliveryStatusBadge').textContent = 'Pending Pickup';
-                            updateStatusTimeline('pending');
-                            break;
-                    }
-                    
-                    // Hide loader and show tracking modal
-                    trackingLoader.classList.remove('active');
-                    trackingModal.classList.add('active');
-                }, 2000);
+        // Step 1: Location Options
+        locationOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                locationOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
             });
         });
         
-        // Close tracking modal
-        closeTrackingModal.addEventListener('click', () => {
-            trackingModal.classList.remove('active');
+        // Step 1: Next button
+        nextToStep2Btn.addEventListener('click', () => {
+            goToStep(2);
         });
         
-        // Close modal when clicking outside
-        trackingModal.addEventListener('click', (e) => {
-            if (e.target === trackingModal) {
-                trackingModal.classList.remove('active');
+        // Step 2: Address Selection
+        addressItems.forEach(item => {
+            item.addEventListener('click', () => {
+                addressItems.forEach(addr => addr.classList.remove('selected'));
+                item.classList.add('selected');
+            });
+        });
+        
+        // Step 2: Add Address button
+        addAddressBtn.addEventListener('click', () => {
+            addAddressModal.classList.add('active');
+        });
+        
+        // Step 2: Receiver Information Toggle
+        receiverSelf.addEventListener('click', () => {
+            receiverSelf.classList.add('selected');
+            receiverOther.classList.remove('selected');
+            selfReceiverInfo.style.display = 'block';
+            otherReceiverForm.style.display = 'none';
+            
+            // Update user info display
+            document.getElementById('userNameDisplay').textContent = userData.name;
+            document.getElementById('userPhoneDisplay').textContent = userData.phones.join(', ');
+        });
+        
+        receiverOther.addEventListener('click', () => {
+            receiverOther.classList.add('selected');
+            receiverSelf.classList.remove('selected');
+            selfReceiverInfo.style.display = 'none';
+            otherReceiverForm.style.display = 'block';
+        });
+        
+        // Step 2: Add Receiver Phone Number
+        addReceiverPhone.addEventListener('click', () => {
+            const phoneInputs = document.querySelectorAll('#receiverPhoneInputs .phone-input-group');
+            
+            if (phoneInputs.length < 2) { // Max 2 phone numbers
+                const phoneDiv = document.createElement('div');
+                phoneDiv.className = 'phone-input-group';
+                phoneDiv.innerHTML = `
+                    <input type="tel" class="form-input" placeholder="Additional phone number">
+                    <button type="button" class="remove-phone-btn">
+                        <i class="fas fa-minus"></i> Remove
+                    </button>
+                `;
+                receiverPhoneInputs.appendChild(phoneDiv);
+                
+                // Add event listener to new remove button
+                phoneDiv.querySelector('.remove-phone-btn').addEventListener('click', () => {
+                    phoneDiv.remove();
+                });
+                
+                // Show remove button on first input
+                if (phoneInputs.length === 1) {
+                    phoneInputs[0].querySelector('.remove-phone-btn').style.display = 'block';
+                }
+            } else {
+                showNotification('Maximum 2 phone numbers allowed', 'error');
             }
         });
         
-        // Call rider button
-        callRiderBtn.addEventListener('click', () => {
-            const phoneNumber = document.getElementById('riderPhone').textContent;
-            alert(`Calling ${phoneNumber}...`);
+        // Step 2: Item Photo Upload
+        itemPhotoUpload.addEventListener('click', () => {
+            itemPhotoInput.click();
         });
         
-        // Update status timeline based on status
-        function updateStatusTimeline(status) {
-            const steps = document.querySelectorAll('.status-step');
-            steps.forEach(step => step.classList.remove('active', 'completed'));
+        itemPhotoInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        previewItemImage.src = e.target.result;
+                        itemPhotoPreview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    showNotification('Please select an image file', 'error');
+                }
+            }
+        });
+        
+        // Step 2: Back button
+        backToStep1Btn.addEventListener('click', () => {
+            goToStep(1);
+        });
+        
+        // Step 2: Next button
+        nextToStep3Btn.addEventListener('click', () => {
+            // Update summary with pickup and delivery locations
+            const pickupAddress = document.getElementById('pickupAddress').value;
+            const selectedAddress = document.querySelector('.address-item.selected .address-details').textContent;
             
-            switch(status) {
-                case 'pending':
-                    steps[0].classList.add('completed');
-                    steps[1].classList.add('active');
-                    break;
-                case 'picked':
-                    steps[0].classList.add('completed');
-                    steps[1].classList.add('completed');
-                    steps[2].classList.add('active');
-                    break;
-                case 'in-progress':
-                    steps[0].classList.add('completed');
-                    steps[1].classList.add('completed');
-                    steps[2].classList.add('completed');
-                    steps[3].classList.add('active');
-                    break;
+            summaryPickup.textContent = pickupAddress || '-';
+            summaryDelivery.textContent = selectedAddress.replace(/\n/g, ', ');
+            
+            goToStep(3);
+        });
+        
+        // Step 3: Rider Selection
+        riderItems.forEach(rider => {
+            rider.addEventListener('click', () => {
+                riderItems.forEach(r => r.classList.remove('selected'));
+                rider.classList.add('selected');
+                
+                selectedRider = parseInt(rider.getAttribute('data-rider'));
+                
+                // Get rider price from the displayed price
+                const priceText = rider.querySelector('.rider-price').textContent;
+                selectedRiderPrice = parseInt(priceText.replace('₦', ''));
+                
+                // Update total amount
+                updateTotalAmount();
+                
+                // Update summary in step 4
+                updateOrderSummary();
+            });
+        });
+        
+        // Update total amount function
+        function updateTotalAmount() {
+            const serviceFee = 150;
+            const total = selectedRiderPrice + serviceFee;
+            totalAmount.textContent = `₦${total}`;
+        }
+        
+        // Update order summary for step 4
+        function updateOrderSummary() {
+            const selectedRiderElement = document.querySelector('.rider-item.selected');
+            const riderName = selectedRiderElement.querySelector('.rider-name').textContent;
+            const riderVehicle = selectedRiderElement.querySelector('.rider-vehicle').textContent;
+            
+            summaryRider.textContent = `${riderName} (${riderVehicle})`;
+            summaryRiderFee.textContent = `₦${selectedRiderPrice}`;
+            
+            const serviceFee = 150;
+            const total = selectedRiderPrice + serviceFee;
+            summaryTotal.textContent = `₦${total}`;
+            paymentAmount.textContent = `₦${total}`;
+            confirmedRiderName.textContent = riderName;
+        }
+        
+        // Step 3: Back button
+        backToStep2Btn.addEventListener('click', () => {
+            goToStep(2);
+        });
+        
+        // Step 3: Next button
+        nextToStep4Btn.addEventListener('click', () => {
+            updateOrderSummary();
+            goToStep(4);
+            startTimer();
+        });
+        
+        // Step 4: Timer Function
+        function startTimer() {
+            timeLeft = 120; // Reset to 2 minutes
+            updateTimerDisplay();
+            
+            // Disable payment button initially
+            proceedPaymentBtn.disabled = true;
+            timerMessage.textContent = 'Rider has 2 minutes to accept your request';
+            
+            // Clear any existing timer
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+            
+            // Start countdown
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    countdownTimer.textContent = '00:00';
+                    countdownTimer.classList.remove('timer-warning');
+                    countdownTimer.classList.add('timer-expired');
+                    timerMessage.textContent = 'Time expired. Please select another rider.';
+                    proceedPaymentBtn.disabled = true;
+                    
+                    // Show notification
+                    showNotification('Rider acceptance time expired. Please try again.', 'error');
+                } else if (timeLeft <= 30) {
+                    countdownTimer.classList.add('timer-warning');
+                    timerMessage.textContent = 'Hurry! Time is running out';
+                }
+                
+                // Simulate rider acceptance randomly between 30-90 seconds
+                if (timeLeft === 90) { // After 30 seconds
+                    simulateRiderAcceptance();
+                }
+            }, 1000);
+        }
+        
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            countdownTimer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        function simulateRiderAcceptance() {
+            // Randomly decide if rider accepts (80% chance)
+            if (Math.random() < 0.8) {
+                setTimeout(() => {
+                    clearInterval(timerInterval);
+                    countdownTimer.textContent = 'Accepted!';
+                    countdownTimer.classList.remove('timer-warning');
+                    countdownTimer.classList.add('completed');
+                    timerMessage.textContent = 'Rider has accepted your delivery request';
+                    proceedPaymentBtn.disabled = false;
+                    
+                    showNotification('Rider has accepted your delivery request!', 'success');
+                }, 1000); // Show acceptance after 1 second
             }
         }
         
-        // Create button handler
-        createButton.addEventListener('click', () => {
-            // Show themed loader
-            pageLoader.classList.add('active');
-            
-            // Simulate creating new errand
-            setTimeout(() => {
-                pageLoader.classList.remove('active');
-                alert('Creating new errand...');
-            }, 800);
-        });
-        
-        // Change address button
-        const changeAddressBtn = document.querySelector('.change-address-btn');
-        changeAddressBtn.addEventListener('click', () => {
-            // Show themed loader
-            pageLoader.classList.add('active');
-            
-            // Simulate address change
-            setTimeout(() => {
-                pageLoader.classList.remove('active');
-                alert('Opening address management...');
-            }, 800);
-        });
-        
-        // View all buttons
-        const viewAllButtons = document.querySelectorAll('.view-all-btn');
-        viewAllButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                
-                // Show themed loader
-                pageLoader.classList.add('active');
-                
-                // Simulate loading all items
-                setTimeout(() => {
-                    pageLoader.classList.remove('active');
-                    alert('Loading all items...');
-                }, 800);
+        // Step 4: Payment Options
+        paymentOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                paymentOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                selectedPayment = option.getAttribute('data-payment');
             });
         });
         
-        // Promo button
-        const promoButton = document.querySelector('.promo-button');
-        promoButton.addEventListener('click', () => {
-            // Show themed loader
-            pageLoader.classList.add('active');
-            
-            // Simulate promo page
-            setTimeout(() => {
-                pageLoader.classList.remove('active');
-                alert('Opening promotion details...');
-            }, 800);
+        // Step 4: Back button
+        backToStep3Btn.addEventListener('click', () => {
+            goToStep(3);
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
         });
+        
+        // Step 4: Proceed to Payment button
+        proceedPaymentBtn.addEventListener('click', () => {
+            paymentModal.classList.add('active');
+            
+            // Simulate payment processing
+            setTimeout(() => {
+                paymentModal.classList.remove('active');
+                orderConfirmedModal.classList.add('active');
+            }, 2000);
+        });
+        
+        // Add Address Modal
+        closeAddressModal.addEventListener('click', () => {
+            addAddressModal.classList.remove('active');
+        });
+        
+        cancelAddressBtn.addEventListener('click', () => {
+            addAddressModal.classList.remove('active');
+        });
+        
+        addressForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const title = document.getElementById('newAddressTitle').value;
+            const details = document.getElementById('newAddressDetails').value;
+            const type = document.getElementById('newAddressType').value;
+            const isPrimary = document.getElementById('setAsPrimary').checked;
+            
+            // Create new address item
+            const addressList = document.getElementById('homeAddresses');
+            const newAddress = document.createElement('div');
+            newAddress.className = 'address-item';
+            newAddress.setAttribute('data-address', `new${Date.now()}`);
+            newAddress.innerHTML = `
+                <div class="address-title">
+                    ${title}
+                    <span class="address-type">${type}</span>
+                </div>
+                <div class="address-details">${details.replace(/\n/g, '<br>')}</div>
+            `;
+            
+            // Add click event listener
+            newAddress.addEventListener('click', () => {
+                document.querySelectorAll('.address-item').forEach(addr => addr.classList.remove('selected'));
+                newAddress.classList.add('selected');
+            });
+            
+            // If set as primary, move to top and select it
+            if (isPrimary) {
+                // Remove primary from existing addresses
+                document.querySelectorAll('.address-item .address-type').forEach(span => {
+                    if (span.textContent === 'Primary') {
+                        span.textContent = 'Home';
+                    }
+                });
+                
+                // Update new address type to Primary
+                newAddress.querySelector('.address-type').textContent = 'Primary';
+                
+                // Insert at the beginning and select it
+                addressList.insertBefore(newAddress, addressList.firstChild);
+                newAddress.classList.add('selected');
+            } else {
+                addressList.appendChild(newAddress);
+            }
+            
+            // Reset form
+            addressForm.reset();
+            addAddressModal.classList.remove('active');
+            
+            showNotification('New address added successfully!', 'success');
+        });
+        
+        // Payment Modal
+        closePaymentModal.addEventListener('click', () => {
+            paymentModal.classList.remove('active');
+        });
+        
+        // Order Confirmed Modal
+        closeOrderModal.addEventListener('click', () => {
+            orderConfirmedModal.classList.remove('active');
+        });
+        
+        viewOrderDetailsBtn.addEventListener('click', () => {
+            orderConfirmedModal.classList.remove('active');
+            // In a real app, this would navigate to order details
+            showNotification('Redirecting to order details...', 'info');
+            setTimeout(() => {
+                window.location.href = 'orders.html';
+            }, 1500);
+        });
+        
+        goToOrdersBtn.addEventListener('click', () => {
+            orderConfirmedModal.classList.remove('active');
+            pageLoader.classList.add('active');
+            setTimeout(() => {
+                window.location.href = 'orders.html';
+            }, 1000);
+        });
+        
+        // Show notification function
+        function showNotification(message, type = 'success') {
+            // Create notification element
+            const notification = document.createElement('div');
+            
+            // Set color based on type
+            let bgColor, textColor, icon;
+            if (type === 'success') {
+                bgColor = 'var(--primary-green)';
+                textColor = 'white';
+                icon = 'fas fa-check-circle';
+            } else if (type === 'error') {
+                bgColor = 'var(--secondary-red)';
+                textColor = 'white';
+                icon = 'fas fa-exclamation-circle';
+            } else {
+                bgColor = 'var(--secondary-blue)';
+                textColor = 'white';
+                icon = 'fas fa-info-circle';
+            }
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${bgColor};
+                color: ${textColor};
+                padding: 15px 25px;
+                border-radius: var(--border-radius);
+                box-shadow: var(--shadow-lg);
+                z-index: 4000;
+                font-weight: 500;
+                transform: translateX(150%);
+                transition: transform 0.3s ease-out;
+                max-width: 300px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            `;
+            
+            notification.innerHTML = `
+                <i class="${icon}" style="font-size: 18px;"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 10);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(150%)';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
         
         // Handle image errors with fallback
         const images = document.querySelectorAll('img');
         images.forEach(img => {
             img.addEventListener('error', function() {
-                const parent = this.parentElement;
-                const serviceName = parent.parentElement.querySelector('.service-name')?.textContent || 
-                                   parent.parentElement.querySelector('.errand-name')?.textContent ||
-                                   parent.parentElement.querySelector('#riderName')?.textContent;
-                
-                // Create fallback icon based on service type
-                let iconClass = 'fas fa-box';
-                if (serviceName?.includes('Home') || serviceName?.includes('Delivery')) iconClass = 'fas fa-home';
-                if (serviceName?.includes('Repair')) iconClass = 'fas fa-tools';
-                if (serviceName?.includes('Package')) iconClass = 'fas fa-shipping-fast';
-                if (serviceName?.includes('Laundry')) iconClass = 'fas fa-tshirt';
-                if (serviceName?.includes('Grocery')) iconClass = 'fas fa-shopping-basket';
-                if (serviceName?.includes('Gas')) iconClass = 'fas fa-fire';
-                if (serviceName?.includes('Buy')) iconClass = 'fas fa-shopping-cart';
-                if (serviceName?.includes('Abdul') || serviceName?.includes('Musa') || serviceName?.includes('Ibrahim')) {
-                    iconClass = 'fas fa-user';
+                if (this.parentElement.classList.contains('rider-image')) {
+                    // Create fallback rider icon
+                    const parent = this.parentElement;
+                    parent.innerHTML = '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--primary-green);color:white;font-size:24px;"><i class="fas fa-user"></i></div>';
+                } else if (this.classList.contains('logo-img')) {
+                    // Create text fallback for logo
+                    const parent = this.parentElement;
+                    parent.innerHTML = '<span style="color:white; font-weight:bold; font-size:20px;">ErrandX</span>';
+                } else if (this.id === 'previewItemImage') {
+                    // Handle item preview error
+                    this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="150" viewBox="0 0 200 150"><rect width="200" height="150" fill="%23f0f0f0"/><text x="100" y="80" text-anchor="middle" fill="%23999" font-size="16" font-family="Arial">Image Preview</text></svg>';
                 }
-                
-                // Replace image with icon
-                parent.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:rgba(92, 196, 126, 0.1);">
-                    <i class="${iconClass}" style="font-size:32px;color:var(--primary-green)"></i>
-                </div>`;
-            });
-        });
-        
-        // Handle promo image error
-        const promoImage = document.querySelector('.promo-image');
-        promoImage.addEventListener('error', function() {
-            this.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-            this.innerHTML = '<i class="fas fa-box-open" style="position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:48px;color:white;opacity:0.5;"></i>';
-        });
-        
-        // Scroll to right slightly on frequently used section
-        window.addEventListener('load', () => {
-            const scrollableSections = document.querySelectorAll('.scrollable-quick-order, .scrollable-services');
-            scrollableSections.forEach(section => {
-                setTimeout(() => {
-                    section.scrollLeft = 20;
-                }, 1500);
             });
         });
         
@@ -2101,6 +2711,13 @@
                 </div>
             `;
         });
+        
+        // Initialize total amount and set default receiver info
+        updateTotalAmount();
+        
+        // Set default receiver info on page load
+        document.getElementById('userNameDisplay').textContent = userData.name;
+        document.getElementById('userPhoneDisplay').textContent = userData.phones.join(', ');
     </script>
 </body>
 </html>
